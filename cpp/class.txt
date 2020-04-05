@@ -1,0 +1,5 @@
+people  extends student and teacher  学生 老师 继承 人 
+Data 日期
+subject 科目（标准）
+table extends STDtable and TEAtable
+

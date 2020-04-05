@@ -1,0 +1,22 @@
+﻿生成启动时间为 2020/3/7 17:19:14。
+     1>项目“E:\vscode\VC C++\C++课内作业\实验二\2.2\2.2\2.2\2.2.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在创建“Debug\2.2.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         D:\VC\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Tball.cpp
+         Tball.cpp
+       Link:
+         D:\VC\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\vscode\VC C++\C++课内作业\实验二\2.2\2.2\Debug\2.2.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\2.2.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\vscode\VC C++\C++课内作业\实验二\2.2\2.2\Debug\2.2.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\vscode\VC C++\C++课内作业\实验二\2.2\2.2\Debug\2.2.lib" /MACHINE:X86 Debug\mainActivity.obj
+         Debug\Tball.obj
+         LINK : 没有找到 E:\vscode\VC C++\C++课内作业\实验二\2.2\2.2\Debug\2.2.exe 或上一个增量链接没有生成它；正在执行完全链接
+         2.2.vcxproj -> E:\vscode\VC C++\C++课内作业\实验二\2.2\2.2\Debug\2.2.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"E:\vscode\VC C++\C++课内作业\实验二\2.2\2.2\Debug\2.2.exe;#1" /manifest Debug\2.2.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         正在删除文件“Debug\2.2.unsuccessfulbuild”。
+         正在对“Debug\2.2.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“E:\vscode\VC C++\C++课内作业\实验二\2.2\2.2\2.2\2.2.vcxproj”(build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:00.99

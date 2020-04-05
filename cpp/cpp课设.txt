@@ -1,0 +1,145 @@
+课程设计
+一、题目（任选下列题目之一，鼓励结合当前热点另拟题目，但是要确保达到工作量、难度等要求）
+1、图书馆管理系统
+2、学生学籍管理系统
+3、人事管理系统
+4、客房管理系统
+5、民航订票系统
+6、商场销售管理系统
+二、文档要求
+1、需求分析；
+2、系统总框图；
+3、每个模块的设计分析；
+4、列出所有定义的函数及说明；
+5、举例说明2个比较有特色的算法；
+6、存在的问题与不足及对策；
+7、使用说明；
+8、程序源代码；
+三、要求
+1、在程序中，必须使用文件存储数据。
+2、必须尽可能应用面向对象思想，不能用纯粹的面向过程思想；
+2、在程序设计中，可制定图形界面等（自学）。
+3、可以使用BC++、VC++、C++ Builder编译器。
+
+四、成绩评定方法
+根据课程设计完成的质量、正确性和工作量综合评分，具体如下：
+1、验收时答辩
+2、文档
+3、程序
+一、需求分析：	
+二、程序的主要功能：
+三、程序运行平台：	
+四、 系统总框架图	
+五、程序类的说明：
+六、模块分析
+七、比较有特色的函数
+八、存在的不足与对策
+九、程序源代码
+
+
+
+
+一、需求分析
+为什么给某个单位要开发这样的一个管理系统？为什么要采用C++？
+
+二、程序的主要功能
+1、添加功能：
+添加一个员工的基本信息，包括姓名，身份证号码，生日，电话号码，部门，薪水，性别，职务、
+2、删除功能：
+按姓名对一个员工的信息进行删除
+3、清除全部员工信息：
+能够对于全部员工的信息进行删除
+4、显示功能：
+显示所有员工的主要信息，例如包括姓名，身份证号码，工作证号，生日
+5、查找功能：
+根据你键入的员工姓名，显示其详细信息
+6、修改功能：
+对员工的信息进行修改
+三、程序运行平台
+四、 系统总框图
+五、程序类的说明
+class Date        // Date类的声明
+{
+    public:
+	    Date();    //Date类的构造函数
+      void set();  //Date类的设置函数
+	    friend istream & operator >>(istream &in,Date &da);   //重载“》”
+	    friend ostream & operator <<(ostream &out,Date d);   //重载“《”
+	    void operator =(Date d);   重载“=”
+    private:
+	    int year;  
+	    int month; 
+	    int day;  
+};
+
+?people类的声明
+class people
+{
+    public:
+		people();  //people类的构造函数
+		friend ostream & operator <<(ostream &out,people p);   //重载“〈〈”
+		friend istream & operator >>(istream &in,people &p);   //重载“〈〈”
+		void operator =(people p);   //重载“=”
+		void set();   //people类的设置函数
+		char *getname();   //获得姓名
+		char *getsex();   //获得性别
+		char *getid();   //获得id
+		char *gettelephone();   //获得电话号码
+		Date getbirthday();   //获得生日
+		char *getnumber();   //获得工作证号
+		void setname(char *);   //设置姓名
+		void setsex(char *);   //设置性别
+		void setid(char *);   //设置id 
+		void setnumber(char *);   //设置工作证号
+		void setaddress(char *);   //设置家庭地址
+		void settelephone(char *);   //设置电话号码
+		void setbirthday(Date);   //设置出生日期
+		void setsalary(char *);   //设置薪水
+		void setpost(char *);   //设置职务
+		void setdepartment(char *);   //设置工作部门
+	protected:
+		char name[20];   //姓名
+		char sex[5];   //性别
+		char id[20];   //身份证号
+		char telephone[10];   //电话号码
+		Date birthday;    //出生日期
+		char number[20];   //工作证号
+		char address[100];   //家庭地址
+		char salary[10];   //薪水
+		char post[20];   //职务
+		char department[30];   //工作部门
+	public:
+		people *next;   //下一个节点
+		people *previous;   //上一个节点
+};
+
+ cclass peoplelist: public people
+{
+  public:
+  peoplelist();   //peoplelist类的构造函数
+  void set();   //peoplelist类的设置函数
+	void add();   //添加函数
+	void display();   //显示函数
+  void find();    //查找函数
+	void deleteAll();   //清空函数
+	void save();   //写入文件
+	void load();   //读进内存
+	void modify();   //修改函数
+	void remove();   //删除函数
+private:
+people *start;   //链表头
+	people *end;   //链表尾
+};
+六、模块分析
+1. 添加模块
+系统将提示用户输入新添加的员工的信息，插入在链表中
+2. 显示模块
+显示模块将输出所有员工的主要资料。
+3. 修改模块
+首先由用户输入要修改的员工的姓名，然后系统用修改函数查找，显示该名员工的资料，然后系统提示用户输入需要修改的项目和新的资料。
+4. 查找模块
+首先由用户输入要查找的员工姓名，然后系统用查找函数查找，然后系统就调用输出函数，输出所查找的员工资料。
+5. 删除模块
+首先由用户输入要删除的单个员工姓名，然后调用删除函数，删除该名员工的资料。
+6. 清空模块
+系统将会把所有员工的资料全部删除，将链表清空

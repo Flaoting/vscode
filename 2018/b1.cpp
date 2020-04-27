@@ -13,7 +13,6 @@ int main(){
     char str[100][100];
     int t=1;
     while(!infile.eof()){
-
         infile.getline(str[t],81,10);
         t++;
     }

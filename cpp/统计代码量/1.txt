@@ -1,0 +1,1745 @@
+#ifndef BASEFILE_H_
+#define BASEFILE_H_
+#include <string>
+using namespace std;
+class BaseFile 
+
+	//创建基础文件类，是所有文件类的基类
+	//文件绝对路径= saveAddress+uniqueAddress+fileName
+	//功能文件夹，按照文件的种类进行分类
+
+{
+
+private:
+
+	static string REGISTERADDRESS;//储存的绝对路径，只会出现在参数列表里
+	static void RESETADDRESS(string);//修改绝对路径
+
+protected :
+	
+	const string saveAddress;//储存位置,绝对路径，到位置文件夹,一般不进行修改
+	string uniqueAddress;//功能文件夹
+	string fileName;//文件的名称
+	string completeFile;//把前三个整合到一起，这是为了方便调用
+
+public :
+	
+	BaseFile();
+
+	BaseFile(string UA, string FA);	//第一个参数是功能描述uniqueAddress，第二个参数是文件名称filename
+
+	string getCompleteAddress();
+
+	string getSaveAddress();
+
+	string getfileName();
+
+	void setFileName(string FA);//参数是filename
+
+	void changeSaveAddress();//改变储存的位置，需要验证密码
+
+	void display();
+
+};
+
+#endif // !BASEFILE_H_
+
+#ifndef DATE_A_
+#define DATE_A_
+#include <iostream>
+using namespace std;
+
+
+class Date {
+    //日期类，包含月日年,主要功能是记录课在哪天上
+
+protected:
+    int year;
+    int month;
+    int day;
+
+public:
+
+    Date();
+    Date(int year, int month, int day);//普普通通的构造函数
+    Date(int month, int day);//重载构造函数，缺省年的构造
+    Date(const Date& obj);//拷贝构造函数
+
+    void display();//演示一下
+    
+    int operator - (const Date& obj);//重载+ - = ，日期相减返回整数，日期加整数返回日期
+
+    Date operator + (int x);
+
+    Date operator =(const Date& obj);//赋值号，按位赋值
+
+    bool operator >(const Date& obj)const;//重载大于小于和等于
+
+    bool operator <(const Date& obj)const;
+
+    bool operator ==(const Date& obj)const;
+
+    bool operator <= (const Date& obj)const;
+
+    bool operator >=(const Date& obj)const;
+
+    Date operator ++ (int);//重载后置++
+
+    Date operator ++ ();//重载前置++
+
+    Date operator --(int );//重载后置--
+
+    Date operator --();//重载前置--
+
+    int getYear();
+
+    int getMonth();
+
+    int getDay();
+
+    bool Simplify();//进行加法后简化，向月份和年份上加；
+
+};
+
+#endif
+#ifndef  STDAFX_H_
+#define STDAFX_H_
+#include <string>
+#include "Student.h"
+using namespace std;
+bool checkBigPassword(string s);
+bool saveAccount(string name, string password);
+bool checkPassword(string input);
+bool savaStudentData(Student);
+bool checkSaveAddress(string);
+#endif
+#ifndef  FATHER_TABLE_H_
+#define FATHER_TABLE_H_
+#include <string>
+#include "People.h"
+using namespace std;
+
+class FatherTable 
+
+	//这是一个表格类，拥有表头，所有者姓名，所有者ID
+	//会派生出老师的课表和学生的课程表Table，老师的工资表 SalaryTable
+
+{
+protected :
+	
+	//char dataHeader[30];
+
+	char name[20];//所有者姓名
+
+	int ID;//所有者的状元阁唯一识别号
+
+	string selfName;
+
+public :
+
+	FatherTable(People*);
+	FatherTable();
+
+	void display();//展示一下
+	void saveFatherTable();//保存到文件中
+	void updateFather();//更新FatherTable
+	
+	virtual string getSelfName();
+
+};
+
+#endif // ! FATHER_TABLE_H_
+
+#ifndef PEOPLE_H_
+#define PEOPLE_H_
+#include "People.h"
+#include <iostream>
+using namespace std;
+
+class People
+
+    //这是一个抽象类
+
+{
+private:
+    
+    static int numID;//静态的，一个人一个ID
+
+protected:
+    
+    char name[15];//姓名
+    char gender;//性别
+    char phone[20];//电话号码
+    const int ID;//状元阁唯一识别号,不可更改
+
+public:
+    
+    People(char* name, char sex, char* phone);
+    People(char*name, char* phone,char sex='.');
+    People(char* name);
+    People(char* name, char sex);
+    People(const People&);
+
+    static int checkNumID();
+    
+    void setName(char *);
+    void setGender(char sex);
+    void setPhone(char *);
+    void display();
+    //virtual void showInScreen() = 0;
+    char* getName();
+    char getGender();
+    char* getPhone();
+    int getID();
+};
+#endif
+#ifndef STUDENT_H_
+#define STUDENT_H_
+#include "People.h"
+#include "Table.h"
+#include "Purpose.h"
+#include "Date.h"
+#include <string>
+
+class Student : public People {
+
+	//学生类，是People 的派生类,已经有的的成员有，name,ID,gender,phone ，phone 是家长的手机号
+
+	//还要记录学生的QQ号，科目（内置分数），学生的其他要求，是否缴纳了定金
+
+private:
+
+	char QQ[20];
+	int downPayment;//预付订金
+	Purpose sub;//科目
+	string requirement;//学生的要求
+	Table table;//一个学生的课表
+
+public:
+
+	//四个构造函数，分别需要
+	//姓名 性别 电话 QQ 科目 要求 定金
+	//姓名 性别 电话 科目 要求 定金
+	//姓名 电话 科目 要求 定金
+	//姓名 科目 要求 定金
+	//姓名 性别 科目 要求 定金
+	//最后两项都是缺省构造
+
+	Student(char* , char , char* , char*  , Purpose , string requirement = "无", int downpayment = 0);
+
+	Student(char* , char , char* , Purpose , string requirement = "无", int downpayment = 0);
+
+	Student(char* , char* , Purpose , string requirement = "无", int downpayment = 0);
+
+	Student(char* , Purpose , string requirement = "无", int downpayment = 0);
+
+	Student(char*, char, Purpose, string requirement = "无",int downPayment = 0);
+
+	Student(const Student& obj);//拷贝构造函数
+
+
+
+	void display();
+
+
+
+	void setQQ(char*);
+
+	void setDownPayment(int);
+
+	void setRequirement(string);
+
+	void setTable();
+
+
+
+
+	void changeTable();
+
+};
+#endif;
+#ifndef TEACHER_H_ 
+#define TEACHER_H_
+#include "Purpose.h"
+#include "Table.h"
+#include <vector>
+
+class Teacher :public People {
+	
+	//老师类，是People 的派生类,
+	//已经有的的成员有，name,ID,gender,phone ，phone 是老师的
+	//还要记录老师的QQ号，科目，工资标准
+
+private:
+	
+	char QQ[20];
+	vector <Purpose> table;//科目
+	int salary;//工资标准
+
+public:
+	
+	//构造函数 ， 添加老师只需一个构造函数，薪水为60
+	//姓名 性别 phone QQ salary
+	
+	Teacher(char*, char, char*, char*, int salary=60);
+	void setQQ(char*);
+	void setSalary(int);
+	void display();
+};
+#endif
+#ifndef  LESSON_H_
+#define LESSON_H_
+#include "Date.h"
+class Lesson :public Date
+
+	//这是一个课程类，是Date的子类，包含课的日期和第几节的信息
+
+{
+private:
+
+	int ordinalNumber;//记录这是第几节课
+
+public:
+
+    Lesson();
+    Lesson(int year, int month, int day,int ordinalNumber);//普普通通的构造函数
+    Lesson(int month, int day,int ordinalNumber);//重载构造函数，缺省年的构造
+    Lesson(const Lesson& obj);//拷贝构造函数
+    Lesson(const Date& obj, int num);//日期和课程节数进行构造
+
+    bool operator <(const Lesson& obj)const;
+    //这个很重要，为了避免使用比较函数，
+    //这里把小于号重载为大于号，再Table中就能实现小根堆
+
+    void display();//演示一下
+
+};
+#endif 
+#ifndef PURPOSE_H_
+#define PURPOSE_H_
+#include <string.h>
+#include <iostream>
+using namespace std;
+class Purpose
+{
+
+private:
+	char name;
+public:
+	Purpose(char );
+	Purpose();
+	char getName() { return name; }
+	void display() { cout << name<<" "; }
+};
+
+#endif
+#ifndef TABLE_H_
+#define TABLE_H_
+#include "Lesson.h"
+#include "People.h"
+#include "Purpose.h"
+#include "FatherTable.h"
+#include <queue>
+
+
+
+class Table : public FatherTable 
+
+    //学生的课表类,继承了FatherTable，拥有所有者信息和表头信息 
+    //增加课程节数，起止时间，和课程信息
+{
+
+protected:
+
+    int number;//课程节数
+
+    Date startDate;
+
+    Date endDate;
+
+    priority_queue <Lesson> lessonTimeTable;
+
+    //这是一个优先队列，存放日期
+    
+
+public:
+    
+    //构造函数
+    Table(People*, Date startDate, Date endDate,int num);//起止时间，推入队列
+    
+    Table(People*);//只传入人，然后进行输入课表，推入队列
+    
+    Table(People*, Date startDate, int x,int num);//开始时间，课程节数
+    
+    Table();
+    
+    void display();//展示一下课表
+
+
+};
+#endif 
+
+#include "People.h"
+#include <string>
+#include <string.h>
+#include <iostream>
+using namespace std;
+
+int People::numID = 1;//初始化ID,后续从文件中读取
+
+People::People(char* name, char sex, char* phone) :ID(numID)
+{
+	strcpy_s(this->name, name);
+	this->gender = sex;
+	strcpy_s(this->phone, phone);
+	numID++;
+}
+
+People::People(char* name, char* phone,char sex):ID(numID)
+{
+	this->gender = sex;
+	strcpy_s(this->name, name);
+	strcpy_s(this->phone, phone);
+	numID++;
+}
+
+People::People(char* name) : ID(numID)
+{
+	strcpy_s(this->name, name);
+	numID++;
+	this->gender = '.';
+	char nnn[5] = "?";
+	strcpy_s(this->phone,nnn );
+}
+
+People::People(const People& obj):ID(obj.ID)
+{
+	strcpy_s(this->name, obj.name);
+	strcpy_s(this->phone, obj.phone);
+	this->gender = obj.gender;
+}
+
+People::People(char* name, char sex):ID(numID) {
+	strcpy_s(this->name, name);
+	numID++;
+	this->gender = sex;
+	char pho[10] = "?";
+	strcpy_s(this->phone, pho);
+}
+void People::display() 
+{
+	cout << name << " " << gender << " " << phone<<" ";
+}
+
+void People::setGender(char sex) 
+{
+	this->gender = sex;
+	return;
+}
+
+void People::setName(char* name) 
+{
+	strcpy_s(this->name, name);
+	return;
+}
+
+void People::setPhone(char *phone)
+{
+	strcpy_s(this->phone, phone);
+}
+
+int People::checkNumID() 
+{
+	return numID;
+}
+
+
+
+
+char* People::getName() { return name; }
+
+char People::getGender() { return gender; }
+
+char* People::getPhone() { return phone; }
+
+int People::getID() { return this->ID; }
+#include "People.h"
+#include "Table.h"
+#include "Student.h"
+#include "Purpose.h"
+#include <string>
+#include <string.h>
+using namespace std;
+Student::Student(char* name, char sex, char* phone, char* QQ, Purpose subj, string requirement , int downpayment )
+	:People(name,sex,phone)
+{
+	strcpy_s(this->QQ, QQ);
+	this->sub = subj;
+	this->requirement = requirement;
+	this->downPayment = downpayment;
+}
+Student::Student(char* name, char sex, char* phone, Purpose subj,string requirement , int downpayment )
+	:People(name,sex,phone) 
+{
+	this->sub = subj;
+	this->requirement = requirement;
+	this->downPayment = downpayment;
+	this->downPayment = downpayment;
+}
+Student::Student(char* name, char* phone, Purpose subj, string requirement , int downpayment ) 
+:People (name,phone)
+{
+	this->sub = subj;
+	this->requirement = requirement;
+	this->downPayment = downpayment;
+	this->downPayment = downpayment;
+
+}
+
+Student::Student(char* name, Purpose subj, string requirement, int downpayment )
+	:People(name) 
+{
+	this->sub = subj;
+	this->requirement = requirement;
+	this->downPayment = downpayment;
+	this->downPayment = downpayment;
+
+}
+
+Student::Student(char* name, char sex, Purpose subj, string requirement , int downpayment)
+	:People(name,sex)
+{
+	this->sub = subj;
+	this->requirement = requirement;
+	this->downPayment = downpayment;
+	this->downPayment = downpayment;
+
+}
+
+Student::Student(const Student& obj) :People(obj)
+{
+	strcpy_s(this->QQ, QQ);
+	this->sub = obj.sub;
+	this->requirement = obj.requirement;
+	this->downPayment = obj.downPayment;
+}
+void Student::display() 
+{
+	People::display();
+	sub.display();
+	cout <<QQ<<" "<< requirement << " " << downPayment << endl;
+}
+void Student::setQQ(char* QQ) 
+{
+	strcpy_s(this->QQ, QQ);
+}
+void Student::setDownPayment(int DP)
+{
+	this->downPayment = DP;
+}
+void Student::setRequirement(string s)
+{
+	this->requirement = s;
+}
+void Student::setTable() 
+{	
+	Table temp;
+	this->table = temp;
+}
+void Student::changeTable() {
+	//有待研究
+#include "Teacher.h"
+#include <string>
+#include <string.h>
+
+using namespace std;
+
+Teacher::Teacher(char* name, char sex, char* phone, char* QQ, int salary) :People(name, sex, phone) {
+	strcpy_s(this->QQ, QQ);
+	this->salary = salary;
+}
+
+
+
+void Teacher::display() {
+	People::display();
+	cout << QQ << " " << salary << endl;
+}
+
+
+
+void Teacher::setQQ(char* QQ) {
+	strcpy_s(this->QQ, QQ);
+}
+
+
+
+void Teacher::setSalary(int salary) {
+	this->salary = salary;
+}
+#include "BaseFile.h"
+#include "stdafx.h"
+#include <string>
+
+
+string BaseFile :: REGISTERADDRESS= "E:\\VisualStudio\\Data\\";
+
+void BaseFile::RESETADDRESS(string RERE) 
+
+{
+	REGISTERADDRESS = RERE; 
+}
+
+
+
+BaseFile::BaseFile() :saveAddress(REGISTERADDRESS)
+
+{
+	uniqueAddress = "Test\\";
+	fileName = "test.txt";
+	completeFile = saveAddress + uniqueAddress + fileName;
+}
+
+BaseFile::BaseFile(string UA, string FA):saveAddress(REGISTERADDRESS)
+
+//第一个参数是功能描述，第二个参数是文件名称
+
+{
+	uniqueAddress = UA;
+	fileName = FA;
+	completeFile = saveAddress + uniqueAddress + fileName;
+}
+
+
+
+
+string BaseFile::getCompleteAddress()
+
+{
+	return completeFile;
+}
+
+string BaseFile::getSaveAddress()
+
+{
+	return saveAddress;
+}
+
+string BaseFile::getfileName() 
+
+{
+	return fileName; 
+}
+
+
+
+void BaseFile::setFileName(string FA) 
+{
+	fileName = FA; 
+}
+
+
+
+void BaseFile::changeSaveAddress() 
+{
+
+	cout << "请输入BigBoss授权码！" << endl;
+	string pass;
+	cin >> pass;
+	
+	try 
+	{
+
+		try
+		{
+			if (!checkBigPassword(pass))
+			{
+				throw pass;
+			}
+		}
+		catch (string goal)
+		{
+			cout << "您刚刚输入的是 " << goal << endl;
+			cout << "授权码错误，请联系BigBoss或者Floating！" << endl;
+			throw goal;
+		}
+
+		string newSavaAddress;
+		
+		try
+		{
+			cout << "当前的储存路径是 " << this->getSaveAddress() << endl;
+			
+			cout << "请输入更改后的路径(与现有路径相同的格式，文件夹之间用\\隔开) ";
+			
+			cout<< endl << "$ ";
+
+			cin >> newSavaAddress;
+
+			bool temp;
+
+			temp = checkSaveAddress(newSavaAddress);
+
+			if (!temp)
+			
+			{
+				throw newSavaAddress;
+			}
+
+			cout << "新的储存路径是  " << newSavaAddress << endl;
+			
+			cout << "是否继续 Y or N ？" << endl;
+			
+			cin.ignore();
+			char  cc=getchar() ;
+			
+			if (toupper(cc) == 'Y')
+
+			{
+				RESETADDRESS(newSavaAddress);
+				cout << "储存路径修改成功！" << endl;
+			}
+
+			else
+			
+			{
+				throw 1;
+			}
+		}
+
+		catch (string goal)
+		{
+			cout << "您刚刚输入的是 " << goal << endl;
+			cout << "输出的储存路径非法，请重新检查路径！" << endl;
+		}
+
+		catch (int N)
+		{
+			cout << "操作取消！" << endl;
+		}
+		
+	}
+
+	catch (string ggg) 
+	{
+		cout << "操作取消!!!！" << endl;
+	}
+	
+}
+
+void BaseFile::display() 
+{
+	cout << completeFile << endl;
+}
+#include "Date.h"
+
+//先声明两个后边会用到的函数
+
+int monthHowDays(int year, int month);
+bool isRunYear(int x);
+
+
+
+Date::Date(int year, int month, int day) {
+    this->year = year;
+    this->month = month;
+    this->day = day;
+    Simplify();
+}
+
+Date::Date(int month, int day) {
+    this->month = month;
+    this->day = day;
+    this->year = 2020;
+    Simplify();
+}
+
+Date::Date() {
+    year = 2020;
+    month = 1;
+    day = 1;
+}
+
+Date::Date(const Date& obj) {
+    year = obj.year;
+    month = obj.month;
+    day = obj.day;
+}
+
+
+
+void Date::display() {
+    cout << "日期： "<<year << " " << month << " " << day << "    ";
+}
+
+
+
+int Date :: operator -(const Date& obj)
+
+//重载Date中的运算符，忘了咋重载了，先等等
+
+{
+
+    if (*this < obj) return -1;//先判断日期大小，要是小的减去大的就返回-1;
+
+    int ans = 0;//记录有多少天
+
+    for (int i = obj.year; i <= year; i++) //循环年
+    {
+        if (i == obj.year)
+        {// 第一次进入循循环年的话
+            for (int j = obj.month; j <= 12; j++)//循环月份
+            {
+                if (j == obj.month && j < month)
+                {//循环的第一个月，而且没到被减数的月份
+                    for (int k = obj.day; k <= monthHowDays(i, j); k++)
+                        ans++;
+                    //这一天开始，加到月底
+                }
+                else if (i == year && j == obj.month && j == month)
+                {//同一个月内的话,目标年
+                    for (int k = obj.day; k <= this->day; k++)
+                        ans++;
+                    //起点加到终点
+                    return ans;
+                }
+                else if (j < month)
+                {//经过了j++ ，循环到了下个月，而且没到目标月
+                    for (int k = 1; k <= monthHowDays(i, j); k++)
+                        ans++;
+                    // 从一号加到月底
+                }
+                else if (i == year && j == month && j != obj.month) {
+                    //是目标年,经过了j++，到了要加的最后一个月，
+                    for (int k = 1; k <= this->day; k++)
+                        ans++;
+                    return ans;
+                    //从一号加到目标天数
+                }
+                else if (j == obj.month) {
+                    for (int k = obj.day; k <= monthHowDays(i, j); k++)
+                        ans++;
+                }
+                else
+                {
+                    for (int k = 1; k <= monthHowDays(i, j); k++)
+                        ans++;
+                }
+            }
+        }
+
+        else if (i != obj.year)
+        {
+            //当有跨年存在时
+            for (int j = 1; j <= 12; j++)//循环月份
+            {
+                if (j == month && i == year)
+                {//到了目标月份
+                    for (int k = 1; k <= this->day; k++)
+                        ans++;
+                    return ans;
+                    //起点加到终点
+                }
+                else
+                {
+                    for (int k = 1; k <= monthHowDays(i, j); k++)
+                        ans++;
+                }
+            }
+        }
+    }
+
+    //全都加完了
+    return ans;
+}
+
+
+Date Date::operator +(int x) {//x是多少节课，所以要--
+    x--;
+    day += x;
+
+    while (Simplify());//加上天数，直至完全简化
+
+    return *this;
+}
+
+
+Date Date::operator =(const Date& obj) {
+    year = obj.year;
+    month = obj.month;
+    day = obj.day;
+    return *this;
+}
+
+
+
+bool Date ::operator >(const Date& obj)const {
+    int a = year - obj.year;
+    if (a > 0)return 1;
+    if (a < 0)return 0;
+    if (a == 0) {
+        int b = month - obj.month;
+        if (b > 0)return 1;
+        if (b < 0)return 0;
+        if (b == 0) {
+            int c = day - obj.day;
+            if (c > 0)return 1;
+            if (c < 0)return 0;
+            if (c == 0)return 0;
+        }
+    }
+    return 0;
+
+}
+
+bool Date ::operator ==(const Date& obj)const 
+
+{
+
+    if (year == obj.year && month == obj.month && day == obj.day) 
+    {
+        return 1;
+    }
+       
+    return 0;
+}
+
+bool Date ::operator <(const Date& obj)const {
+    int a = year - obj.year;
+    if (a > 0)return 0;
+    if (a < 0)return 1;
+    if (a == 0) {
+        int b = month - obj.month;
+        if (b > 0)return 0;
+        if (b < 0)return 1;
+        if (b == 0) {
+            int c = day - obj.day;
+            if (c > 0)return 0;
+            if (c < 0)return 1;
+            if (c == 0)return 0;
+        }
+    }
+    return 0;
+}
+
+bool Date ::operator<=(const Date& obj)const 
+
+{
+
+    if (*this == obj) 
+    {
+        return 1;
+    }
+
+    if (*this < obj) 
+    {
+        return 1;
+    }
+
+    return 0;
+
+}
+
+bool Date ::operator>=(const Date& obj)const
+
+{
+    if (*this == obj)
+    {
+        return 1;
+    }
+
+    if (*this > obj)
+    {
+        return 1;
+    }
+
+    return 0;
+
+}
+
+
+
+Date Date::operator++()
+
+//重载前置++
+
+{
+    this->day++;
+    Simplify();
+    return *this;
+
+}
+
+Date Date::operator++(int) 
+//重载后置++
+{
+    Date temp(*this);
+    this->day++;
+    Simplify();
+    return temp;
+}
+
+Date Date::operator--(int) 
+
+//重载后置--
+
+{
+    Date temp(*this);
+    this->day--;
+    Simplify();
+    return temp;
+
+}
+
+Date Date::operator--()
+
+//重载前置--
+
+{
+    this->day--;
+    Simplify();
+    return *this;
+}
+
+
+
+
+int Date::getYear() { return year; }
+int Date::getMonth() { return month; }
+int Date::getDay() { return day; }
+
+
+
+bool Date::Simplify() {
+    if (month > 12)
+    {
+        year += 1;
+        month -= 12;
+    }
+    int a = monthHowDays(year, month);//提取这个月有几天
+    if (day > a)
+    {
+        day -= a;
+        month += 1;
+    }
+    a = monthHowDays(year, month);
+    if (day > a || month > 12)return 1;//没有完全简化
+    return 0;//完全简化了
+}
+
+
+
+bool isRunYear(int x) {
+    //判断是否为闰年的函数，是返回1，不是返回0；
+    if (x % 4 != 0) return 0;
+    else if (x % 4 == 0) {
+        if (x % 100 == 0 && x % 400 != 0) {
+            return 0;
+        }
+        else return 1;
+    }
+}
+
+
+
+int monthHowDays(int year, int month) {
+    //判断这个月有几天
+    if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+        return 31;
+    }
+    else if (month == 4 || month == 6 || month == 9 || month == 11) {
+        return 30;
+    }
+    else if (month == 2) {
+        if (isRunYear(year))
+            //如果是闰年
+            return 29;
+
+        else
+            //不是闰年的话
+            return 28;
+    }
+}
+}
+
+#include "Lesson.h"
+#include "Date.h"
+
+
+
+Lesson::Lesson()
+{
+	Date::Date();
+	ordinalNumber = 0;
+}
+
+Lesson::Lesson(int year, int month, int day, int ordinalNumber):Date(year,month,day)
+
+//普普通通的构造函数
+
+{
+	Date::Date(year, month, day);
+	string expect1;
+	try 
+	{
+		if (ordinalNumber > 5 || ordinalNumber <= 0)
+		{
+			expect1 = "课程时间输入异常!!!";
+			throw expect1;
+		}
+
+
+	}
+	catch (string goal)
+	{
+		cout << goal << endl;
+	}
+
+	this->ordinalNumber = ordinalNumber;
+	
+}
+
+Lesson::Lesson(int month, int day, int ordinalNumber):Date( month, day)
+
+//重载构造函数，缺省年的构造
+
+{
+	Date::Date(month, day);
+	string expect1;
+	try
+	{
+		if (ordinalNumber > 5 || ordinalNumber <= 0)
+		{
+			expect1 = "课时间输入异常!!!";
+			throw expect1;
+		}	
+	}
+	catch (string goal)
+	{
+		cout << goal << endl;
+	}
+
+	this->ordinalNumber = ordinalNumber;
+	
+}
+
+Lesson::Lesson(const Lesson& obj) : Date(obj)
+
+//拷贝构造函数
+{
+
+	Date::Date(obj);
+	//cout << "Lesson 拷贝"<<endl;
+	this->ordinalNumber = obj.ordinalNumber;
+
+}
+
+Lesson::Lesson(const Date& obj, int num):Date(obj)
+
+{
+	Date::Date(obj);
+	string expect1;
+	try
+	{
+		if (ordinalNumber > 5 || ordinalNumber <= 0)
+		{
+			expect1 = "课程序数输入异常!!!";
+			throw expect1;
+		}
+	}
+	catch (string goal)
+	{
+		cout << goal << endl;
+	}
+
+	this->ordinalNumber = num;
+	
+	//cout << "日期构造函数！" << endl;
+}
+
+void Lesson::display()
+
+//演示一下
+
+{
+	Date::display();
+	cout <<"第 "<< ordinalNumber <<"节"<< endl;
+}
+
+bool Lesson::operator <(const Lesson& obj)const
+
+	//这个很重要，为了避免使用比较函数
+	//这里把小于号重载为大于号，就能在Table里边实现小根堆
+	//从而实现可变的排列顺序是从小日期到大日期
+
+{
+	int a = year - obj.year;
+
+	if (a > 0)return 1;
+	if (a < 0)return 0;
+	
+	if (a == 0) 
+	{
+		int b = month - obj.month;
+		
+		if (b > 0)return 1;
+		if (b < 0)return 0;
+		
+		if (b == 0) 
+		{
+			int c = day - obj.day;
+		
+			if (c > 0)return 1;
+			
+			if (c < 0)return 0;
+			
+			if (c == 0)return 0;
+		}
+	}
+
+	if (this->ordinalNumber >= obj.ordinalNumber) 
+		//课程节数的比较，效地在前，不理解看上一条注释	
+	{
+		return 1;
+	}
+	//否则都是返回0
+	return 0;
+}
+#include "Purpose.h"
+#include <string>
+
+Purpose::Purpose(char name)
+
+{
+	this->name = name;
+}
+
+Purpose::Purpose() 
+
+{
+	name = '0';
+}
+#include "stdafx.h"
+#include <string>
+#include <iostream>
+#include <fstream>
+#include "Student.h"
+#include "BaseFile.h"
+using namespace std;
+
+
+bool checkBigPassword(string s) 
+
+//第一行是BigBoss授权码
+//#号结尾，后有endl
+{
+	
+	ifstream password;
+	
+	string  fileAddress = "E:\\VisualStudio\\Data\\";
+	string fileName = "password.txt";
+	string file = fileAddress + fileName;
+	
+	password.open(file, ios::in);
+	
+	if (!password) 
+	{
+		cout << "password.txt can't be opened!" << endl;
+		exit(0);
+	}
+	
+	char  pass[20];
+	string a;
+	
+	password.getline(pass, 20,'#');
+	
+	password.close();
+	
+	a = pass;
+	
+	if (s == a) {
+		return 1;
+	}
+	return 0;
+}
+
+bool saveAccount(string name, string password) 
+
+//保存账户说明：前方结尾是回车
+//密码在前，账户名在后，中间 “#” 隔开
+//最后有换行符
+
+{
+	string  fileAddress = "E:\\VisualStudio\\Data\\";
+	string fileName = "password.txt";
+	string file = fileAddress + fileName;
+	
+	char na[20], pa[30];
+	
+	strcpy_s(na, name.c_str());
+	strcpy_s(pa, password.c_str());
+	
+	ofstream f(file, ios::out|ios::app);
+	
+	if(!f)
+	{
+		cout << file << " can't be opened !" << endl;
+		system("pause");
+		return 0;
+	}
+	
+	f << pa;
+	
+	f.put('#');
+	f << na;
+
+	f.put(10);
+	
+	f.close();
+	
+	return 1;
+}
+
+bool checkPassword(string input) 
+
+//从密码文件中提取数据，与输入数据进行核验
+
+{
+	string  fileAddress = "E:\\VisualStudio\\Data\\";
+	string fileName = "password.txt";
+	string file = fileAddress + fileName;
+	
+	ifstream password;
+	password.open(file, ios::in);
+	char pa[30];
+	string str;
+
+	//判断读取密码,保证所有路径都有返回值，
+	//用异常处理增强健壮性
+	
+		bool temp = 0;
+		while (!password.eof()) 
+		{
+			password.getline(pa, 49, '#');
+			str = pa;
+			
+			if (input == str) 
+			{
+				temp = 1;
+				password.close();
+				return 1;
+			}
+
+			char cc = password.get();
+			while (!password.eof()&&cc != 10) 
+			{
+				cc = password.get();
+			}
+
+		}
+		//如果没有查找到，抛出0
+		if (!temp) {
+			password.close();
+			throw 0;
+			return 0;
+		}
+		
+}
+
+bool saveStudentData(Student obj) 
+{
+	return 1;
+}
+
+bool checkSaveAddress(string saveAddress) 
+
+//功能函数说明：
+//这是检测更改文件储存路径是否合法的函数
+//合法返回1 否则返回零
+//会创建一个可以删除的测试文件
+{
+
+	if (saveAddress[0] != 'E' && saveAddress[0] != 'C' && saveAddress[0] != 'D') 
+	{
+		return 0;
+	}
+	if (saveAddress[1] != ':') 
+	{
+		return 0;
+	}
+	if (saveAddress[2] != '\\')
+	{
+		return 0;
+	}
+	//以上的检测很不完善，但几乎能避免因为格式不正确，引起的在相对路径下建立
+	//同名文件的问题
+	ofstream checkin;
+	
+	string  fileAddress = saveAddress;
+	
+	string fileName = "检测路径.txt";
+	
+	string file = fileAddress + fileName;
+	
+	checkin.open(file, ios::out);
+
+	if (!checkin) 
+	
+	{
+		return 0; 
+	}
+	checkin << "路径检测成功！！！！" << endl;
+	checkin << "(本文件可以移除)" << endl;
+	return 1;
+
+	checkin.close();
+
+}
+#include "FatherTable.h"
+#include <string>
+
+using namespace std;
+
+
+FatherTable::FatherTable(People* peo) 
+
+{
+
+	strcpy_s(this->name, peo->getName());
+	this->ID = peo->getID();
+	selfName = "FatherTable";
+
+}
+
+FatherTable::FatherTable() 
+
+{
+	
+	char name[20] = "实验的机器人";
+	People pe(name);
+	strcpy_s(this->name, pe.getName());
+
+	selfName = "FatherTable";
+
+}
+void FatherTable::display() 
+{
+	cout << this->name << "的"<<this->getSelfName()<<endl;
+}
+
+string FatherTable::getSelfName()
+
+//注意这是一个虚函数，子类调用返回子类的selfName
+{	
+
+	return selfName;
+}
+#include <iostream>
+#include <string>
+#include <fstream>
+#include "stdafx.h"
+using namespace std;
+
+string login_one();//接收密钥
+void register_one();//检测Bigboss授权码
+void register_two();//进行注册
+void login_main();//登录到主界面
+
+string welcome()
+//首界面函数,欢迎界面
+
+{
+	system("cls");
+	cout << "--------------------------------------------------------" << "|"<<endl;
+	cout << endl <<endl << endl<< endl << endl;
+	cout << endl << endl << endl ;
+	cout <<"\t"<< "欢迎使用状元阁信息管理系统" << endl;
+	cout << endl  << endl << endl<<endl<<endl; 
+	cout <<"\t\t\t\t"<< "请您先进行登陆！"<<endl<<endl;
+	cout << endl << endl << endl << endl << endl;
+	cout << "--------------------------------------------------------" << endl;
+	
+	system("pause");
+	string s1= login_one();
+	
+	if (s1 == "register") 
+	{
+		register_one();
+		exit(0);
+	}
+	
+	//如果返回的密钥是register，则进行注册
+	try 
+	{
+		checkPassword(s1);
+	}
+	catch (int ) 
+	{
+		cout <<"\t\t无此用户信息！请您重新输入！"<<endl;
+		system("pause");
+		welcome();
+	}
+	login_main();
+	cout << "\t\t感谢您使用本系统！" << endl;
+	return s1;
+
+}
+string login_one() 
+//登录函数，实现的功能有链接注册函数和进入主功能页面
+{
+	system("cls");
+	cout << "--------------------------------------------------------" << endl;
+	cout << "\t\t\t\t" << "首次登陆请输入指令register！" << endl;
+	cout << endl << endl << endl << endl << endl;
+	cout << "\t\t\t请输入密钥：";
+	string s;
+	cin >> s;
+	cout << endl << endl << endl << endl << endl;
+	cout << "--------------------------------------------------------" << endl;
+	system("pause");
+	return s;
+}
+void register_one() {
+
+		system("cls");
+		cout << "--------------------------------------------------------" << endl;
+		cout << endl << endl << endl << endl << endl;
+		cout << "请输入BigBoss的授权码：";
+		string s;
+		cin >> s;
+		bool tem = 0;
+		
+		cout << endl << endl << endl << endl << endl;
+		cout << "--------------------------------------------------------" << endl;
+		
+		if (checkBigPassword(s))
+
+		{
+			register_two();
+		}
+		else
+
+		{
+			cout << "Sorry，授权码非法，请您与BigBoss联系！" << endl;
+		}
+		return;
+}
+void register_two() 
+{
+	system("cls");
+	cout << "--------------------------------------------------------" << endl;
+	cout << endl << endl << endl << endl << endl;
+	cout << "请输入注册用户名: ";
+	string name,password;
+	cin >> name;
+	cout << "请输入您的密钥: ";
+	cin >> password;
+	try {
+		if (saveAccount(name, password)) 
+		{
+			system("cls");
+			cout << "创建账户成功，请重新登录！" << endl;
+		}
+		else 
+		{
+			throw 1;
+		}
+	}
+	catch (int) {
+		system("cls");
+		cout << "创建账户失败,程序异常，请与开发者联系！" << endl;
+		system("pause");
+	}
+	
+}
+
+void login_main()
+
+//首界面功能选择函数
+
+{
+	system("cls");
+	cout << endl << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << endl << endl << endl << endl << endl;
+	cout << "\t\t1.增加学生\t2.增加老师\t3.学生缴费\t4.获取帮助" << endl;
+	cout << endl << endl << endl << endl << endl;
+	cout <<"**************************************************************************************" << endl;
+
+	system("pause");
+
+}
+#include "Table.h"
+#include "People.h"
+#include "Lesson.h"
+#include <string>
+
+using namespace std;
+
+
+Table::Table(People* peo, Date startDate, Date endDate,int num):FatherTable(peo)
+
+				//起止时间，推入队列,从开始到结束推入
+
+{
+	if (num > 5)
+	{
+		cout << "请注意，课程时间超出正常范围！" << endl;
+	}
+
+	selfName = "StudentTable";
+
+	this -> number = endDate - startDate;
+
+	
+	for (Date i = startDate; i <= endDate; i++) 
+	
+		//按照日期进行循环推入，内部构造临时的对象
+
+	{
+			Lesson lesson(i, num);
+			lessonTimeTable.push(lesson);	
+	}
+
+}
+
+Table::Table(People* peo) :FatherTable(peo)
+
+	//只传入人，然后进行输入课表，推入队列
+
+{
+	
+	selfName = "StudentTable";
+
+	this->number = 0;
+	
+	int year = 2020, month, day, num=1;
+	
+	string expect1;
+	try {
+
+		cout << "请输入第一节课的月份： ";
+		cin >> month;
+		cout << endl;
+		
+		if (month >12||month<=0) 
+		{
+			expect1 = "月份输入异常！！！";
+			throw expect1;
+		}
+		
+		cout << "请输入第一节课日期： ";
+		cin >> day;
+		cout << endl;
+		if (day > 31 || day <= 0)
+		{
+			expect1 = "日期输入异常!!!";
+			throw expect1;
+		}
+		
+		cout << "请输入是第几节课： ";
+		cin >> num;
+		cout << endl;
+		if (num > 5 || num <= 0)
+		{
+			expect1 = "课程序数输入异常!!!";
+			throw expect1;
+		}
+	}
+	
+	catch (char* esp)
+	{
+		printf("%s", esp);
+	}
+
+	/*Lesson lesson(year, month, day, num);
+	lessonTimeTable.push(lesson);
+	this->number++;*/
+	
+	cout << "请继续输入日期，输入  0  时结束" << endl;
+	
+	while (1) 
+	{
+		if (day == 0)
+		
+		{
+			break;
+		}
+		
+		if (day == 1)
+		{
+			month++;
+		}
+		
+		Lesson lesson(year, month, day, num);
+		lessonTimeTable.push(lesson);
+		this->number++;
+
+		cin >> day;
+	}
+
+
+}
+
+Table::Table(People* peo, Date startDate, int x,int num) :FatherTable(peo)
+	
+	//开始时间，课程节数,x是有几节课，num是第几节课
+
+{
+	if (num > 5)
+	{
+		cout << "请注意，课程时间超出正常范围！" << endl;
+	}
+
+	selfName = "StudentTable";
+
+	this->number = x;
+
+	int cnt = 0;
+	for (Date i=startDate;cnt<x ; i++) 
+	{
+		Lesson lesson(i, num);
+		lessonTimeTable.push(lesson);
+		cnt++;
+	}
+
+}
+
+Table::Table() :FatherTable( )
+{
+	/* name[20] = "实验的机器人";
+	People pe(name);
+	strcpy_s(this->name, pe.getName());
+	this->ID = pe.getID();
+	*/
+
+	selfName = "StudentTable";
+	
+	this -> number = 0;
+
+
+}
+
+
+void Table::display() 
+
+//展示一下课表
+
+{
+	FatherTable::display();
+
+	cout << "课程节数： " << this->number << endl;
+
+	while(!lessonTimeTable.empty())
+
+	//循环拿出优先队列中的课程
+	
+	{
+
+		Lesson lesson (lessonTimeTable.top());
+		lesson.display();
+		lessonTimeTable.pop();
+
+	}
+
+}

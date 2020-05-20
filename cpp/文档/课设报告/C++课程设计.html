@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>C++课程设计.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<br>
+<br>
+<p>`<center></p>
+<font size=8> 
+<p>南京航空航天大学</p>
+<br>
+<p>《程序设计课程设计》报告</p>
+  </font>
+<p><font  size=7>  状元阁管理系统 </font></p>
+<br>
+<br>
+<br>
+<br>
+<font face="黑体" size=6>
+<br>
+<br>
+<br>
+<p>班级 1619103</p>
+<p>学号 161910322</p>
+<p>姓名 潘佳辉</p>
+<p>指导教师 郑洪源</p>
+<p>完成日期  2020年5月20日</p>
+</font>
+<div STYLE="page-break-after: always;"></div>
+<h2 id="%E7%9B%AE%E5%BD%95%E6%9C%80%E5%90%8E%E5%86%99">目录(最后写)</h2>
+<div STYLE="page-break-after: always;"></div>
+<h2 id="a-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90">A 需求分析</h2>
+  </center>`
+<h3 id="%E8%83%8C%E6%99%AF%E9%99%88%E8%AE%BE">背景陈设</h3>
+<p>状元阁坐落于河北省滦州市，创立于2019年夏，是由沈俊东(大连理工大学)、李品桥(清华大学)等河北衡水第一中学优秀毕业生牵头创办的高中生课外辅导机构。自机构成立以来，得到一众高中学生和家长的一致认可，状元阁在当地广受好评。去年暑假，成立之初的状元阁便取得营业额30万元的佳绩。</p>
+<p>作为机构任课教师，我有能力和义务用所学的专业知识为状元阁添砖加瓦。</p>
+<p>适逢在大一下学期学习了《C++程序设计》这门课程，让酷爱编程学习的我得到一个展示自己的机会，在课程设计布置任务之初，我便决定为状元阁开发一个实用、高效、安全的管理系统，虽然这个设计的出发点远远没有其他同学的宏大雄伟，但是经过一系列的测试，此系统的可靠性和可拓展性是非常不错的。</p>
+<p>此外，开发状元阁管理系统的工作量还是比较大的，截止到2020/5/19，有效代码量已经超过了10000行，值得一提的是，在当前的版本中，有些程序的接口虽然没有被用到，但这些接口为以后的版本更新和增减新功能提供了极大的便利，这也体现了此次开发管理系统是从实际出发的特点，所有功能和设计都为满足现有或者未来的的用户需求。</p>
+<p>总结一下就是状元阁管理系统是从实际的需求出发，开发出的一款实用性、可拓展性都很强的管理系统。</p>
+<h3 id="%E5%BC%80%E5%8F%91%E7%9B%AE%E7%9A%84">开发目的：</h3>
+<ol>
+<li>减轻状元阁内部的管理压力</li>
+<li>避免人为因素(核对课表和缴费信息错误等)造成的店内不必要的损失</li>
+<li>提升数据管理效率和安全性</li>
+<li>实现内部数据统一管理和保存</li>
+<li>实现可视化数据和内部存储数据的转换</li>
+<li>增强机构的整体竞争力</li>
+</ol>
+<h3 id="%E5%BC%80%E5%8F%91%E7%9B%AE%E6%A0%87">开发目标：</h3>
+<ol>
+<li>操作界面图形化界面</li>
+<li>操作简便，上手容易</li>
+<li>安全性高，可移植性好（稍加修改可为其他机构服务）</li>
+<li>文件生成和保存的机制严密</li>
+<li>实现数据的备份和隐藏</li>
+</ol>
+<h3 id="%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8c">为什么使用C++</h3>
+<ul>
+<li>C++ 是一门伟大的编程语言，同时具有面向对象和面向过程的特性</li>
+<li>对开发者友好，减轻了函数和控制的负担</li>
+<li>利用面向对象的编程形式方便版本升级</li>
+<li>能够连接SQL，在有条件时进行数据库的连接</li>
+<li>学生、老师、课表等典型的类能够实现很好地操作</li>
+<li>文件保存比较便捷</li>
+</ul>
+<div STYLE="page-break-after: always;"></div>
+<p>`<center></p>
+<h2 id="b-%E7%A8%8B%E5%BA%8F%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD">B 程序主要功能</h2>
+</center>`
+<p><font color=8470FF> 以下灰色部分为尚未实现的功能</font></p>
+<ul>
+<li>
+<p><strong>对于学生</strong></p>
+<ol>
+<li>学员报名并登记信息（姓名 性别 联系电话 补习科目 QQ等）</li>
+<li>修改学生信息（可以实现单项修改）</li>
+<li>学生预约课程（可选择是否缴纳定金）</li>
+<li>学生确定课程（支付学费，与定金核查）</li>
+<li>缴费时提醒应缴金额</li>
+<li>建立学生课表</li>
+<li>提醒上课科目和时间，任课老师</li>
+<li>修改学生课表</li>
+<li>课表自动生成csv文件</li>
+<li>课表内容屏幕显示</li>
+<li>移除学生课表<font color=#D3D3D3></li>
+<li>学生重名启用第二关键字（性别等）</li>
+<li>学生退课 学生退费（退课后的确认退费）</li>
+<li>学生意见反馈</li>
+<li>学生请求更换老师（记录下）</li>
+<li>成功更换老师（进行课表转移和拼接）</font></li>
+</ol>
+</li>
+<li>
+<p><strong>对于教师</strong></p>
+<ol>
+<li>添加教师并记录基本信息（姓名 性别 联系电话 教授科目等 ）</li>
+<li>修改教师个人信息（可单项修改）</li>
+<li>展示自我介绍文件（连接网站）</li>
+<li>添加教师课表</li>
+<li>查询教师课表</li>
+<li>修改教师课表</li>
+<li>$\color{#D3D3D3}{ 教师日常反馈记录}$</li>
+<li>$\color{#D3D3D3}{清除教师教学事故记录}$</li>
+<li>教师工资预查询</li>
+<li>工资结算（呈现Excel和屏幕显示）</li>
+</ol>
+</li>
+</ul>
+<div STYLE="page-break-after: always;"></div>
+<ul>
+<li>
+<p><strong>对于管理人员</strong></p>
+<ol>
+<li>注册管理员</li>
+<li>管理员登录系统</li>
+<li>一键总账（有密钥，总收款 ）</li>
+<li>$\color{#D3D3D3}{一键总账（收款加退款）}$</li>
+<li>课表核对（双向入口，核对教师课表和学生课表是否一致）</li>
+<li>添加教师违规记录</li>
+<li>查询单项教学事故</li>
+<li>查询教师违规总表</li>
+<li>添加店内流水账（店内日常开销）</li>
+<li>查询单项流水情况</li>
+<li>查询流水账总表</li>
+<li>收银功能</li>
+<li>记录当次交易信息</li>
+<li>查询单项交易数据</li>
+<li>查询所有交易数据</li>
+<li>初始化课程收费标准</li>
+<li>初始化教师工资标准</li>
+<li>修改课程收费标准</li>
+<li>修改教师工资标准<font color=#D3D3D3></li>
+<li>备份所有数据</li>
+<li>联系开发人员，进行数据解密（启用解密程序）</li>
+<li>反馈管理系统问题给开发人员</font></li>
+</ol>
+</li>
+<li>
+<p><strong>对于经营者</strong></p>
+<ol>
+<li>管理人员所有权限<font color=#D3D3D3></li>
+<li>数据加密和备份</li>
+<li>利用二进制的简单加密算法进行加密和备份</li>
+<li>利用程序系统反馈管理系统问题给开发人员</li>
+<li>删除学生、教师</font></li>
+</ol>
+</li>
+</ul>
+<center> 
+<div STYLE="page-break-after: always;"></div>
+<h2 id="c-%E7%B3%BB%E7%BB%9F%E6%80%BB%E6%A1%86%E6%9E%B6%E5%9B%BE">C 系统总框架图</h2>
+</center>
+<p><img src="Summery.png" alt="Summery"></p>
+<p>系统功能大致可分为四个模块，分别是增加模块、查询模块、修改模块、管理模块，操作的对象有学生、教师、课表、记录、课程价位等。</p>
+<div STYLE="page-break-after: always;"></div>
+<center>
+<h2 id="d-%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E5%B9%B3%E5%8F%B0-visual-studio-2019">D 程序运行平台 Visual Studio 2019</h2>
+</center>
+<p><font color=8470FF size=5>VisualStudio简介</font></p>
+<p>Visual Studio 集成开发环境是一种创新启动板，可用于编辑、调试并生成代码，然后发布应用 。 集成开发环境 (IDE) 是一个功能丰富的程序，可用于软件开发的许多方面。 除了大多数 IDE 提供的标准编辑器和调试器之外，Visual Studio 还包括编译器、代码完成工具、图形设计器和许多其他功能，以简化软件开发过程。</p>
+<p><font color=8470FF size=5>为什么选用VS2019</font></p>
+<p>在设计之初，我原本想用我熟悉的轻量级编辑器 Visual Studio Code 作为开发环境，在写了程勋进行到一定程度的时候，我发现没有IDE的开发是很耗费精力的，没有自动生成的文件夹和筛选器让文件的管理变得异常困难，因此我选用了强大的IDE Visual Studio 2019 社区版，为软件的调试和管理提供了很大的便利。另外，VS支持打开和编辑Qt工程，日后增加图形化界面不必再转为选用其他的IDE</p>
+<center>
+<div STYLE="page-break-after: always;"></div>
+<h2 id="e-%E7%A8%8B%E5%BA%8F%E7%B1%BB%E7%9A%84%E8%AF%B4%E6%98%8E%E5%92%8C%E6%A8%A1%E5%9D%97%E8%AE%BE%E8%AE%A1%E5%88%86%E6%9E%90">E 程序类的说明和模块设计分析</h2>
+</center>
+<p><font color=8470FF size=5> 介绍类前的一些说明</font></p>
+<p>在设计之初，我本想按照往年的课程设计的模板(比如图书馆管理系统)来进行类的设计，用一些名词作为Class，然后其中添加方法，这样一来程序的主体部分还是程序的主函数(或者其他的功能性函数)。<strong>但考虑到此次选题各种的功能需求比较复杂，并且初学编程的我没有把这个系统功能分解为几十上百个函数的能力</strong>，我努力的使用完全面向对象的思想，类似于Java的一切皆是类的思想。
+现在返回来看当时类的设计，确实有很多的缺点和不足，甚至曾经出现了头文件循环包含的问题。这里类的说明会有一些比较难理解的地方，我会尽我最大努力把的当初的设计思想展现出来。</p>
+<p><font color=8470FF size=4 >友情提示 此部分容量较大，阅读大约需要十分钟，最顶层的操作封装在最后部分，如有需要请先查看顶层的封装和逻辑</font></p>
+<h3 id="%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB%E8%A7%86%E5%9B%BE">类的继承关系视图</h3>
+<h4 id="%E6%9C%89%E5%85%B3%E4%BA%BA%E5%91%98%E7%9A%84%E7%B1%BB">有关人员的类</h4>
+<p><img src="ppp.png" alt="people"></p>
+<ol>
+<li>关系介绍
+<ol>
+<li>Student，Teacher，Manager均为抽象类People的派生类</li>
+<li>Student代表学生，Teacher代表教师，这两个是数据类型的成员，基本没有对应自身行为的方法</li>
+<li>Manager为操作者，用Manager的身份信息获得系统的操作权限</li>
+<li>Manager具有个人密码，支持登录时设置和自行修改</li>
+</ol>
+</li>
+</ol>
+<div STYLE="page-break-after: always;"></div>
+<ol start="2">
+<li>类定义源码
+<ol>
+<li>Class People</li>
+</ol>
+</li>
+</ol>
+<pre class="hljs"><code><div>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">People</span>
+  {</span>
+  <span class="hljs-keyword">private</span>:
+      
+      <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> numID;<span class="hljs-comment">//静态变量，一个人一个ID</span>
+
+  <span class="hljs-keyword">protected</span>:
+      
+      <span class="hljs-keyword">char</span> name[<span class="hljs-number">30</span>];<span class="hljs-comment">//姓名</span>
+      <span class="hljs-keyword">char</span> gender;<span class="hljs-comment">//性别</span>
+      <span class="hljs-keyword">char</span> phone[<span class="hljs-number">20</span>];<span class="hljs-comment">//电话号码</span>
+      <span class="hljs-keyword">int</span> ID;<span class="hljs-comment">//状元阁唯一识别号,存入文件时候进行更新</span>
+
+  <span class="hljs-keyword">public</span>:
+      
+      People(<span class="hljs-keyword">char</span>* name, <span class="hljs-keyword">char</span> sex, <span class="hljs-keyword">char</span>* phone);
+      People(<span class="hljs-keyword">char</span>*name, <span class="hljs-keyword">char</span>* phone,<span class="hljs-keyword">char</span> sex=<span class="hljs-string">'F'</span>);
+      People(<span class="hljs-keyword">char</span>* name);
+      People(<span class="hljs-keyword">char</span>* name, <span class="hljs-keyword">char</span> sex);
+      People(<span class="hljs-keyword">const</span> People&amp;);
+      People();
+
+      <span class="hljs-keyword">virtual</span> ~People(){}
+      
+      People <span class="hljs-keyword">operator</span> =(<span class="hljs-keyword">const</span> People&amp;);
+      
+      <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">checkNumID</span><span class="hljs-params">()</span></span>;
+      
+      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setName</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *)</span></span>;
+      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setGender</span><span class="hljs-params">(<span class="hljs-keyword">char</span> sex)</span></span>;
+      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setPhone</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *)</span></span>;
+      <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>;
+      <span class="hljs-function"><span class="hljs-keyword">char</span>* <span class="hljs-title">getName</span><span class="hljs-params">()</span></span>;
+      <span class="hljs-function"><span class="hljs-keyword">char</span> <span class="hljs-title">getGender</span><span class="hljs-params">()</span></span>;
+      <span class="hljs-function"><span class="hljs-keyword">char</span>* <span class="hljs-title">getPhone</span><span class="hljs-params">()</span></span>;
+      <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getID</span><span class="hljs-params">()</span></span>;
+
+      <span class="hljs-keyword">friend</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OperateSTD</span>;</span>    <span class="hljs-comment">//存入文件时会通过友元</span>
+      <span class="hljs-keyword">friend</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OperateTEA</span>;</span>    <span class="hljs-comment">//通过友元进行内部访问</span>
+
+  };
+
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="2">
+<li>Class Student</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span> :</span> <span class="hljs-keyword">public</span> People {
+	<span class="hljs-comment">//学生类，是People 的派生类,已经有的的成员有，name,ID,gender,phone ，phone 是家长的手机号</span>
+	<span class="hljs-comment">//还要记录学生的QQ号，科目（内置分数），学生的其他要求，是否缴纳了定金</span>
+<span class="hljs-keyword">private</span>:
+	<span class="hljs-keyword">char</span> QQ[<span class="hljs-number">20</span>];
+	<span class="hljs-keyword">int</span> downPayment;<span class="hljs-comment">//预付订金</span>
+	Purpose sub;<span class="hljs-comment">//科目</span>
+	<span class="hljs-keyword">char</span> requirement[<span class="hljs-number">100</span>];<span class="hljs-comment">//学生的要求</span>
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-comment">//姓名 性别 电话 QQ 科目 要求 定金</span>
+	<span class="hljs-comment">//姓名 性别 电话 科目 要求 定金</span>
+	<span class="hljs-comment">//姓名 电话 科目 要求 定金</span>
+	<span class="hljs-comment">//姓名 科目 要求 定金</span>
+	<span class="hljs-comment">//姓名 性别 科目 要求 定金</span>
+	<span class="hljs-comment">//最后两项都是缺省构造</span>
+	Student(<span class="hljs-keyword">char</span>*, <span class="hljs-keyword">char</span>, <span class="hljs-keyword">char</span>*, <span class="hljs-keyword">char</span>*, Purpose, <span class="hljs-built_in">string</span> requirement = <span class="hljs-string">"无"</span>, <span class="hljs-keyword">int</span> downpayment = <span class="hljs-number">0</span>);
+
+	Student(<span class="hljs-keyword">char</span>*, <span class="hljs-keyword">char</span>, <span class="hljs-keyword">char</span>*, Purpose, <span class="hljs-built_in">string</span> requirement = <span class="hljs-string">"无"</span>, <span class="hljs-keyword">int</span> downpayment = <span class="hljs-number">0</span>);
+
+	Student(<span class="hljs-keyword">char</span>*, <span class="hljs-keyword">char</span>*, Purpose, <span class="hljs-built_in">string</span> requirement = <span class="hljs-string">"无"</span>, <span class="hljs-keyword">int</span> downpayment = <span class="hljs-number">0</span>);
+
+	Student(<span class="hljs-keyword">char</span>*, Purpose, <span class="hljs-built_in">string</span> requirement = <span class="hljs-string">"无"</span>, <span class="hljs-keyword">int</span> downpayment = <span class="hljs-number">0</span>);
+
+	Student(<span class="hljs-keyword">char</span>*, <span class="hljs-keyword">char</span>, Purpose, <span class="hljs-built_in">string</span> requirement = <span class="hljs-string">"无"</span>, <span class="hljs-keyword">int</span> downPayment = <span class="hljs-number">0</span>);
+
+	Student();
+	Student(<span class="hljs-keyword">const</span> Student&amp; obj);<span class="hljs-comment">//拷贝构造函数</span>
+	Student <span class="hljs-keyword">operator</span> = (<span class="hljs-keyword">const</span> Student obj);
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>;
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setQQ</span><span class="hljs-params">(<span class="hljs-keyword">char</span>*)</span></span>;
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setDownPayment</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span></span>;
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setRequirement</span><span class="hljs-params">(<span class="hljs-built_in">string</span>)</span></span>;
+	<span class="hljs-keyword">friend</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OperateSTD</span>;</span>
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getDownPayment</span><span class="hljs-params">()</span></span>;
+};
+
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="3">
+<li>Class Teacher</li>
+</ol>
+<pre class="hljs"><code><div>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Teacher</span> :</span><span class="hljs-keyword">public</span> People {
+	
+	<span class="hljs-comment">//教师类，是People 的派生类,</span>
+	<span class="hljs-comment">//已经有的的成员有，name,ID,gender,phone ，phone 是老师的</span>
+	<span class="hljs-comment">//还要记录老师的QQ号，科目，工资标准</span>
+
+<span class="hljs-keyword">private</span>:
+	
+	<span class="hljs-keyword">char</span> QQ[<span class="hljs-number">20</span>];
+	Purpose sub;<span class="hljs-comment">//科目</span>
+	<span class="hljs-keyword">int</span> salary;<span class="hljs-comment">//工资标准</span>
+
+<span class="hljs-keyword">public</span>:
+	
+	<span class="hljs-comment">//构造函数 ， 添加老师只需一个构造函数，薪水为60</span>
+	<span class="hljs-comment">//姓名 性别 phone QQ salary</span>
+	
+	Teacher(<span class="hljs-keyword">char</span>* name, <span class="hljs-keyword">char</span> sex, <span class="hljs-keyword">char</span>* phone, <span class="hljs-keyword">char</span>* QQ, Purpose subj, <span class="hljs-keyword">int</span> salary=<span class="hljs-number">60</span>);
+	Teacher(<span class="hljs-keyword">const</span> Teacher&amp; obj);
+	Teacher();
+
+	~Teacher();
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setQQ</span><span class="hljs-params">(<span class="hljs-keyword">char</span>*)</span></span>;
+	
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setSalary</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span></span>;
+	
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>;
+
+	Teacher <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> Teacher&amp; obj);
+
+	<span class="hljs-keyword">friend</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OperateTEA</span>;</span>
+
+
+};
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="4">
+<li>Class Manager</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Manager</span> :</span><span class="hljs-keyword">public</span> People
+
+{
+
+<span class="hljs-keyword">protected</span> :
+
+	<span class="hljs-keyword">char</span> SSH[<span class="hljs-number">30</span>];		<span class="hljs-comment">//密钥，一些关于账目的管理需要密钥验证身份</span>
+					      	<span class="hljs-comment">//需要使用时转成string进行比较</span>
+<span class="hljs-keyword">public</span> :
+
+
+	Manager(<span class="hljs-keyword">char</span>* name, <span class="hljs-keyword">char</span> sex, <span class="hljs-keyword">char</span>* phone, <span class="hljs-keyword">char</span>*);
+	Manager();
+	~Manager();
+	Manager(<span class="hljs-keyword">const</span> Manager&amp;);
+	
+    <span class="hljs-comment">//重载一下赋值号	</span>
+	Manager <span class="hljs-keyword">operator</span> =(<span class="hljs-keyword">const</span> Manager&amp; obj);
+	
+	  <span class="hljs-comment">//更改个人管理密钥</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>;
+
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">setSSH</span><span class="hljs-params">()</span></span>;
+
+	<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">getSSH</span><span class="hljs-params">()</span></span>;	<span class="hljs-comment">//返回密钥,只能通过友元Handler调用</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">checkSSH</span><span class="hljs-params">(<span class="hljs-built_in">string</span> ssh)</span></span>;
+
+};
+
+</div></code></pre>
+<ol start="3">
+<li>展示源码后的一些解释
+<ol>
+<li>类声明有OperateMode(操作模块)类的友元类，为的是在进行人员信息保存的时候进行ID的更改。</li>
+<li>需要进行字符串储存的成员，用字符数组储存</li>
+<li>返回字符串或者传入字符串的地方用string和字符数组相结合</li>
+</ol>
+</li>
+</ol>
+<div STYLE="page-break-after: always;"></div>
+<h4 id="%E6%96%87%E4%BB%B6%E5%82%A8%E5%AD%98%E4%BD%8D%E7%BD%AE%E7%9A%84%E7%B1%BB">文件储存位置的类</h4>
+<p><img src="NewBaseFile.png" alt="BaseFile"></p>
+<ol>
+<li>展示代码前的一些说明
+<ol>
+<li>BaseFile记录了文件的储存位置，分为三层进行记录，分别是数据文件夹储存位置，数据文件夹子文件夹的名称，当前问价你的名称</li>
+<li>设计这个类的初衷是在储存文件时直接生成类，防止每次都添加绝对路径的繁琐形式，避免了不必要的错误。更改文件的储存位置时只要从配置文件中读取出储存的字符串即可，避免因为路径完全集成在代码中造成的不便</li>
+<li>每个储存路径Class的命名都是见名知意的形式，对系统的调试提供了方便</li>
+<li>STDInfo派生出的几个文件类都是为了让代码更加精简，因为一些要用的方法在STDInfo中已经实现，不必再次从TEAInfo中进行重复的重载或者覆盖</li>
+<li>PeoNum和Table是人和课表的唯一识别码，都把当前ID存入文件中，在下一次调用是自动更新一个ID，这样就为查询时提供了很大的便利</li>
+</ol>
+</li>
+</ol>
+<div STYLE="page-break-after: always;"></div>
+<ol start="2">
+<li>BaseFile为基类的源码展示
+<ol>
+<li>Class BaseFile</li>
+</ol>
+</li>
+</ol>
+<pre class="hljs"><code><div>   
+   <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseFile</span> 
+
+	//创建基础文件类，是所有文件类的基类
+	//文件绝对路径= <span class="hljs-title">saveAddress</span>+<span class="hljs-title">uniqueAddress</span>+<span class="hljs-title">fileName</span>
+	//功能文件夹，按照文件的种类进行分类
+
+{</span>
+
+<span class="hljs-keyword">private</span>:
+
+	<span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span> REGISTERADDRESS;<span class="hljs-comment">//储存的绝对路径，只会出现在参数列表里</span>
+	<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">RESETADDRESS</span><span class="hljs-params">(<span class="hljs-built_in">string</span>)</span></span>;<span class="hljs-comment">//修改绝对路径</span>
+
+<span class="hljs-keyword">protected</span> :
+	
+	<span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span> saveAddress;<span class="hljs-comment">//储存位置,绝对路径，到位置文件夹,一般不进行修改</span>
+	<span class="hljs-built_in">string</span> uniqueAddress;<span class="hljs-comment">//功能文件夹</span>
+	<span class="hljs-built_in">string</span> fileName;<span class="hljs-comment">//文件的名称</span>
+	<span class="hljs-built_in">string</span> completeFile;<span class="hljs-comment">//把前三个整合到一起，这是为了方便调用</span>
+
+<span class="hljs-keyword">public</span> :
+	
+	BaseFile();
+	BaseFile(<span class="hljs-built_in">string</span> UA, <span class="hljs-built_in">string</span> FA);	<span class="hljs-comment">//第一个参数是功能描述uniqueAddress，第二个参数是文件名称filename</span>
+	BaseFile(<span class="hljs-keyword">const</span> BaseFile&amp;);
+	BaseFile <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> BaseFile&amp;);
+
+	<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">getCompleteAddress</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">getSaveAddress</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">getfileName</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setFileName</span><span class="hljs-params">(<span class="hljs-built_in">string</span> FA)</span></span>;<span class="hljs-comment">//参数是filename</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">changeSaveAddress</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//改变储存的位置，需要验证密码</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-keyword">virtual</span> ~BaseFile(){}
+};
+
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="2">
+<li>Class STDInfo</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span>  <span class="hljs-title">STDInfo</span> :</span> <span class="hljs-keyword">public</span> BaseFile 
+
+	<span class="hljs-comment">//这是学生信息文件类</span>
+	<span class="hljs-comment">//有保存位置和数据类型，也是文件类型</span>
+{
+
+<span class="hljs-keyword">public</span>:
+
+	STDInfo(<span class="hljs-built_in">string</span> Name);
+	
+	STDInfo();
+	
+	STDInfo(<span class="hljs-keyword">const</span> STDInfo&amp;);
+
+	<span class="hljs-keyword">virtual</span> ~STDInfo();
+
+
+	STDInfo <span class="hljs-keyword">operator</span> = (<span class="hljs-keyword">const</span> STDInfo&amp;);
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setName</span><span class="hljs-params">(<span class="hljs-built_in">string</span> Name)</span></span>;
+
+
+};
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="3">
+<li>Class PeoNum</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PeoNum</span> :</span><span class="hljs-keyword">public</span> BaseFile 
+
+{
+
+<span class="hljs-keyword">protected</span>:
+	
+	<span class="hljs-keyword">int</span> NowNum;<span class="hljs-comment">//当前数字</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">setFile</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a=<span class="hljs-number">1</span>)</span></span>;<span class="hljs-comment">//设置此文件</span>
+	
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">getNum</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//取出文件内容</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setNowNum</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span></span>;<span class="hljs-comment">//更新当前的NowNum</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">update</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span></span>;<span class="hljs-comment">//更新了ID数</span>
+
+<span class="hljs-keyword">public</span>:
+	
+	PeoNum();
+	~PeoNum();
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">returnNum</span><span class="hljs-params">()</span></span>;
+
+};
+</div></code></pre>
+<ol start="3">
+<li>展示代码后的一些说明
+<ol>
+<li>记录表格ID的类(TabInfo)与PeoNum大同小异，不在此进行赘述</li>
+<li>STDInfo的派生类与其基类的差别是内置的储存位置不同，各项功能基本是继承下来的</li>
+</ol>
+</li>
+</ol>
+<div STYLE="page-break-after: always;"></div>
+<h4 id="%E4%BB%A5menu%E4%B8%BA%E5%9F%BA%E7%B1%BB%E7%9A%84class%E7%9A%84%E4%BB%8B%E7%BB%8D">以Menu为基类的Class的介绍</h4>
+<p><img src="Menu.png" alt="Menu"></p>
+<ol>
+<li>展示代码前的一些说明
+<ol>
+<li>Menu类是一个抽象类，是所有显示菜单的基类</li>
+<li>菜单分为两种，一种是简单的菜单，只有向屏幕输出信息和获取命令的功能，另一种是高度封装的菜单，对外部只提供显示菜单的接口，能够在调用中进行数据的查询，比如便利课表或者查询教师和学生的信息，而且在调用结束前能够对从从屏幕捕获的输入信息生成相应的文件进行储存</li>
+<li>现在请看上图，教师教学事故菜单(ViolationMenu),店内流水菜单(RunningMenu),收银菜单(TollMenu),注册管理员的菜单(RegisterManagerMenu)都属于上述第二种菜单，从屏幕获得信息并进行储存</li>
+<li>增添老师、学生、课表的菜单，分别是AddTEAMenu，AddSTDMenu，和AddTABMenu，都是从屏幕获取到信息，生成相应的对象，并提供接口把此对象返回</li>
+<li>主菜单和内部功能菜单是进行屏幕显示，并获取相应命令的菜单，这里应该还有一个管理员专有功能的菜单，但是体量较小，我把他内置在了最顶层的命令处理部分，这个问题稍后会详细的进行说明</li>
+<li>值得一提的是，登录菜单LoginMenu是我通过充分的考虑，把一些本来在外部的函数封装进来的菜单，登录菜单的功能是对的登录人员进行权限的检测，只有获得店铺经营者授予权限的人才能注册使用这个管理系统</li>
+<li>补充上一点，这里的注册和管理员注册不是一个概念，这里的注册只是能使用其中的一些功能，比如查询自己的课表和修改自己的个人信息等等</li>
+</ol>
+</li>
+</ol>
+<div STYLE="page-break-after: always;"></div>
+<ol start="2">
+<li>
+<p>下面进行以Menu为基类的派生类的源代码展示</p>
+<ol>
+<li>Class Menu</li>
+</ol>
+</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Menu</span> 
+
+//这是一个菜单的抽象类
+
+{</span>
+<span class="hljs-keyword">public</span>:
+	
+	Menu() {};
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>=<span class="hljs-number">0</span>;
+	<span class="hljs-keyword">virtual</span> ~Menu() {}
+
+};
+
+</div></code></pre>
+<ol start="2">
+<li>Class AddTABMenu</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddTABMenu</span> :</span><span class="hljs-keyword">public</span> Menu 
+{
+
+<span class="hljs-keyword">protected</span>:
+
+	Table table ;
+	
+	<span class="hljs-function">Date <span class="hljs-title">getDateFromScreen</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">display2</span><span class="hljs-params">()</span></span>;
+		
+	<span class="hljs-function">Student <span class="hljs-title">checkThisStudent</span><span class="hljs-params">(<span class="hljs-built_in">string</span> name)</span></span>;
+
+<span class="hljs-keyword">public</span>:
+
+	AddTABMenu();
+	~AddTABMenu();
+	AddTABMenu(<span class="hljs-keyword">const</span> AddTABMenu&amp;);
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>;
+
+	<span class="hljs-function">Table <span class="hljs-title">getTable</span><span class="hljs-params">()</span></span>;
+
+};
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="3">
+<li>Class RegisterManagerMenu</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RegisterManagerMenu</span>:</span><span class="hljs-keyword">public</span> Menu 
+{
+<span class="hljs-keyword">protected</span>:
+	
+	Manager Man;
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">checkQuality</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">getSSHFromScreen</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">saveThisMan</span><span class="hljs-params">(<span class="hljs-built_in">string</span> name)</span></span>;
+
+<span class="hljs-keyword">public</span>:
+	
+	RegisterManagerMenu();
+	~RegisterManagerMenu();
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>;  <span class="hljs-comment">//填入成员的属性</span>
+
+	<span class="hljs-function">Manager <span class="hljs-title">getManager</span><span class="hljs-params">()</span></span>;
+
+};
+
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="4">
+<li>Class TollMenu</li>
+</ol>
+<pre class="hljs"><code><div>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TollMenu</span> :</span><span class="hljs-keyword">public</span> Menu 
+
+{
+<span class="hljs-keyword">protected</span>:
+
+
+	Manager operatorManager;
+
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">display2</span><span class="hljs-params">()</span></span>;  <span class="hljs-comment">//附加项目询问</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">saveThisTranRecord</span><span class="hljs-params">(TransactionRecord )</span></span>;  
+		<span class="hljs-comment">//保存这个交易记录，只能内部访问</span>
+	
+	<span class="hljs-function">Student <span class="hljs-title">checkSTDInfo</span><span class="hljs-params">(<span class="hljs-built_in">string</span> STDname)</span></span>; 
+		<span class="hljs-comment">//通过学生姓名查询学生信息，并生成一个学生对象返回会来 </span>
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">HowMuchToPay</span><span class="hljs-params">(Student &amp;)</span></span>;
+
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getClassTypeInPrice</span><span class="hljs-params">(<span class="hljs-keyword">int</span> )</span></span>;
+
+<span class="hljs-keyword">public</span>:
+
+	<span class="hljs-comment">//生成交易菜单必须传入当前的操作者</span>
+	<span class="hljs-comment">//否则不能生成这个对象</span>
+
+	TollMenu(Manager &amp;);
+	TollMenu(<span class="hljs-keyword">const</span> TollMenu&amp;);
+	~TollMenu();
+	
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>;
+	
+
+};
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="5">
+<li>Class LoginMenu</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LoginMenu</span>:</span><span class="hljs-keyword">public</span> Menu 
+{
+
+<span class="hljs-keyword">protected</span>:
+
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">checkBigPassword</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span></span>;				<span class="hljs-comment">//检测经营者邀请码</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">checkPassword</span><span class="hljs-params">(<span class="hljs-built_in">string</span> input)</span></span>;				<span class="hljs-comment">//检测个人登录密码</span>
+	
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">saveAccount</span><span class="hljs-params">(<span class="hljs-built_in">string</span> name, <span class="hljs-built_in">string</span> password)</span></span>; <span class="hljs-comment">//保存当前注册账户</span>
+
+	<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">login_one</span><span class="hljs-params">()</span></span>;								<span class="hljs-comment">//接收密钥</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">register_one</span><span class="hljs-params">()</span></span>;							<span class="hljs-comment">//进行注册的第一部分</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">register_two</span><span class="hljs-params">()</span></span>;							<span class="hljs-comment">//进行注册的第二部分</span>
+
+<span class="hljs-keyword">public</span> :
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>;									<span class="hljs-comment">//外部唯一接口</span>
+
+};
+</div></code></pre>
+<ol start="3">
+<li>展示代码后的一些说
+<ol>
+<li>一些接口的功能已经在注释里说明，其他未经展示部分的类的实现方法与已经展示的类具有相似之处，具体实现请查看源代码</li>
+</ol>
+</li>
+</ol>
+<div STYLE="page-break-after: always;"></div>
+<h4 id="%E6%93%8D%E4%BD%9C%E6%A8%A1%E5%9D%97%E7%B1%BB%E7%9A%84%E8%AF%B4%E6%98%8E">操作模块类的说明</h4>
+<p><img src="OperateMode.png" alt="OperateMode"></p>
+<ol>
+<li>展示代码前的一些说明
+<ol>
+<li>操作模块是数据对象和操作者的介质，具有十分重要也十分强大的功能</li>
+<li>所有可以对实际对象进行操作的类都是OperateMode这个基类的子类</li>
+<li>这些操作包括增添，读取，修改并保存等功能</li>
+<li>根据实际需求，其中对课表的增添只有从学生出发，修改只能从教师出发</li>
+</ol>
+</li>
+<li>下面进行OperateMode为基类的代码展示
+<ol>
+<li>Class  OperateMode</li>
+</ol>
+</li>
+</ol>
+<pre class="hljs"><code><div>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OperateMode</span> 
+
+	//<span class="hljs-title">OperateMode</span> ，抽象类
+	//刚开始我想把查询模块和增加模块分开的
+	// 现在觉得这俩放一起挺好
+{</span>
+
+<span class="hljs-keyword">public</span>:
+	
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">readPreFile</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>;<span class="hljs-comment">//读取前置文件</span>
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">saveThisFile</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>;<span class="hljs-comment">//保存当前文件</span>
+	
+	OperateMode(){}
+	<span class="hljs-keyword">virtual</span> ~OperateMode(){}
+	
+};
+
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="2">
+<li>Class OperateTable</li>
+</ol>
+<pre class="hljs"><code><div>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OperateTable</span> :</span> <span class="hljs-keyword">public</span> OperateMode 
+{
+	<span class="hljs-comment">//操作学生课表的类</span>
+<span class="hljs-keyword">protected</span> :
+	Table table;
+	TableInfo saveAddress;
+
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">checkIsThisTable</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">changeThisTable</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">addLesson</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">deleteLesson</span><span class="hljs-params">()</span></span>;
+
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">checkHowLongBelonging</span><span class="hljs-params">(Table TEATab)</span></span>;
+
+<span class="hljs-keyword">public</span>:
+
+	OperateTable( Table &amp;tab);
+	OperateTable();
+	~OperateTable();
+
+	<span class="hljs-comment">//对父类虚函数进行重写 </span>
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">saveThisFile</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//保存当前文件，把当前的Table保存文件</span>
+	
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">saveThisFile</span><span class="hljs-params">(<span class="hljs-keyword">int</span> ruler)</span></span>;
+
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">readPreFile</span><span class="hljs-params">()</span></span>;			<span class="hljs-comment">//读取前置文件，把数据读出到当前的Table</span>
+	
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">readPreFile</span><span class="hljs-params">(<span class="hljs-built_in">string</span> name)</span></span>;
+
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">readPreFile</span><span class="hljs-params">(<span class="hljs-built_in">string</span> name, <span class="hljs-keyword">int</span> ordinal)</span></span>;<span class="hljs-comment">//读出这个人的第几个课表</span>
+	
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">updateThisTable</span><span class="hljs-params">()</span></span>;                <span class="hljs-comment">//更新这个课表</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">transformSTToCSV</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">transformTTToCSV</span><span class="hljs-params">()</span></span>;
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">getTableFromScreen</span><span class="hljs-params">()</span></span>;
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">clearHidenTable</span><span class="hljs-params">()</span></span>;
+	
+	<span class="hljs-function">Table <span class="hljs-title">getTable</span><span class="hljs-params">()</span></span>;			<span class="hljs-comment">//返回这个让table对象</span>
+
+	<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">getAddress</span><span class="hljs-params">()</span></span>;
+};
+
+</div></code></pre>
+<ol start="3">
+<li>Class OperateSTD</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OperateSTD</span> :</span><span class="hljs-keyword">public</span> OperateMode
+
+	<span class="hljs-comment">//刚开始我想把查询模块和增加模块分开的</span>
+	<span class="hljs-comment">// 现在觉得这俩放一起挺好的</span>
+	<span class="hljs-comment">//为了避免来回改名字，类名就不变了</span>
+{
+<span class="hljs-keyword">private</span>:
+	<span class="hljs-comment">//内置函数，声明成Student的友元函数</span>
+	<span class="hljs-comment">//修改自己数据的ID，进行数据保护</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setStdsID</span><span class="hljs-params">(People&amp;)</span></span>;
+<span class="hljs-keyword">protected</span>:
+
+	Student stud;<span class="hljs-comment">//学生对象</span>
+	STDInfo saveAddress;<span class="hljs-comment">//文件地址对象</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">getChangeInfo</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">catchElection</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">doChangeInfo</span><span class="hljs-params">(<span class="hljs-keyword">int</span> election)</span></span>;
+	<span class="hljs-function">Purpose <span class="hljs-title">catchPurpose</span><span class="hljs-params">()</span></span>;
+
+<span class="hljs-keyword">public</span>:
+
+	OperateSTD( );
+	~OperateSTD( );
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">getInfoFromScreen</span><span class="hljs-params">( )</span></span>;<span class="hljs-comment">//把保护变量里的STD 填入信息</span>
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">saveThisFile</span><span class="hljs-params">( )</span></span>;<span class="hljs-comment">//保存文件</span>
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">readPreFile</span><span class="hljs-params">( )</span></span>;<span class="hljs-comment">//无参 从文件中读取文件信息</span>
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">readPreFile</span><span class="hljs-params">( <span class="hljs-built_in">string</span> )</span></span>;<span class="hljs-comment">//包含学生姓名参数读取学生信息</span>
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">readPreFile</span><span class="hljs-params">(<span class="hljs-keyword">int</span> oridinal)</span></span>;<span class="hljs-comment">//参数是学生的第几个信息</span>
+	<span class="hljs-function">Student <span class="hljs-title">getStudent</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">updateStudentInfo</span><span class="hljs-params">(<span class="hljs-built_in">string</span> STDname)</span></span>;
+};
+</div></code></pre>
+<ol start="3">
+<li>展示代码后的一些说明
+<ol>
+<li>这个模块中的类进行了较多的重载，以适应多种参数的需求</li>
+<li>这里操作课表的模快有两个函数是把当前的课表对象输出为csv文件，并用当前课表的拥有着进行命名，csv文件可以用Excel打开，这样就可以实现可视化的课表，方便查询和核对。</li>
+</ol>
+</li>
+</ol>
+<div STYLE="page-break-after: always;"></div>
+<h4 id="%E8%AE%B0%E5%BD%95%E6%A8%A1%E5%9D%97%E7%9A%84%E4%BB%8B%E7%BB%8D">记录模块的介绍</h4>
+<p><img src="Record.png" alt="Record"></p>
+<ol>
+<li>
+<p>展示代码前的一些说明</p>
+<ol>
+<li>系统内所有的记录的类都是抽象类类Record的派生类</li>
+<li>基类Record中Unix时间戳(TimeStamp)的记录是这个基类的核心</li>
+<li>Record中记录的时间戳是int类型，在显示时用外部的函数转换成标准时间格式(Standard)</li>
+<li>基类派生出的其他类，会根据自身需求扩展所记录的信息</li>
+<li>Record中有一个Manager成员，是用来记录当前记录的生成者是谁，便于后期的核对</li>
+<li>Record模块里所有的类都没有无参构造，因为不能凭空产生一条记录</li>
+</ol>
+</li>
+<li>
+<p>下面进行代码展示</p>
+<ol>
+<li>Class Record</li>
+</ol>
+</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Record</span>
+{</span>
+<span class="hljs-keyword">protected</span>:
+	Manager operatorManager;		<span class="hljs-comment">//操作者</span>
+	<span class="hljs-keyword">int</span> timeStamp;					<span class="hljs-comment">//系统时间戳，记录操作时的时间</span>
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-comment">//只能含参构造，不能缺省，因为操作人员不明确会出问题</span>
+	Record(Manager &amp;) ;
+
+	<span class="hljs-keyword">virtual</span> ~Record() ;
+	Record(<span class="hljs-keyword">const</span> Record&amp;);
+
+	<span class="hljs-keyword">virtual</span> Record <span class="hljs-keyword">operator</span> =(<span class="hljs-keyword">const</span> Record&amp;);
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getTimeStamp</span><span class="hljs-params">()</span></span>;
+};
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="2">
+<li>Class TransactionRecord</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TransactionRecord</span> :</span><span class="hljs-keyword">public</span> Record
+
+	<span class="hljs-comment">//交易记录类</span>
+
+{
+<span class="hljs-keyword">protected</span>:
+	
+	Student stud;    <span class="hljs-comment">//学生对象信息</span>
+	<span class="hljs-keyword">float</span> payment;	<span class="hljs-comment">// 缴纳费用</span>
+	<span class="hljs-keyword">char</span> collectWay[<span class="hljs-number">20</span>]; <span class="hljs-comment">// 收款方式</span>
+	<span class="hljs-keyword">char</span> remarks[<span class="hljs-number">100</span>]; <span class="hljs-comment">//收款备注</span>
+
+<span class="hljs-keyword">public</span>:
+	
+	<span class="hljs-comment">//不能有无参构造函数</span>
+
+	TransactionRecord(Manager&amp;, Student&amp;, <span class="hljs-keyword">float</span> pay=<span class="hljs-number">0</span>,<span class="hljs-built_in">string</span> CW=<span class="hljs-string">"现金收款"</span>,<span class="hljs-built_in">string</span> R=<span class="hljs-string">"无"</span>);
+	
+	<span class="hljs-keyword">virtual</span> ~TransactionRecord();
+	
+	TransactionRecord(<span class="hljs-keyword">const</span> TransactionRecord&amp;);
+	
+	<span class="hljs-keyword">virtual</span> TransactionRecord <span class="hljs-keyword">operator</span> =(<span class="hljs-keyword">const</span> TransactionRecord&amp;);
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>;
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">shortShow</span><span class="hljs-params">()</span></span>;
+
+	<span class="hljs-function"><span class="hljs-keyword">float</span> <span class="hljs-title">getPayment</span><span class="hljs-params">()</span></span>;
+};
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="3">
+<li>Class ViolationRecord</li>
+</ol>
+<pre class="hljs"><code><div>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ViolationRecord</span> :</span><span class="hljs-keyword">public</span> Record 
+{
+<span class="hljs-keyword">protected</span>:
+	
+	Teacher VioTeacher;
+	<span class="hljs-keyword">int</span> FirstVioCode;
+	<span class="hljs-keyword">int</span> SecondCVioCode;
+	Date OccurTime;
+	<span class="hljs-keyword">char</span> Remarks[<span class="hljs-number">100</span>];<span class="hljs-comment">//备注或者其他教学事故</span>
+
+<span class="hljs-keyword">public</span> : 
+	
+	ViolationRecord(Manager&amp;,Teacher &amp;,<span class="hljs-keyword">int</span> first,<span class="hljs-keyword">int</span> second,Date d,<span class="hljs-built_in">string</span> remark );
+	~ViolationRecord();
+	ViolationRecord(<span class="hljs-keyword">const</span> ViolationRecord&amp;);
+	ViolationRecord <span class="hljs-keyword">operator</span> =(<span class="hljs-keyword">const</span> ViolationRecord&amp;);
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>;
+};
+
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="4">
+<li>Class RUnningRecord</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-comment">/**************************************************************
+	类型说明
+	店内流水账类，主要记录店内日常开销，比如购买水性笔，桶装水等
+	需要记录信息 操作人员（Manager 或者 Teacher ） 
+***************************************************************/</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RunningRecord</span> :</span><span class="hljs-keyword">public</span> Record 
+
+{
+<span class="hljs-keyword">protected</span>:
+
+	<span class="hljs-keyword">float</span> payment;			<span class="hljs-comment">// 此次费用</span>
+	<span class="hljs-keyword">char</span> collectWay[<span class="hljs-number">20</span>];	<span class="hljs-comment">// 支付方式</span>
+	<span class="hljs-keyword">char</span> remarks[<span class="hljs-number">100</span>];		<span class="hljs-comment">//用途备注</span>
+	<span class="hljs-keyword">char</span> payer[<span class="hljs-number">30</span>];			<span class="hljs-comment">//支付者说明，是否是管理员本人</span>
+
+<span class="hljs-keyword">public</span>:
+
+	RunningRecord(Manager&amp;, <span class="hljs-keyword">float</span> pay, <span class="hljs-built_in">string</span> Remarks
+		, <span class="hljs-built_in">string</span> payer = <span class="hljs-string">"管理员本人"</span>, <span class="hljs-built_in">string</span> collect = <span class="hljs-string">"微信支付"</span>);
+
+	~RunningRecord();
+	
+
+	RunningRecord(<span class="hljs-keyword">const</span> RunningRecord&amp;);
+
+	RunningRecord <span class="hljs-keyword">operator</span>= (<span class="hljs-keyword">const</span> RunningRecord&amp;);
+	
+	<span class="hljs-comment">//重载一个赋值号</span>
+
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">shortShow</span><span class="hljs-params">()</span></span>;
+
+};
+
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<h4 id="%E8%A1%A8%E6%A0%BC%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9D%97%E5%92%8C%E6%97%A5%E6%9C%9F%E6%A8%A1%E5%9D%97%E8%AF%B4%E6%98%8E">表格数据模块和日期模块说明</h4>
+<p><img src="NNewTable.png" alt="NewTable"></p>
+<p><font color=8470FF> 这张图十分的简洁， 但设计时却花费了我大量的心血，经过了很多次的修改，才有实现了最后的功能，这里的讲解会从需求分析讲起，说明我一步一步解决问题的过程，如果对开发过程不感兴趣，请直接下拉，查看类的定义即可。
+</font>
+在设计之初，我想到了很多不易实现并且很重要的需求，在这其中如何记录课表是最令人挠头的部分，虽然现在看起来是顺理成章的，但是从刚开始的过程来看，这个过程并不容易。</p>
+<ul>
+<li><strong>从需求层面来看</strong>，状元阁有一对一、一对二、一对三、一对四、小班课等多种课程类型，此外，还要记录课程的上课时间，而且每个课表都是由老师和学生双向维护的，也就是课表内要包含这两个互相对应的关系。另外，展示出的课表是要经过排序的，不能是乱序的。</li>
+<li>在一开始，我想到让单节课程作为成员直接储存在课表中，这样就模拟了现实中的课表。而容器又是一个问题，直接开大的课程数组会造成占用很多不必要的空间。但是课程类型如何记录呢？是一对一还是一对多？用字符串记录在其中的话势必会造成记录不统一的情况。</li>
+<li>在后来我了解到了<strong>优先队列</strong>，我用优先队列储存课表，就满足了自动排序的功能，在便利和修改时更是很方便</li>
+</ul>
+<ol>
+<li>展示源代码前的几点说明
+<ol>
+<li>日期Date类是Lesson的基类，但Date的功能不局限于此，它在Record类中也得到了很多的应用</li>
+<li>Date类中进行了大量的运算符重载，这并不是无用的，作为一个基础类型，它必须像基础数据类型一样强大和稳健，支持多种运算。</li>
+<li>FatherTable与刚开始的设计出现了一些偏差，只是派生出了课表类</li>
+<li>Fathertable 会记录这个表格的拥有者，也会记录表格的名称</li>
+<li>这里值得说明一点的是Table类中有一个theOtherName的成员，这记录了与课表拥有着对应的老师或者学生，发挥着很重要的作用，在下文中还会介绍到。</li>
+</ol>
+</li>
+</ol>
+<div STYLE="page-break-after: always;"></div>
+<ol start="2">
+<li>展示上述类的源代码
+<ol>
+<li>Class Date</li>
+</ol>
+</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Date</span> {</span>
+    <span class="hljs-comment">//日期类，包含月日年,主要功能是记录课在哪天上</span>
+<span class="hljs-keyword">protected</span>:
+
+    <span class="hljs-keyword">int</span> year;
+    <span class="hljs-keyword">int</span> month;
+    <span class="hljs-keyword">int</span> day;
+
+<span class="hljs-keyword">public</span>:
+
+    Date();
+    Date(<span class="hljs-keyword">int</span> year, <span class="hljs-keyword">int</span> month, <span class="hljs-keyword">int</span> day);<span class="hljs-comment">//普普通通的构造函数</span>
+    Date(<span class="hljs-keyword">int</span> month, <span class="hljs-keyword">int</span> day);<span class="hljs-comment">//重载构造函数，缺省年的构造</span>
+    Date(<span class="hljs-keyword">const</span> Date&amp; obj);<span class="hljs-comment">//拷贝构造函数</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//演示一下</span>
+    
+    <span class="hljs-keyword">int</span> <span class="hljs-keyword">operator</span> - (<span class="hljs-keyword">const</span> Date&amp; obj);<span class="hljs-comment">//重载+ - = ，日期相减返回整数，日期加整数返回日期</span>
+
+    Date <span class="hljs-keyword">operator</span> + (<span class="hljs-keyword">int</span> x);
+
+    Date <span class="hljs-keyword">operator</span> =(<span class="hljs-keyword">const</span> Date&amp; obj);<span class="hljs-comment">//赋值号，按位赋值</span>
+    <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span> &gt;(<span class="hljs-keyword">const</span> Date&amp; obj)<span class="hljs-keyword">const</span>;<span class="hljs-comment">//重载大于小于和等于</span>
+    <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span> &lt;(<span class="hljs-keyword">const</span> Date&amp; obj)<span class="hljs-keyword">const</span>;
+    <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span> ==(<span class="hljs-keyword">const</span> Date&amp; obj)<span class="hljs-keyword">const</span>;
+    <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span> &lt;= (<span class="hljs-keyword">const</span> Date&amp; obj)<span class="hljs-keyword">const</span>;
+    <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span> &gt;=(<span class="hljs-keyword">const</span> Date&amp; obj)<span class="hljs-keyword">const</span>;
+
+    Date <span class="hljs-keyword">operator</span> ++ (<span class="hljs-keyword">int</span>);<span class="hljs-comment">//重载后置++</span>
+    Date <span class="hljs-keyword">operator</span> ++ ();<span class="hljs-comment">//重载前置++</span>
+    Date <span class="hljs-keyword">operator</span> --(<span class="hljs-keyword">int</span> );<span class="hljs-comment">//重载后置--</span>
+    Date <span class="hljs-keyword">operator</span> --();<span class="hljs-comment">//重载前置--</span>
+    
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getYear</span><span class="hljs-params">()</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getMonth</span><span class="hljs-params">()</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getDay</span><span class="hljs-params">()</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">Simplify</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//进行加法后简化，向月份和年份上加；</span>
+};
+
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="2">
+<li>Class Lesson</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Lesson</span> :</span><span class="hljs-keyword">public</span> Date
+
+	<span class="hljs-comment">//这是一个课程类，是Date的子类，包含课的日期和第几节的信息</span>
+
+{
+<span class="hljs-keyword">private</span>:
+
+	<span class="hljs-keyword">int</span> ordinalNumber;<span class="hljs-comment">//记录这是第几节课</span>
+    
+
+<span class="hljs-keyword">public</span>:
+
+    Lesson();
+    
+    Lesson(<span class="hljs-keyword">int</span> year, <span class="hljs-keyword">int</span> month, <span class="hljs-keyword">int</span> day,<span class="hljs-keyword">int</span> ordinalNumber);<span class="hljs-comment">//普普通通的构造函数</span>
+    
+    Lesson(<span class="hljs-keyword">int</span> month, <span class="hljs-keyword">int</span> day,<span class="hljs-keyword">int</span> ordinalNumber);<span class="hljs-comment">//重载构造函数，缺省年的构造</span>
+    
+    Lesson(<span class="hljs-keyword">const</span> Lesson&amp; obj);<span class="hljs-comment">//拷贝构造函数</span>
+    
+    Lesson(<span class="hljs-keyword">const</span> Date&amp; obj, <span class="hljs-keyword">int</span> num);<span class="hljs-comment">//日期和课程节数进行构造</span>
+
+    <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span> &lt;(<span class="hljs-keyword">const</span> Lesson&amp; obj)<span class="hljs-keyword">const</span>;
+    
+    <span class="hljs-comment">//这个很重要，为了避免使用比较函数，</span>
+    <span class="hljs-comment">//这里把小于号重载为大于号，再Table中就能实现小根堆</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//演示一下</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getOriginalNumber</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//返回这是第几节课</span>
+
+    <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span> !=(<span class="hljs-keyword">const</span> Lesson&amp;)<span class="hljs-keyword">const</span>;
+};
+
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="3">
+<li>Class FatherTable</li>
+</ol>
+<pre class="hljs"><code><div>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FatherTable</span> 
+
+	//这是一个表格类，拥有表头，所有者姓名，所有者<span class="hljs-title">ID</span>
+	//会派生出老师的课表和学生的课程表<span class="hljs-title">Table</span>，老师的工资表 <span class="hljs-title">SalaryTable</span>
+
+{</span>
+<span class="hljs-keyword">protected</span> :
+	
+	<span class="hljs-comment">//char dataHeader[30];</span>
+
+	<span class="hljs-keyword">char</span> ownerName[<span class="hljs-number">20</span>];<span class="hljs-comment">//所有者姓名</span>
+
+	<span class="hljs-keyword">int</span> ownerID;<span class="hljs-comment">//所有者的状元阁唯一识别号</span>
+
+	<span class="hljs-built_in">string</span> selfName;  <span class="hljs-comment">//</span>
+
+<span class="hljs-keyword">public</span> :
+
+	FatherTable(People*);
+
+	FatherTable();
+	FatherTable(<span class="hljs-keyword">const</span> FatherTable&amp;);
+	FatherTable <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> FatherTable&amp;);
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//展示一下</span>
+	
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-built_in">string</span> <span class="hljs-title">getSelfName</span><span class="hljs-params">()</span></span>;
+
+	<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">getOwnerName</span><span class="hljs-params">()</span></span>;
+
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getOwnerID</span><span class="hljs-params">()</span></span>;
+};
+
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="4">
+<li>Class Table</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Table</span> :</span> <span class="hljs-keyword">public</span> FatherTable 
+
+{
+
+<span class="hljs-keyword">protected</span>:
+
+    <span class="hljs-comment">//这是一个优先队列，存放课程</span>
+    priority_queue &lt;Lesson&gt; lessonTimeTable;
+    
+    Date startDate;
+
+    Date endDate;
+    
+    <span class="hljs-keyword">int</span> number;<span class="hljs-comment">//课程节数</span>
+
+    <span class="hljs-keyword">char</span> theOtherName[<span class="hljs-number">30</span>];<span class="hljs-comment">//配对教师姓名</span>
+
+    <span class="hljs-keyword">int</span> classType;<span class="hljs-comment">//记录课程类型</span>
+    
+    <span class="hljs-keyword">int</span> tableID;
+
+<span class="hljs-keyword">public</span>:
+
+    
+    <span class="hljs-keyword">friend</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OperateTable</span>;</span>
+    <span class="hljs-keyword">friend</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StoreTable</span>;</span>
+
+    <span class="hljs-comment">//构造函数</span>
+    Table();
+
+    Table(People*, Date startDate, Date endDate,<span class="hljs-keyword">int</span> num, <span class="hljs-keyword">char</span>* name,<span class="hljs-keyword">int</span> Type);
+    <span class="hljs-comment">//起止时间，推入队列</span>
+    
+    Table(People*, <span class="hljs-keyword">char</span>* name, <span class="hljs-keyword">int</span> Type);
+    <span class="hljs-comment">//只传入人，然后进行输入课表，推入队列</span>
+    
+    Table(People*, Date startDate, <span class="hljs-keyword">int</span> x,<span class="hljs-keyword">int</span> num, <span class="hljs-keyword">char</span>* name,<span class="hljs-keyword">int</span> Type);
+    <span class="hljs-comment">//开始时间，课程节数</span>
+
+    Table(<span class="hljs-keyword">const</span> Table&amp;);
+
+    Table( StoreTable&amp; );
+    
+    Table <span class="hljs-keyword">operator</span> =(<span class="hljs-keyword">const</span> Table&amp;);
+    
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ReviseTeam</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//转换拥有着为老师</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ReviseTeamToSTD</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//转换拥有着为学生</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">translateFromStoreTable</span><span class="hljs-params">(StoreTable&amp;)</span></span>;<span class="hljs-comment">// 转为储存课表</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">displaySTD</span><span class="hljs-params">()</span></span>;  <span class="hljs-comment">//展示学生课表</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">displayTEA</span><span class="hljs-params">()</span></span>;  <span class="hljs-comment">//展示老师课表</span>
+    
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">shortShowSTD</span><span class="hljs-params">()</span></span>; <span class="hljs-comment">//简短展示学生表头信息</span>
+    
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">shortShowTEA</span><span class="hljs-params">()</span></span>; <span class="hljs-comment">//简短展示老师表头信息</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">shortShortShowTEA</span><span class="hljs-params">()</span></span>; <span class="hljs-comment">//精简的展示信息</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">clearThisTable</span><span class="hljs-params">()</span></span>; <span class="hljs-comment">//清空当前课表内的内容</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getNum</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">// 获得课程节数</span>
+    
+    <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">getSelfName</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//获得表格名称</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getClassType</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//获得类型代号</span>
+
+    <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">getTheOtherName</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//获得对应成员的姓名</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getTableID</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//获得课表的编号</span>
+};
+
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<p><img src="gudu.png" alt="guer"></p>
+<h4 id="%E4%B8%80%E4%BA%9B%E6%AF%94%E8%BE%83%E5%AD%A4%E5%8D%95%E7%9A%84%E7%B1%BB%E7%9A%84%E8%AF%B4%E6%98%8E">一些比较孤单的类的说明</h4>
+<p><font color=8470FF> 这里对一些与其他类没有继承只有组合关系的类进行说明，别看没有亲人，他们的功能同样十分重要，没有这些，这个系统是有缺陷的，甚至是瘫痪的。</font></p>
+<p><font color = 8470FF>下面对这些类进行一一说明</font></p>
+<ol>
+<li>展示源码前的说明
+<ol>
+<li>Storetable是Table储存在文件中是要转换为的类型，因为Table中含有优先队列，方便操作，但是不方便储存，转换成StoreTable进行储存就能解决这个问题</li>
+<li>Purpose类是科目类型，之所以没有用Subject这个单词是因为用Subject作为类型名会被编译器识别为别的符号，因此有Purpose这个名称进行替代</li>
+<li>ClassPrice是课程单价的类型，记录一种课程学生的收费标准和老师的工资标准</li>
+<li>ConClassPrice是对课程单价进行初始化的类，能够对配置文件进行初始化和修改，也能读出一个 map&lt;int,ClassPrice&gt;,其中的含义是课程类型代码对应课程和的收费和支出标准。</li>
+<li>SalaryTable，这个不同于以上的类，是一个集成的类，能够通过传入一个教师对象的引用，查询教师所有的课表，并且通过查询相应的课程单价，计算应该支付的工资。</li>
+<li>QueryRecord 这是查询三种主要记录的类，通过传入记录的条数能够返回相应的记录对象</li>
+<li>FeasibleCmd 这是简单的适应窗口类，能够调整dos窗口为比较好看的模式</li>
+</ol>
+</li>
+</ol>
+<div STYLE="page-break-after: always;"></div>
+<ol start="2">
+<li>所有这些类的源代码展示
+<ol>
+<li>Class StoreTable</li>
+</ol>
+</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StoreTable</span> 
+
+	//因为<span class="hljs-title">Table</span>使用优先队列实现的，不能存入文件
+	//这个类型的对象用于储存在文件中 
+	//这两个类互为友元类，方便互相初始化
+
+{</span>
+<span class="hljs-keyword">protected</span>:
+
+	<span class="hljs-keyword">char</span> ownerName[<span class="hljs-number">20</span>];			<span class="hljs-comment">//所有者姓名</span>
+	<span class="hljs-keyword">int</span> ownerID;				<span class="hljs-comment">//所有者ID</span>
+
+	<span class="hljs-keyword">char</span> selfName[<span class="hljs-number">50</span>];
+	<span class="hljs-keyword">char</span> theOtherName[<span class="hljs-number">30</span>];
+	
+	Lesson lessonTable[<span class="hljs-number">100</span>];			<span class="hljs-comment">//课表数组</span>
+	<span class="hljs-keyword">int</span> num;							<span class="hljs-comment">//课程数</span>
+	<span class="hljs-keyword">int</span> classType;
+	<span class="hljs-keyword">int</span> tableID;						<span class="hljs-comment">//课表编号</span>
+	
+<span class="hljs-keyword">public</span>:
+
+	<span class="hljs-keyword">friend</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Table</span>;</span>
+	
+	~StoreTable();
+	StoreTable();
+	StoreTable(<span class="hljs-keyword">const</span> StoreTable&amp; );
+	StoreTable( Table  );
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">buildStoreTable</span><span class="hljs-params">( Table )</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setOtherName</span><span class="hljs-params">(<span class="hljs-built_in">string</span> name)</span></span>;
+
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getNum</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getClassType</span><span class="hljs-params">()</span></span>;
+
+	<span class="hljs-function">Lesson* <span class="hljs-title">getLessonTable</span><span class="hljs-params">()</span></span>;
+
+	<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">GetTheOtherName</span><span class="hljs-params">()</span></span>;
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setTableID</span><span class="hljs-params">()</span></span>;				<span class="hljs-comment">//更改课表的编号，在存入文件的时候更改</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setTableID</span><span class="hljs-params">( <span class="hljs-keyword">const</span>  StoreTable &amp;)</span></span>;
+};
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="2">
+<li>Class Purpose</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Purpose</span>
+{</span>
+<span class="hljs-keyword">private</span>:
+
+	<span class="hljs-keyword">char</span> subject[<span class="hljs-number">7</span>][<span class="hljs-number">10</span>];
+	<span class="hljs-keyword">int</span> sum;
+
+	<span class="hljs-comment">//把vector存车的方式改成了string数组和记录数量的变量</span>
+<span class="hljs-keyword">public</span>:
+	
+	Purpose( <span class="hljs-built_in">vector</span> &lt;<span class="hljs-built_in">string</span>&gt;  );<span class="hljs-comment">//含参数构造</span>
+	Purpose();<span class="hljs-comment">//无参数构造</span>
+	Purpose(<span class="hljs-keyword">const</span> Purpose&amp; obj);<span class="hljs-comment">//拷贝构造</span>
+	~Purpose();<span class="hljs-comment">//析构</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>;
+	Purpose <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> Purpose&amp;);
+
+};
+</div></code></pre>
+<ol start="3">
+<li>Class ClassPrice</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-comment">/***************************************************************************
+			这是一个简单的数据类
+		负责记录课程类型的收入单价和发放单价
+		注意也要对应课程的类型
+****************************************************************************/</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ClassPrice</span> 
+{</span>
+<span class="hljs-keyword">private</span>:
+	<span class="hljs-keyword">int</span> classTypeCode;				<span class="hljs-comment">//课程类型的代码</span>
+	<span class="hljs-keyword">int</span> inPrice;					<span class="hljs-comment">//从学生处收取</span>
+	<span class="hljs-keyword">int</span> outPrice;					<span class="hljs-comment">//发放给教师</span>
+	<span class="hljs-keyword">char</span> Remarks[<span class="hljs-number">20</span>];
+
+<span class="hljs-keyword">public</span>:
+	ClassPrice(<span class="hljs-keyword">int</span> classTC,<span class="hljs-keyword">int</span> IP,<span class="hljs-keyword">int</span> OP,<span class="hljs-built_in">string</span> remark);
+	~ClassPrice();
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">updateCP</span><span class="hljs-params">(<span class="hljs-keyword">int</span> IP, <span class="hljs-keyword">int</span> OP, <span class="hljs-built_in">string</span> remark)</span></span>;				<span class="hljs-comment">//读取出来后进行修改</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setClassPrice</span><span class="hljs-params">(<span class="hljs-keyword">int</span> classTC, <span class="hljs-keyword">int</span> IP, <span class="hljs-keyword">int</span> OP, <span class="hljs-built_in">string</span> remark)</span></span>;
+	
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getType</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getInPrice</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getOutPrice</span><span class="hljs-params">()</span></span>;
+};
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="4">
+<li>Class ConClassPrice</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-comment">/****************************************************************
+			对课程单价进行增添和修改的类
+		增加是初始化的时候进行调用，修改是读取并进行修改
+		用一个读取函数进行检验
+*****************************************************************/</span>
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConClassPrice</span> 
+{</span>
+<span class="hljs-keyword">protected</span>:
+
+	ClassPrice classPrice;
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">getInfo</span><span class="hljs-params">(<span class="hljs-keyword">int</span> type)</span></span>;
+
+<span class="hljs-keyword">public</span>:
+
+	ConClassPrice();
+	~ConClassPrice();
+	ConClassPrice(<span class="hljs-keyword">const</span> ConClassPrice&amp;);
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">initClassPrice</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">setClassPrice</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-built_in">map</span>&lt;<span class="hljs-keyword">int</span> ,ClassPrice&gt; <span class="hljs-title">getMapFromCon</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//返回一个课程类型到单价的map</span>
+
+};
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="5">
+<li>Class SalaryTable</li>
+</ol>
+<pre class="hljs"><code><div>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SalaryTable</span> 
+
+{</span>
+<span class="hljs-keyword">protected</span>:
+	
+	<span class="hljs-keyword">int</span> totalSalary;		<span class="hljs-comment">//总薪水</span>
+
+	Teacher teacher;		<span class="hljs-comment">//老师的数据</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">caculateSalary</span><span class="hljs-params">()</span></span>;  <span class="hljs-comment">//计算总薪水</span>
+	
+	
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">HowMuchInShort</span><span class="hljs-params">()</span></span>;
+
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getClassTypeOutPrice</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key)</span></span>;
+
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">HowMuchInDisplay</span><span class="hljs-params">()</span></span>;
+
+<span class="hljs-keyword">public</span>:
+	
+	SalaryTable(Teacher &amp;);
+	
+	SalaryTable(<span class="hljs-keyword">const</span> SalaryTable&amp;);
+	
+	~SalaryTable();
+	
+	SalaryTable <span class="hljs-keyword">operator</span> =(<span class="hljs-keyword">const</span> SalaryTable&amp;);
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showAllTable</span><span class="hljs-params">()</span></span>;	<span class="hljs-comment">//展示这位老师的所有课表</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">briefShow</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//进行简短的展示</span>
+
+};
+
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="6">
+<li>Class QueryRecord</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-comment">/*****************************************************
+	这是查询课表的操纵台，只能被handler所调用
+
+	能够查询收银记录，店内流水账，教师违规记录
+	需要传入的参数是第几条记录
+	返回这个类型的record
+	注意收银记录有两条查询路线，第二条隐藏
+
+	因为交易记录类型的类没有默认构造函数，所以需要创建一个临时的对象
+	进行有参构造，当然这个记录是无意义的
+	
+	为了函数的简洁性，打开文件失败会抛出异常,要记得处理
+******************************************************/</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">QueryRecord</span> 
+
+{</span>
+<span class="hljs-keyword">protected</span>:
+
+	<span class="hljs-keyword">friend</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Handler</span>;</span>			<span class="hljs-comment">//只能通过友元类调用方法</span>
+
+	<span class="hljs-function">RunningRecord <span class="hljs-title">getRunningRecord</span><span class="hljs-params">(<span class="hljs-keyword">int</span> ruler=<span class="hljs-number">1</span>)</span></span>;
+	<span class="hljs-function">ViolationRecord <span class="hljs-title">getViolationRecord</span><span class="hljs-params">(<span class="hljs-keyword">int</span> ruler=<span class="hljs-number">1</span>)</span></span>;
+	<span class="hljs-function">TransactionRecord <span class="hljs-title">getTransactionRecord</span><span class="hljs-params">(<span class="hljs-keyword">int</span> ruler=<span class="hljs-number">1</span>)</span></span>;
+	<span class="hljs-function">TransactionRecord <span class="hljs-title">getHidenTransactionRecord</span><span class="hljs-params">(<span class="hljs-keyword">int</span> ruler = <span class="hljs-number">1</span>)</span></span>;
+
+<span class="hljs-keyword">public</span> :	
+	QueryRecord();
+	~QueryRecord();
+};
+</div></code></pre>
+<ol start="7">
+<li>Class FeasibleCmd</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FeasibleCmd</span> 
+
+	//这是窗口类，能够调整窗口大小和颜色
+{</span>
+
+<span class="hljs-keyword">public</span>:
+	
+	FeasibleCmd( );
+	FeasibleCmd(FeasibleCmd&amp; obj){}
+	~FeasibleCmd(){}
+
+};
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<h4 id="%E6%9C%80%E9%A1%B6%E5%B1%82%E7%9A%84%E6%93%8D%E4%BD%9C%E7%B1%BB%E7%9A%84%E4%BB%8B%E7%BB%8D">最顶层的操作类的介绍</h4>
+<p><img src="Entrance.png" alt="entrance"></p>
+<font color=8470FF>
+这是直接从主函数调用的类，也是系统消息处理机制的最外层表现。下面将介绍这两个最容易设计而且最好操作的类。
+</font>
+<ol>
+<li>展示源码前的一些说明
+<ol>
+<li>Handler控制台内置了一个Manager(管理员)和一个开关变量LOGIN</li>
+<li>LOGIN是记录当前是否有管理员已经进行了登录，如果没有进行登录，那么程序的功能将受到一定的限制，只有在登录以后才能正常使用所有功能</li>
+<li>主入口类内置一个Handler成员，根据需求，让Handler对功能接口进行调用，或者在自身实现</li>
+<li>主入口类是在主函数中与外界进行交流的窗口，即调用菜单获取命令，然后把命令交给处理命令的成员函数，处理时根据功能的复杂程度选择是否调用Handler控制台，如果处理此项命令的程序比较复杂，那么讲交由Handler处理。</li>
+</ol>
+</li>
+</ol>
+<div STYLE="page-break-after: always;"></div>
+<ol start="2">
+<li>
+<p>展示顶层两个类的源代码</p>
+<ol>
+<li>Class Handler</li>
+</ol>
+</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Handler</span> 
+
+	//控制台类，进行权限释放
+
+{</span>
+<span class="hljs-keyword">private</span> :
+	
+	Manager operatorManager;
+	<span class="hljs-keyword">bool</span> LOGIN;
+
+<span class="hljs-keyword">public</span>:
+	
+	Handler();
+	~Handler();
+
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">LoginManager</span><span class="hljs-params">(<span class="hljs-built_in">string</span> name,<span class="hljs-built_in">string</span> SSH )</span></span>;			<span class="hljs-comment">//传入姓名和密钥进行登录</span>
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">getStatus</span><span class="hljs-params">()</span></span>;									<span class="hljs-comment">//获得登录状态</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addSTD</span><span class="hljs-params">()</span></span>;										<span class="hljs-comment">//增加学生，教师，课表</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addTEA</span><span class="hljs-params">()</span></span>;											
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addTAB</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addToll</span><span class="hljs-params">()</span></span>;										<span class="hljs-comment">//增加交易记录，流水，违规记录</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addVio</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addRun</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setTable</span><span class="hljs-params">()</span></span>;									<span class="hljs-comment">//修改课表</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">changeMAGSSH</span><span class="hljs-params">()</span></span>;								<span class="hljs-comment">//修改当前管理员的密钥</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showOneRun</span><span class="hljs-params">(<span class="hljs-keyword">int</span> ruler,<span class="hljs-keyword">int</span> small )</span></span>;				<span class="hljs-comment">//传入数据位置参数展示三种记录</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showOneToll_S</span><span class="hljs-params">(<span class="hljs-keyword">int</span> ruler, <span class="hljs-keyword">int</span> small)</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showOneVio</span><span class="hljs-params">(<span class="hljs-keyword">int</span> ruler)</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showOneToll</span><span class="hljs-params">(<span class="hljs-keyword">int</span> ruler, <span class="hljs-keyword">int</span> small)</span></span>;
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showAllRun</span><span class="hljs-params">(<span class="hljs-keyword">int</span>  )</span></span>;								<span class="hljs-comment">//展示所有的三种记录</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showAllVio</span><span class="hljs-params">(  )</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showAllToll</span><span class="hljs-params">( <span class="hljs-keyword">int</span> )</span></span>;
+	
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">checkSSH</span><span class="hljs-params">()</span></span>;									<span class="hljs-comment">//某些操作的密码验证</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showAllTEA</span><span class="hljs-params">()</span></span>;									<span class="hljs-comment">//展示总表中的教师和学生信息</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">shouwAllSTD</span><span class="hljs-params">()</span></span>;								
+
+	<span class="hljs-function"><span class="hljs-keyword">float</span> <span class="hljs-title">checkSummery</span><span class="hljs-params">(<span class="hljs-keyword">int</span> show)</span></span>;						<span class="hljs-comment">//一键总账</span>
+
+
+};
+
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="2">
+<li>Class MainEntrance</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainEntrance</span> 
+{</span>
+
+<span class="hljs-keyword">private</span>:
+	<span class="hljs-keyword">int</span> commender;<span class="hljs-comment">//命令代码寄存器</span>
+	Handler Hander;
+
+<span class="hljs-keyword">public</span> :
+	
+	MainEntrance();
+	~MainEntrance();
+	
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ShowThe_First</span><span class="hljs-params">()</span></span>;				<span class="hljs-comment">//展示先导界面</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ShowPre_Login</span><span class="hljs-params">()</span></span>;				<span class="hljs-comment">//登录界面</span>
+	<span class="hljs-function"><span class="hljs-keyword">int</span>  <span class="hljs-title">ShowMain_Menu</span><span class="hljs-params">()</span></span>;				<span class="hljs-comment">//主菜单</span>
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">DealFirt_Comd</span><span class="hljs-params">(<span class="hljs-keyword">int</span> Comd)</span></span>;		<span class="hljs-comment">//处理主菜单的命令</span>
+	<span class="hljs-function"><span class="hljs-keyword">int</span>  <span class="hljs-title">ShowInde_Menu</span><span class="hljs-params">()</span></span>;				<span class="hljs-comment">//显示内部菜单</span>
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">DealSecn_Comd</span><span class="hljs-params">(<span class="hljs-keyword">int</span> Comd)</span></span>;		<span class="hljs-comment">//处理内部菜单的命令</span>
+	<span class="hljs-function"><span class="hljs-keyword">int</span>  <span class="hljs-title">ShowMang_Menu</span><span class="hljs-params">()</span></span>;				<span class="hljs-comment">//管理员特有功能，集成一体化</span>
+
+};
+
+</div></code></pre>
+<ol start="3">
+<li>这里本该有一些说明，但我觉得代码注释里边说的已经够详细了，所有此项略过</li>
+</ol>
+<div STYLE="page-break-after: always;"></div>
+<h4 id="%E5%A4%96%E9%83%A8%E5%87%BD%E6%95%B0%E7%9A%84%E4%BB%8B%E7%BB%8D">外部函数的介绍</h4>
+<font color=8470FF >
+到这里所有的类已经介绍完毕了，但这里还有一个头文件要介绍一下，他包含了所有的外部函数，利用了C++面向过程编程的思想，让程序变得简单易读
+他就是stdafx，这里我们先来看源代码
+</font>
+<pre class="hljs"><code><div>								
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">checkBigPassword</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span></span>;			<span class="hljs-comment">//检测经营者授权码</span>
+
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">saveAccount</span><span class="hljs-params">(<span class="hljs-built_in">string</span> name, <span class="hljs-built_in">string</span> password)</span></span>; <span class="hljs-comment">//新建使用者</span>
+
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">checkPassword</span><span class="hljs-params">(<span class="hljs-built_in">string</span> input)</span></span>;     <span class="hljs-comment">//检测登录权限</span>
+
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">checkSaveAddress</span><span class="hljs-params">(<span class="hljs-built_in">string</span>)</span></span>;      <span class="hljs-comment">//检查修改后的储存位置是否合法</span>
+
+<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">getStringWithoutShow</span><span class="hljs-params">()</span></span>;			<span class="hljs-comment">//不显示屏幕获取字符串</span>
+
+<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">TimeStampToStandard</span><span class="hljs-params">(<span class="hljs-keyword">int</span> )</span></span>;		<span class="hljs-comment">//把时间戳转换为标准时间</span>
+
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">checkToContinue</span><span class="hljs-params">()</span></span>;					<span class="hljs-comment">//询问是否继续</span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">operationCancled</span><span class="hljs-params">()</span></span>;				<span class="hljs-comment">//操作取消</span>
+
+<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">translateNumToClassType</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span></span>;	<span class="hljs-comment">//代码转为课程类型</span>
+
+<span class="hljs-function"><span class="hljs-keyword">char</span> <span class="hljs-title">checkGender</span><span class="hljs-params">()</span></span>;						<span class="hljs-comment">//获取性别</span>
+
+<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">trnaslateVioCode</span><span class="hljs-params">(<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>)</span></span>;		<span class="hljs-comment">//违规代码转换为具体事项</span>
+
+</div></code></pre>
+<ol>
+<li>这里使用最多的是检测是否继续执行，就是从屏幕获取一个字符，并检测是否是Y 或者 y，是则返回true，否则返回false</li>
+<li>从屏幕获得字符串但不显示时用来输入密码的</li>
+<li>传入违规代码转换为具体的违规事项是一个简单的解码</li>
+<li>转换课程类型也是代码和字符串对应的关系</li>
+</ol>
+<center>
+<h2 id="f-%E6%AF%94%E8%BE%83%E6%9C%89%E7%89%B9%E8%89%B2%E7%9A%84%E7%AE%97%E6%B3%95">F 比较有特色的算法</h2>
+<div STYLE="page-break-after: always;"></div>
+</center>
+<font color =8470FF size =5 >
+<p>介绍前的一些话
+</font></p>
+<font color=1E90FF size=4>
+说实话在这个地方我确实不知道该讲些什么，在进入南航计算机专业学习以来，课内所接触到的都是计算机语言或者导论课，说到算法我一时间不知道如何来讲。从我的个人经历来讲，我在学校的算法组织学了一些ACM竞赛的基础算法，但基本都是数论图论动态规划这些东西，能用到课设里边的并不多，实际也没用上，本来想用一个二维连通图来记录教师和学生的教学关系，但是这样一来表里边的数据非常稀疏，二来如果定义在一个类里边的话会发生爆栈的情况，实际上课设里边并没有用到很多让我引以为豪的算法，只有记录课表时的双向查找和保存我觉得是自己想出来最经典的东西，其他的算法多为从其他开源的资源库上学习模仿下来的东西，但是通过课设这个磨炼的机会还是学习了不少的东西。
+</font>
+<br>
+</br>
+<font color =8470FF size =5 >
+开始进行矮子里边拔将军--程序里特色算法的介绍
+</font>
+<br>
+</br>
+<ol>
+<li>
+<p>使用了STL标准模板库</p>
+<ul>
+<li>在课表内记录课程时，Lesson的容器运用了STL中的<strong>优先队列</strong></li>
+</ul>
+</li>
+</ol>
+<pre class="hljs"><code><div>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Table</span> :</span> <span class="hljs-keyword">public</span> FatherTable
+    <span class="hljs-comment">//这是一个优先队列，存放课程</span>
+    priority_queue &lt;Lesson&gt; lessonTimeTable;
+
+
+</div></code></pre>
+<p>优先队列STL中封装了优先队列（priority_queue）这种结构，它和普通队列的区别是：普通的队列是一种先进先出的数据结构，元素在队列尾部追加，从队列头删除。而在优先队列中，元素被赋予优先级。当访问元素时，具有最高优先级的元素最先删除。优先队列具有最高级先出（first in,largest out)的行为特征。为此我重载了Lesson的小于号运算符</p>
+<pre class="hljs"><code><div>
+<span class="hljs-keyword">bool</span> Lesson::<span class="hljs-keyword">operator</span> &lt;(<span class="hljs-keyword">const</span> Lesson&amp; obj)<span class="hljs-keyword">const</span>
+
+	<span class="hljs-comment">//这个很重要，为了避免使用比较函数</span>
+	<span class="hljs-comment">//这里把小于号重载为大于号，就能在Table里边实现小根堆</span>
+	<span class="hljs-comment">//从而实现可变的排列顺序是从小日期到大日期</span>
+
+{
+	<span class="hljs-keyword">int</span> a = year - obj.year;
+
+	<span class="hljs-keyword">if</span> (a &gt; <span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+	<span class="hljs-keyword">if</span> (a &lt; <span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+	
+	<span class="hljs-keyword">if</span> (a == <span class="hljs-number">0</span>) 
+	{
+		<span class="hljs-keyword">int</span> b = month - obj.month;
+		
+		<span class="hljs-keyword">if</span> (b &gt; <span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+		<span class="hljs-keyword">if</span> (b &lt; <span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+		
+		<span class="hljs-keyword">if</span> (b == <span class="hljs-number">0</span>) 
+		{
+			<span class="hljs-keyword">int</span> c = day - obj.day;
+		
+			<span class="hljs-keyword">if</span> (c &gt; <span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+			
+			<span class="hljs-keyword">if</span> (c &lt; <span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+			
+			<span class="hljs-keyword">if</span> (c == <span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+		}
+	}
+
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>-&gt;ordinalNumber &gt;= obj.ordinalNumber) 
+		<span class="hljs-comment">//课程节数的比较，效地在前，不理解看上一条注释	</span>
+	{
+		<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+	}
+	<span class="hljs-comment">//否则都是返回0</span>
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+<ul>
+<li>
+<p>使用了STL标准模板库中的map，进行通过键值查找Value的操作</p>
+<ul>
+<li>通过代码查找课程类型的函数</li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">translateNumToClassType</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key)</span> 
+</span>{
+	<span class="hljs-built_in">map</span>&lt;<span class="hljs-keyword">int</span>, <span class="hljs-built_in">string</span> &gt; classType;
+	classType.insert(pair&lt;<span class="hljs-keyword">int</span>, <span class="hljs-built_in">string</span>&gt;(<span class="hljs-number">1</span>, <span class="hljs-string">"一对一课程"</span>));
+	classType.insert(pair&lt;<span class="hljs-keyword">int</span>, <span class="hljs-built_in">string</span>&gt;(<span class="hljs-number">2</span>, <span class="hljs-string">"一对二课程"</span>));
+	classType.insert(pair&lt;<span class="hljs-keyword">int</span>, <span class="hljs-built_in">string</span>&gt;(<span class="hljs-number">3</span>, <span class="hljs-string">"一对三课程"</span>));
+	classType.insert(pair&lt;<span class="hljs-keyword">int</span>, <span class="hljs-built_in">string</span>&gt;(<span class="hljs-number">4</span>, <span class="hljs-string">"一对四课程"</span>));
+	classType.insert(pair&lt;<span class="hljs-keyword">int</span>, <span class="hljs-built_in">string</span>&gt;(<span class="hljs-number">5</span>, <span class="hljs-string">"小班课课程"</span>));
+	classType.insert(pair&lt;<span class="hljs-keyword">int</span>, <span class="hljs-built_in">string</span>&gt;(<span class="hljs-number">6</span>, <span class="hljs-string">"其他类课程"</span>));
+	
+	<span class="hljs-built_in">string</span> Type = <span class="hljs-string">"未查找到此种课程类型 "</span>;
+	
+	<span class="hljs-keyword">auto</span> it = classType.<span class="hljs-built_in">find</span>(key);
+
+	<span class="hljs-keyword">if</span> (it != classType.<span class="hljs-built_in">end</span>())
+	{
+		Type = (*it).second;
+	}
+	<span class="hljs-keyword">return</span> Type;
+</div></code></pre>
+<ul>
+<li>生成一个代号和课程单价对象的map并返回，便于外部的利用</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-built_in">map</span>&lt;<span class="hljs-keyword">int</span>, ClassPrice&gt; <span class="hljs-title">ConClassPrice::getMapFromCon</span><span class="hljs-params">()</span> 
+
+</span>{
+
+	<span class="hljs-function">ConfigInfo <span class="hljs-title">CF</span><span class="hljs-params">(<span class="hljs-string">"ClassPrice"</span>)</span></span>;<span class="hljs-comment">//产生文件储存路径</span>
+	ifstream file;
+
+	file.<span class="hljs-built_in">open</span>(CF.getCompleteAddress(), ios::in | ios::binary);
+
+	<span class="hljs-keyword">if</span> (!file)
+	{
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"ClassPrice文件打开失败，请检查路径是否存在"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"当前路径 :  "</span> &lt;&lt; CF.getCompleteAddress();
+	}
+
+	<span class="hljs-built_in">map</span>&lt;<span class="hljs-keyword">int</span>, ClassPrice&gt; MAP;    <span class="hljs-comment">//生成课程代码与单价的map</span>
+
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">6</span>; i++) 
+	{
+		file.<span class="hljs-built_in">read</span>((<span class="hljs-keyword">char</span>*)&amp;<span class="hljs-keyword">this</span>-&gt;classPrice, <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">this</span>-&gt;classPrice));
+		MAP.insert(pair&lt;<span class="hljs-keyword">int</span>, ClassPrice&gt;(i, <span class="hljs-keyword">this</span>-&gt;classPrice));
+	}
+
+	<span class="hljs-keyword">return</span> MAP;
+
+}
+</div></code></pre>
+<ol start="2">
+<li></li>
+</ol>
+
+</body>
+</html>

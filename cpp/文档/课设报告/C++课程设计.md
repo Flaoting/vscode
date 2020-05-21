@@ -18,11 +18,12 @@
 
 
 <br>
-
 <br>
 <br>
 <br>
 <font face="黑体" size=6>
+
+<br>
 <br>
 <br>
 <br>
@@ -1594,11 +1595,16 @@ string trnaslateVioCode(int, int);		//违规代码转换为具体事项
 3. 传入违规代码转换为具体的违规事项是一个简单的解码
 4. 转换课程类型也是代码和字符串对应的关系
 
+
+<div STYLE="page-break-after: always;"></div>
+
+
+
 <center>
 
 ## F 比较有特色的算法
 
-<div STYLE="page-break-after: always;"></div>
+
 
 </center>
 
@@ -1619,11 +1625,15 @@ string trnaslateVioCode(int, int);		//违规代码转换为具体事项
 开始进行矮子里边拔将军--程序里特色算法的介绍
 </font>
 
+<div STYLE="page-break-after: always;"></div>
+
+
 <br>
 </br>
 
-1. 使用了STL标准模板库
-
+<font size=5 >**1. 使用了STL标准模板库** </font>
+<br>
+</br>
    + 在课表内记录课程时，Lesson的容器运用了STL中的**优先队列**
 
 ```C++
@@ -1640,45 +1650,37 @@ class Table : public FatherTable
 ```C++
 
 bool Lesson::operator <(const Lesson& obj)const
-
-	//这个很重要，为了避免使用比较函数
 	//这里把小于号重载为大于号，就能在Table里边实现小根堆
 	//从而实现可变的排列顺序是从小日期到大日期
-
 {
 	int a = year - obj.year;
-
 	if (a > 0)return 1;
 	if (a < 0)return 0;
-	
 	if (a == 0) 
 	{
 		int b = month - obj.month;
-		
 		if (b > 0)return 1;
 		if (b < 0)return 0;
-		
 		if (b == 0) 
 		{
 			int c = day - obj.day;
-		
 			if (c > 0)return 1;
-			
 			if (c < 0)return 0;
-			
 			if (c == 0)return 0;
 		}
 	}
-
 	if (this->ordinalNumber >= obj.ordinalNumber) 
 		//课程节数的比较，效地在前，不理解看上一条注释	
 	{
 		return 1;
 	}
-	//否则都是返回0
 	return 0;
 }
 ```
+
+<div STYLE="page-break-after: always;"></div>
+
+
 + 使用了STL标准模板库中的map，进行通过键值查找Value的操作
 
   + 通过代码查找课程类型的函数
@@ -1704,16 +1706,16 @@ string translateNumToClassType(int key)
 	}
 	return Type;
 ```
+
+
   + 生成一个代号和课程单价对象的map并返回，便于外部的利用
+
 
 ```C++
 map<int, ClassPrice> ConClassPrice::getMapFromCon() 
-
 {
-
 	ConfigInfo CF("ClassPrice");//产生文件储存路径
 	ifstream file;
-
 	file.open(CF.getCompleteAddress(), ios::in | ios::binary);
 
 	if (!file)
@@ -1721,7 +1723,6 @@ map<int, ClassPrice> ConClassPrice::getMapFromCon()
 		cout << "ClassPrice文件打开失败，请检查路径是否存在" << endl;
 		cout << "当前路径 :  " << CF.getCompleteAddress();
 	}
-
 	map<int, ClassPrice> MAP;    //生成课程代码与单价的map
 
 	for (int i = 1; i <= 6; i++) 
@@ -1735,15 +1736,998 @@ map<int, ClassPrice> ConClassPrice::getMapFromCon()
 }
 ```
 
-2. 
+<br>
+</br>
+
+<div STYLE="page-break-after: always;"></div>
+
+
+<font size=5> **2. 实现了双向维护同一信息以保持信息的一致性**
+</font>
+
+<br>
+</br>
+<font color = 8470FF size=5 > 讲这个算法之前要说一点具体的需求信息
+</font>
+<br>
+</br>
+<font color=1E90FF size=4>
+
+在这个机构中，教师和学生课表关系的维护是最耗费管理员精力的事情，举个例子来讲，老师小飞有五个学生，学生启明有三个老师，这里我们忽略科目这个信息，这样一来，每个学生和老师都要有自己的课表，而且要每个对应的课表要保持一致，倘若没有修改修改的需求，单纯的储存还是比较容易满足的，只要在学生订课时把课表进行一份拷贝，修改表格的拥有者，就可以实现这个需求。但是增加了修改的需求以后，我们已经把订课时的信息丢失了，只能从姓名这个键值进行文件的查找，就像人工修改一样，只能找到老师的课表，修改，找到学生的课表，修改。这样就失去了这个系统设计的初衷--减小管理人员的管理压力。于是我冥思苦想，今天吃不下饭睡不好觉。
+</font>
+
+<br>
+</br>
+
+<font color=8470FF size=5 > 现在说说我的解决方案 </font> 
+
+<font size=4>
+
+我在一个失眠的晚上想出了一个自认为巧妙的解决方案，这让我本来就睡不着的我更加兴奋了，这个方案就是**在课表中记录与课表拥有者组合的信息**
+
+在订课时就把拥有着信息和配对组合者的信息互换，比如学生启明订了教师小飞的课，启明的课表中就记录了小飞的信息，进行存储的时候，就把着这两个信息互换，把这个课表存入教师小飞的课表文件中。同样的，在课表进行修改时，一般这个需求都是由老师提出的，就是把老师姓名作为键值出发，找到教师课表中的相应的某节课，然后读出这个Table对象，进行修改，修改的方式很简单，往优先队列里边推入，删除也很简单，只要再开出一个优先队列，像数鸭子时把鸭子从一边赶到另一边，然后把想要的鸭子找出来，删除即可。修改课程时间实际上就是先删除一节课，再增加一节课。**然后最重点的部分到了**，如何把这个修改同步到学生的课表文件中？
+
+在一个没有午睡的中午，我缓缓的整理了一下设计思路，发现通过课表中记录的组合姓名可以作为查找的依据，我立刻写出了代码，然后开始进行测试，这个时候我偷了一个懒，**没有添加很多的教师和学生**，也正是因为这个举动，**我发现了这个方法的bug**，如果一个老师和学生有不只一门的对应教学组合，比如小飞既教启明的数学，又教他的物理，**然后这两人的课表文件就会有类似Hash冲突的事情发生，因为只通过姓名查找的方式不能区别两个课表谁是谁，就会造成混乱发生。**
+
+
+<div STYLE="page-break-after: always;"></div>
+
+
+我们想接下来的解决方案，可以把这两个课表进行合并，但是上课的时间和科目在一个课表对象中只能维护一个值，这样就会造成不知道上哪节课情况，比如上述的数学在第二节课，物理在第三节课，合并以后没办法吧课程时间确定出来。
+
+最终我采取了一个不高明的解决方案，就是把课表的成员里边加上一个ID，这样个唯一的ID值就能对课表进行识别了。
+
+说道这里不知道您是否能理解这个思路，那我加张图说明一下。
 
 
 
+![算法关系](suanfa2.png)
+
+<br>
+</br>
+
+<font color=8470FF> 总结一下来说这部分就是找到了一个在需求中最让人挠头的问题，实际发挥了这个系统减轻管理人员压力的作用。</font>
+
+<font color = 1E90FF> 下面进行源代码展示</font>
+
+
+<div STYLE="page-break-after: always;"></div>
+
+
+1. 调用的总模块
+
+```C++
+bool OperateTable::updateThisTable()
+{
+	system("cls");
+	string TEAName;
+	int cnt = 1;
+	cout << "*************************************************************" << endl;
+	cout << "\t修\t改\t课\t表" << endl<<endl;
+	cout << "请输入教师姓名 :  ";
+	cin >> TEAName;
+	bool flag=false;
+	while (readPreFile(TEAName,cnt))
+	{		
+		if (!checkIsThisTable())  //询问是否修改这个课表
+		{
+			
+			cout << endl;
+			cnt++;
+			this->table.clearThisTable();
+			continue;
+		}
+		if (changeThisTable())			//课表变更
+		{
+			flag = 1;
+			
+			saveThisFile(cnt);					//保存变更
+			
+			cout << "是否修改此位老师的其他课表？" << endl;
+			if (!checkToContinue())
+			{
+				cout << "修改课表操作完毕,请指示!!" << endl;
+				return true;
+			}
+		}
+		cnt++;
+	}
+	if (!flag) 
+	{
+		return false;
+	}
+	return true;
+}
+
+```
+
+<div STYLE="page-break-after: always;"></div>
+
+
+2. 查询当前的课表在学生课表中的第几个位置
+
+```C++
+int OperateTable::checkHowLongBelonging(Table TEATab) 
+{
+	//传入的参数是修改后老师课表的一份拷贝
+	string STDName,TEAName;
+	
+	STDName = TEATab.getTheOtherName();		//获得学生姓名
+	int thisID = TEATab.getTableID();
+	int cnt = 1;
+	bool flag = 0;
+
+	while (readPreFile(STDName, cnt))
+
+	{
+		int temID;
+		temID = this->table.getTableID();
+		if (thisID==temID)
+		{
+			flag = 1;
+			return cnt;
+		}
+		cnt++;
+	}
+
+	if (!flag) 
+	{
+		cout << "查找howlong失败" << endl;
+		return -1;//没有找到则返回-1
+	}
+}
+
+```
+
+<div STYLE="page-break-after: always;"></div>
+
+3. 保存修改后的课表
+
+```C++
+
+bool OperateTable::saveThisFile(int ruler) //调用这个的是教师的课表，教师名字在前
+{
+	Table objTab(this->table);
+	fstream file;
+	StoreTable ST1, ST2;
+	
+	ST1.buildStoreTable(this->table);
+	
+	try
+	{
+		file.open(saveAddress.getCompleteAddress(), ios::out | ios::binary | ios::in);
+		if (!file)
+		{
+			//打开文件失败，抛出异常
+
+			throw 978;
+		}
+		short t = (ruler - 1) * sizeof(ST1);
+		file.seekp(t, ios::beg);
+		file.write((char*)&ST1, sizeof(ST1));
+		file.flush();
+	}
+
+	catch (int goal)
+	
+	{
+		cout << "错误代码： " << goal << "  ";
+		cout << "教师课表文件变更失败，请检查路径是否非法！" << endl;
+		cout << "当前路径:  " << this->saveAddress.getCompleteAddress() << endl;
+		return 0;
+	}
+	
+	file.close();
+	
+	int howLong;
+	
+	howLong = checkHowLongBelonging(objTab);		//现在里边是教师课表
+	int tt = (howLong - 1) * sizeof(ST1);		//获得偏移量	
+	
+	objTab.ReviseTeamToSTD();
+	
+	ST2.setOtherName(objTab.getOwnerName());
+	ST2.buildStoreTable(objTab);
+	
+	string str = objTab.getOwnerName();
+	
+	this->saveAddress.setName(str);
+	this->saveAddress.GiveTeacherALife();
+	
+	try {
+		file.open(saveAddress.getCompleteAddress(), ios::out | ios::binary|ios::in);
+		if (!file)
+		{
+			//打开文件失败，抛出异常
+			throw 978;
+		}
+		file.seekp(tt, ios::beg);
+		file.write((char*)&ST2, sizeof(ST2));
+		file.flush();
+	}
+	
+	catch (int goal)
+	
+	{
+		cout << "错误代码： " << goal << "  ";
+		cout << "教师课表文件保存失败，请检查路径是否非法！" << endl;
+		cout << "当前路径:  " << this->saveAddress.getCompleteAddress() << endl;
+		return 0;
+	}
+	
+	file.close();
+	
+	return 1;
+}
+
+
+```
+
+其他的询问和修改的函数都比较简单，在此不进行展示
+
+<div STYLE="page-break-after: always;"></div>
+
+
+<font size=5> **3. 获取产生记录时间戳并保存，需要时转化为标准时间**
+</font>
+
+
+<font color=8470FF size =5>整体介绍使用方案</font>
+
+<font color=1E90FF size=4>
+
+我们都知道，交易记录，收银记录中一个重要的信息是记录生成的时间，这样记录才会有可靠性，才不至于因为时间的原因而产生不必要的纠纷，为此，我在Record这个基类里边用一个int型的变量记录了这个事件发生的时间，并在向屏幕展示的时候转换为标准的时间个格式。</font>
+
+下面展示实现此项功能的源代码
+
+1. 获取时间戳 
+```C++
+
+Record::Record(Manager &obj ):operatorManager(obj)
+{
+	//获得时间戳
+
+	time_t now;
+	int unixTime = (int)time(&now);
+	this->timeStamp = unixTime;
+}
+
+```
+
+2. 时间戳转换的函数  
+```C++
+
+string TimeStampToStandard(int a ) 
+
+{
+	//time_t now;
+	//int unixTime = (int)time(&now);
+	int unixTime = a;
+	time_t tick = (time_t)unixTime;
+
+	struct tm tm;
+	char s[100];
+	tm = *localtime(&tick);
+
+	strftime(s, sizeof(s), "%Y-%m-%d %H:%M:%S", &tm);
+	
+	string Standard(s);
+
+	return Standard;
+
+}
+
+```
+<div STYLE="page-break-after: always;"></div>
+
+<font size=5> **4. 使用了从屏幕获取字符串并不显示处理的函数**
+</font>
+
+<font size=4 color =1E90FF>
+我们都知道，在输入密码的时候，输入在屏幕上之后不想让周围的人看到而增加保密性，于是，我利用_getch()这个内置函数，它具有获取字符而不显示在屏幕上的功能，设计出了下面这个函数。基本能够做到现在的输入密码显示星号的功能。
+
+</font>
+
+<br>
+
+</br>
+
+```C++
+string getStringWithoutShow()
+
+{
+	int i = 0;
+	char ch,password[30];
+	while ((ch = _getch()) != '\r')
+	{
+		if (ch == '\b' && i > 0)
+		{
+			printf("\b \b");    //结束则不再输出星号
+			i--;
+		}
+		else
+		{
+			password[i++] = ch;
+			cout << '*';
+		}
+	}
+	password[i] = '\0';
+
+	string pass(password);  //转换为字符串
+	cout << endl;
+	return pass;			//返回这个字符串
+}
+```
+
+<font size=5>
+
+<div STYLE="page-break-after: always;"></div>
+
+**5. 修改学生姓名的同时修改学生姓名命名的文件**
+
+</font>
+
+<font size=4 color =8470FF>
+这个的原理和目的都很容易理解，就是在修改学生信息的时候修改学生的姓名，如果不对文件名进行更新，会造成内部信息和文件名不一致的情况，因此要维护人员信息和文件名的一致性，调用了重命名的函数，rename，这样就实现了这个功能，要注意的是必须关闭文件，再对文件重命名。
+
+
+</font>
+
+这里以修改学生姓名为例，进行源代码的展示
+
+```C++
+bool OperateSTD::updateStudentInfo(string  STDname) 
+{
+	
+	saveAddress.setName(STDname);
+	
+	fstream file(saveAddress.getCompleteAddress(), ios::in | 
+	ios::binary|ios::out);
+	
+	if (!file)
+	{
+	
+		cout << "学生信息文件打开失败，请检查路径和姓名是否正确！" << endl;
+	
+		cout << "当前的路径是 " << saveAddress.getCompleteAddress() << endl;
+	
+		return 0;
+	}
+
+	file.read((char*)&stud, sizeof(stud));
+	
+	getChangeInfo();
+	
+	if (catchElection())		//如果更新了学生姓名，就更新一下文件名 
+	{   
+		file.close();
+	
+		STDInfo PreAddress = this->saveAddress;
+	
+		this->saveAddress.setName(this->stud.getName());
+		
+		if (rename(PreAddress.getCompleteAddress().c_str(), 
+		
+		this->saveAddress.getCompleteAddress().c_str()) < 0) 
+		{
+			cout <<"Warning 文件更名失败"<<endl;
+			cout << "原文件位置是  " << PreAddress.
+			
+			getCompleteAddress() << endl;
+
+			cout << "新文件位置是  " << this->saveAddress.
+			
+			getCompleteAddress() << endl;
+			cout << "请根据提示进行手动修改文件名称 ,感谢您的理解和配合！" << endl;
+			
+			file.open(PreAddress.getCompleteAddress(), ios::in | 
+			ios::binary | ios::out);
+			
+			file.seekp(0, ios::beg);  //指针调到开头
+			
+			file.write((char*)&stud, sizeof(stud)); // 写入修改后的信息
+			
+			file.close();
+			
+			cout << "Success  学生信息修改成功" << endl << endl;
+			
+			return 1;
+		}
+		
+		file.open(saveAddress.getCompleteAddress(), ios::in | ios::binary | ios::out);
+	}
+		
+		file.seekp(0, ios::beg);  //指针调到开头
+		
+		file.write((char*)&stud, sizeof(stud)); // 写入修改后的信息
+		
+		file.close();
+		
+		cout << "Success  学生信息修改成功" << endl<<endl;
+		
+		return 1;
+}
+
+```
+
+<div STYLE="page-break-after: always;"></div>
+
+
+<font size=5> **6. 其他一些小的技巧和操作**
+</font>
+
+
+<font size=4 color =8470FF>
+
+除了上边展示了源码的算法，其他值得一提的东西还有两个，这两个虽然功能没有那么强大，但是设计的时候我还是花了不少时间的。
+
+</font>
+
+<font size=4 color=1E90FF>
+第一个是储存当前人员最大ID号码的文件，我最终选择的是读取到最后一个数字，然后在最后放加上一的方式进行保存。
+第二个是储存首页登录密码的文件，刚开始选用的是分行记录密码，然后直接读取，但是会有不确定因素的影响，而且可能和用户名不对应，我最后选择了用“#”号键进行分割，把用户名和密码储存在一行，用getline进行读取，以“#”为停止的分隔符号。
+</font>
+
+<br>
+</br>
+
+<font size=5 color=8470FF>具体代码展示</font>
+
+1. 更新获取ID的函数
+
+```C++
+
+bool PeoNum::getNum() 
+{
+	int goal=-1;
+
+	try
+	{
+		fstream file(completeFile, ios::in);
+	
+		if (!file)
+		{
+			throw 958;
+		}
+	
+		while (!file.eof()) 
+		{
+			file >> goal;
+		}
+		
+		file.close();
+	
+		setNowNum(goal);
+	
+		update(goal);
+		return 1;
+	}
+
+	catch (int goal) 
+	
+	{
+	
+		if (goal == 958)
+	
+		{
+	
+			cout << "PeoNum文件打开异常！" << endl;
+			cout << "是否进行重置？Y or N ？" << endl;
+	
+			string catcher;
+			cin >> catcher;
+	
+			if (catcher[0] == 'Y') 
+			{
+	
+				cout << "请输入当前最大ID" << endl;
+	
+				try 
+	
+				{
+					register int a,b=1;
+	
+					cin >> a;
+	
+					b=setFile(a);
+					if (!b) 
+					{
+						throw 955;
+					}
+				}
+	
+				catch (int goal) 
+	
+				{
+					cout << "操作异常，错误代码是" << goal << endl;
+				}	
+	
+			}			
+	
+		}
+	
+	}
+	
+	return 0;
+}
+
+void PeoNum::update(int a) 
+{
+	a++;
+	fstream file(completeFile, ios::app);
+	file << a << endl;
+	file.close();
+}
+
+```
+
+<div STYLE="page-break-after: always;"></div>
+
+2. 储存登录账户密码的函数
+
+```C++
+bool saveAccount(string name, string password) 
+
+//保存账户说明：前方结尾是回车
+//密码在前，账户名在后，中间 “#” 隔开
+//最后有换行符
+
+{
+	string  fileAddress = "E:\\VisualStudio\\Data\\";
+	string fileName = "password.txt";
+	string file = fileAddress + fileName;
+	
+	char na[20], pa[30];
+	
+	strcpy_s(na, name.c_str());
+	strcpy_s(pa, password.c_str());
+	
+	ofstream f(file, ios::out|ios::app);
+	
+	if(!f)
+	{
+		cout << file << " can't be opened !" << endl;
+		system("pause");
+		return 0;
+	}
+	
+	f << pa;
+	
+	f.put('#');
+	f << na;
+
+	f.put(10);
+	
+	f.close();
+	
+	return 1;
+}
+
+```
+
+<br>
+</br>
+
+<font color = 8470FF size=4> 到这里，特色算法的介绍就结束了，总的来说没有用到什么实质性的经典算法，也可能是我对算法的理解上有一些偏差，但是上述的这些原创性的设计也激发了我对一些更优秀的模型和算法的兴趣，也想在下次专业课的课程设计中用到一些真正的算法。
+
+</font>
+
+
+<div STYLE="page-break-after: always;"></div>
 
 
 
+<center>
+
+## G 存在问题的不足与对策
+
+</center>
+
+<font color = 8470FF size=5> 开始前的一些说明  </font>
+
+由于开发者能力一般，加上时间和精力有限，最终成型的状元阁管理系统与初期设想的系统有一些差别，主要体现在一些功能不够完善，界面不够友好，可移植行不完备几个方面。下面对具体的一些问题作出说明并提供解决方案。
+
+<br>
+</br>
+ 
+### 问题1  : 没有实现图形化界面
+<font color=4B0082 size=5 >
+<br>
+</br>
+问题描述 : 
+</font>
+<br>
+</br>
 
 
 
+现在的程序处于一个很简陋的Dos界面，虽然我尽力制作出友好的界面，但是和其他软件炫酷的页面比起来差距是非常大的。即使我对默认的窗口进行了大小和字体颜色的调整，仍不能弥补这个问题。
 
 
+<font color =1E90FF size=5>
+解决方案 :
+</font>
+<br>
+</br>
+
+<font color =1E90FF size=4>
+说起图形化界面这个问题，刚开始轰轰烈烈的设想确实做了不少，查阅了一些资料，开始学习MFC，但是过来一段时间发现MFC不仅很繁琐，而且从做GUI来说已经过时了，于是放弃了MFC，改用Qt。配置了Qt Creater环境，学习了从VS里边做Qt工程，做了几个Demo以后发现我的审美不足以支持我继续做下去，而且这时候程序的主体部分还处在初期的构建中，就放下了GUI这个设想，一心投入到了架构设计和功能开发上来.
+<br>
+</br>
+解决图形化这个问题其实不难，只要一些时间的投入，参考一些做的比较漂亮的页面，在当前设计的Menu类（菜单显示类）中的所有子类添加相应的呼叫窗口即可，把现在的输入命令改成选项，捕捉鼠标或者键盘信息，再发送给已有的命令处理器就可以实现相应的功能.
+
+总的来说，学会使用GUI的接口就能解决图形化这个问题。
+</font>
+<br>
+</br>
+
+<div STYLE="page-break-after: always;"></div>
+
+
+### 问题2  : 没有实现Excel储存课表
+
+<font color=4B0082 size=5 > 
+<br>
+</br>
+问题描述 : 
+</font>
+<br>
+</br>
+
+同样的问题，同样的要用MFC，在配置寻找本机的接口的时候发生了一些问题，连接失败，而且看起来操作Excel没有那么容易。没有Excel的储存课表显得没有那么高大上了。
+
+
+<font color =1E90FF size=5>
+解决方案 :
+</font>
+<br>
+</br>
+
+<font color =1E90FF size=4>
+
+就当前的版本来讲，我采用了退而求其次的方法，用csv文件(逗号分隔值（Comma-Separated Values，CSV)文件来储存可视化的课表，因为csv文件可以用Excel打开，所以看起来还可以。
+
+在运用和操作Excel来说，我要学会是使用C++程序操作Excel后再对其进行相应的改造。
+</font>
+
+<br>
+</br>
+<br>
+</br>
+
+
+### 问题3 : 没有实现文件的加密和备份
+
+<font color =480082 size=5>
+问题描述 :
+</font>
+
+<br>
+</br>
+
+在初期的构思中，我本想把重要的信息进行备份，比如收银记录或者收支信息。但是最终没有实现这个功能，因为没有找到一个合适的加密算法进行应用。
+
+<font color =1E90FF size=5>
+解决方案 :
+</font>
+<br>
+</br>
+
+<font color =1E90FF size=4>
+
+进行备份这个问题比较容易解决，只要在文件中添加一个储存路径即可。但是关于加密，解决这个问题的方案我还没用想清楚，如果搬运一个现有的加密算法，就会造成不安全因素，自己设计加密算法，目前没有相关的知识积累。如果必须解决这个问题的话，还是得从现有的算法中选择一个，直接对存入文件的数据进行处理。然后需要时在用解密算法进行解密。
+
+
+</font>
+
+
+<div STYLE="page-break-after: always;"></div>
+
+### 问题4 : 一些小功能没有实现
+
+<font color =480082 size=5>
+问题描述 :
+</font>
+
+<br>
+</br>
+
+总体上来讲，程设实现了绝大部分的预期功能，但是一些小的、能让系统生成的文件可视化效果更好的功能没有来得及添加。在这里总结一下:
+
++ 收银记录、教学事故记录、店内流水账记录生成csv文件，以便查阅
++ 店内总收支的情况生成账单方便核对
++ 教师工资表直接生成可以打印的Excel文件
++ 通过学生ID查询学生个人信息和课表信息
++ 通过课表ID查询课表
++ 生成课表时显示课表的ID
++ 学生退课和换教师的功能
++ 学生意见反馈的功能
++ 退费并支出的功能
+
+
+<font color =1E90FF size=5>
+解决方案 :
+</font>
+<br>
+</br>
+
+<font color =1E90FF size=4>
+
+这些功能都非常具有可行性，因为已经在框架设计时已经考虑了这些功能，对他们的实现预留了充分的接口。只需要对现有模块的一些功能进行组合即可。比如ID查询，只需要一个map把ID和学生姓名对应起来即可，这样就能实现通过ID查询。再比如生成csv文件，只要仿照生成课表的csv文件进行输出即可。
+总的来说，只要有哪些功能上的硬性需求，修改或者添加起来并不困难。
+
+</font>
+
+
+<div STYLE="page-break-after: always;"></div>
+
+<center>
+
+## H 开发的心得与体会
+
+</center>
+
+
+为了准备这一部分的文件，我在前期做了大量的准备工作，每天坚持写开发日志，到目前为止，有效开发天数已经到了25天（有的一个阶段算到了一天里，比如一个构思周期），有效开发时长196小时，这份文档里边记录了开发过程的点点滴滴，作为我的处女座，我觉得这样的记录是很好的方式。不管以后我是否能成为一个合格的计算机行业的从业者，我的第一份开发日志，第一份作品都将是我宝贵的财富，尽管她看起来很幼稚而且漏洞百出。
+
+
+请允许我首先把这本开发日志的链接放在这里----[状元阁管理系统开发日志](https://github.com/Flaoting/vscode/blob/master/cpp/文档/开发记录.md)
+
+<br>
+</br>
+
+
+<font color=8470FF size=5>
+
+第一部分 从遇到的问题中谈谈谈编程的体会
+
+</font>
+这里我遇到的问题可谓是五花八门，从刚开始的语法问题，多文件组织问题，string类错误的存入文件的问题，到后来的头文件循环包含问题，文件读出失败问题，每次解决一个新问题都是一次成长。下面我从遇到的问题来谈谈开发体会。
+
+<br>
+</br>
+
+<font color=8470FF size=5>
+1. string类直接存入文件
+</font>
+
+我曾把string直接当做一个类的数据成员，然后把这个类存入文件，再次读出这个文件的时候，遇到了内存泄漏的问题。我查找了这个STL里的string的实现方式，发现底层是数组加指针的实现，在析构时，由于存入的指针失去了应有的效果，内存的释放失败，出现了意想不到的问题。
+
+<font color=1E990FF size =4 >
+体会 : 在不了解一个模板或者函数之前使用它遇到任何问题都是可能的，了解他的底层实现原理，对解决问题很有帮助。
+</font>
+
+<br>
+</br>
+
+
+
+<font color=8470FF size=5>
+2. 头文件循环包含
+</font>
+
+这个问题我真是记忆犹新啊，这是在一天的半夜发生的，我增加一个类中的成员函数，然后编译运行的时候发现VS突然疯狂报错60多个，我在Stack Overflow上发现一句话适合形容这个情况 " My IDE went crazy ”。当晚没有解决，第二天上午我查询了大量的资料，查询错误代码，从百度，必应，CSDN等各种引擎和平台上进行搜索，都没有成功解决问题，直到我决心从google引擎上进行搜索，十分钟解决了问题，是Class A包含了Class B，Class B 中包含了Class A。这样就造成了编译器不知道干什么的问题。发生崩溃的情况。
+
+
+<font color=1E990FF size =4 >
+体会 : 这次事故的本身其实没有多大参考价值，但是解决方式和发生的原因值得我仔细的进行总结。首先是解决问题的方式，要善用google，不能局限于中文的搜索引擎，不能惧怕英文的搜索结果。其次是发生的原因，这里发生的根本原因是类的设计有一些缺陷，所以导致了头文件需要互相包含的问题。
+</font>
+
+
+<br>
+</br>
+
+
+<div STYLE="page-break-after: always;"></div>
+
+<font color=8470FF size=5>
+
+第二部分 用鸡汤文的形式分享一些体会
+
+</font>
+
+
+<br>
+
++ 原来我以为编程就是写代码，现在发现会写代码就像会写字，从会写字到作文拿高分，是一个漫长而且需要一定天赋的过程
+
+<br>
+
++ 使用合适的开发环境非常重要，用一个界面不友好，甚至本身有漏洞的IDE进行开发是一件极其痛苦的事情
+
+<br>
+
++ 使用git管理自己的代码仓是一件很幸福的事情，每天晚上写完代码或者取得一些进展的时候使用git进行提交很有成就感，而且方便版本的回退
+
+<br>
+
++ 用github备份自己的代码觉得很安全，不会出现丢失了文件的问题
+
+<br>
+
++ 用的部件越复杂越高端，当使用出现了问题的时候就越想知道他的底层发生了什么，是怎么实现的，这也可能是我们专业课程安排逻辑的道理所在
+
+<br>
+
++ 原来不了解架构工程师为什么薪资那么高，现在自己写了工程发现这是有原因的，一个不良的设计会带来大量的问题，设计实在是个重要的部分
+
+<br>
+
++ 当写代码遇到障碍的时候，不妨关了电脑，拿出几张纸，画画自己的思路，这样就能让自己清晰起来。
+
+<br>
+
++ 只要前期设计的逻辑清晰，后期的代码实现就是手到擒来
+
+<br>
+
++ 编写的代码越多，出现的语法问题就会越少
+
+<br>
+
++ Life is too short to learn C++
+
+
+<div STYLE="page-break-after: always;"></div>
+
+
+<font color=8470FF size=5>
+
+第三部分 最后的一些总结
+
+</font>
+
+<font color=1E990FF size =4 >
+
+
+总的来说，这次课设收获满满。了解了一定工程设计的概念和方法，熟练掌握了C++的基础语法，基本具备了面向对象编程的思想，提升了调试代码的能力，学会了不用调试器人脑调试的方法，提升了搜索并解决问题的能力，获得了快速学习使用新工具的技能，能够使用git及github的基础功能，优雅的使用Mardown撰写报告的能力。除此之外，现在还能快速理解别人代码并帮他们dubug，以及颈椎病和强大的抗压能力。
+
+我想学习本应该就是这样，通过实际的东西来学习，在实践中学习，在实践中成长，在实践中遇到问题并解决他们，在一部豆瓣评分很高的电影中我看到这样的台词。
+
+
+"We will study with all our heart, but not just for grades."
+
+我们要用心学习，而不是只为求个分数
+
+"Follow excellence, and success will chase you, pants down"
+
+以优秀自律，成功自会追随你而来
+
+</font>
+
+
+
+<div STYLE="page-break-after: always;"></div>
+
+
+<center>
+
+## I 状元阁管理系统使用说明书
+
+</center>
+
+<font color=8470FF size=5>
+
+第零部分 快速配置使用状元阁管理系统。
+
+</font>
+
+1. 在E盘下建立一个文件夹 VisualStudio 
+2. 把压缩包里以Data命名的文件夹放到Visual下面
+3. 启动.exe 程序进行使用
+4. **初始授权码**dongdong
+5. **初始管理员账号**floating
+6. **初始管理员密码**1234567 
+7. 在三个菜单里输入**命令为0时**返回上一菜单
+8. 初始教师名字 "小飞" "小明"
+9. 初始学生 "启明" "白帆"
+### 如果配置不成功，可能造成程序无法使用的情况
+
+<br>
+</br>
+
+<div STYLE="page-break-after: always;"></div>
+
+<font color=8470FF size=5>
+
+第一部分 设置文档的储存位置
+
+</font>
+
++ 这里的文件夹配置我一并放在了打包的文件里，只要按照上面的步骤放进去就好了
++ 关于文件夹功能的说明，请先看一张图,这张图里的文字可能看不太清楚，于是我把原图一并打包了。
+
+![folder](Folder.png)
+
+先说一下大体结构
+
+Data
+  + Config(配置文件夹)
+    + ClassPrice(课程单价文件)
+  + STDInfo(学生信息文件夹)
+  + TEAInfo(教师信息文件夹)
+  + TABInfo(课表文件夹)
+    + DataTable(二进制课表文件夹)
+    + VisionData(可视化课表文件夹)
+    + 课表ID文件
+  + PerInfo(人员总信息文件夹)
+    + ManagerInfo(管理员信息文件夹)
+    + 学生总信息文件
+    + 教师总信息文件
+    + 人员ID文件
+  + Record
+    + 三种记录的总文件
+  + 登录密码文件
+
+各种文件的功能大多见名知意，需要打开文件夹来查询的只有生成的课表文件，可以打开来直接查看，其余文件不可打开。（这里为了方便起见，ID文件和密码文件都设置为txt文件，方便可视化的修改）
+
+
+<div STYLE="page-break-after: always;"></div>
+
+<font color=8470FF size=5>
+
+第二部分 外部功能的使用说明
+
+</font>
+
+![login](登录菜单.png)
+
+**这里要输入的登录密码从下列密码中任选其一**
++ 1234567
++ 7654321
++ 12345
++ 54321
+
+**初始的经营者授权码是**
+
++ dongdong
+
+<div STYLE="page-break-after: always;"></div>
+
+
+![MainMenu](主菜单.png)
+
+
+这里的主菜单是可以在学生及学生家长面前使用的功能，有几点问题要说明一下
++ 学员订课要先添加学生和老师的个人信息
++ 生成课表时生成上述的csv课表文件
++ 除了某些查询操作和生成课表，都需要登录管理员后再进行使用
++ 教师风采现在是连接到这个项目的github上，目前没有教师介绍的网页可以打开
+
+<div STYLE="page-break-after: always;"></div>
+
+<font color=8470FF size=5>
+
+第三部分 内部功能的使用说明
+
+</font>
+
+![InsideMenu](内部功能菜单.png)
+
++ 注册管理员的授权码和上述授权码一致
++ 某些操作可能需要二次输入当前管理员的个人密码，注意是管理员密码（初始为1234567），而非登录程序的密码
++ 其他功能就是字面陈述的意思
+
+
+<font color=8470FF size=5>
+
+<div STYLE="page-break-after: always;"></div>
+
+
+第四部分 管理功能的使用说明
+
+</font>
+
+
+![manager](管理菜单.png)
+
++ 配置的文件中已经对课程单价初始化，若想运用此项功能请手动删除删除目录中的ClassPrice文件再进行初始化
++ 修改文件储存位置的功能尚未实现，正处于测试期，上交的版本不支持此项功能
++ 其他功能按照提示输入即可
+
+
+<font color=8470FF >最后的一些话
+
+虽然开发者处理了所有能够想到和遇到的异常，但是逻辑漏洞和程序bug是一定会存在的，所以请使用此系统是按照提示的方式进行操作和命令，如果与其背道而驰，那么可能造成我们都无法预料到的结果
+
+最后放上程序的源代码 ，代码按照文件的字母表顺序进行排序

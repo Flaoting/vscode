@@ -382,6 +382,7 @@ code {
 <br>
 <br>
 <br>
+<br>
 <p>班级 1619103</p>
 <p>学号 161910322</p>
 <p>姓名 潘佳辉</p>
@@ -1098,6 +1099,7 @@ code {
 };
 
 </div></code></pre>
+<div STYLE="page-break-after: always;"></div>
 <ol start="3">
 <li>Class OperateSTD</li>
 </ol>
@@ -1885,9 +1887,9 @@ code {
 <li>传入违规代码转换为具体的违规事项是一个简单的解码</li>
 <li>转换课程类型也是代码和字符串对应的关系</li>
 </ol>
+<div STYLE="page-break-after: always;"></div>
 <center>
 <h2 id="f-%E6%AF%94%E8%BE%83%E6%9C%89%E7%89%B9%E8%89%B2%E7%9A%84%E7%AE%97%E6%B3%95">F 比较有特色的算法</h2>
-<div STYLE="page-break-after: always;"></div>
 </center>
 <font color =8470FF size =5 >
 <p>介绍前的一些话
@@ -1900,16 +1902,15 @@ code {
 <font color =8470FF size =5 >
 开始进行矮子里边拔将军--程序里特色算法的介绍
 </font>
+<div STYLE="page-break-after: always;"></div>
 <br>
 </br>
-<ol>
-<li>
-<p>使用了STL标准模板库</p>
+<p><font size=5 ><strong>1. 使用了STL标准模板库</strong> </font>
+<br>
+</br></p>
 <ul>
 <li>在课表内记录课程时，Lesson的容器运用了STL中的<strong>优先队列</strong></li>
 </ul>
-</li>
-</ol>
 <pre class="hljs"><code><div>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Table</span> :</span> <span class="hljs-keyword">public</span> FatherTable
     <span class="hljs-comment">//这是一个优先队列，存放课程</span>
@@ -1920,45 +1921,34 @@ code {
 <p>优先队列STL中封装了优先队列（priority_queue）这种结构，它和普通队列的区别是：普通的队列是一种先进先出的数据结构，元素在队列尾部追加，从队列头删除。而在优先队列中，元素被赋予优先级。当访问元素时，具有最高优先级的元素最先删除。优先队列具有最高级先出（first in,largest out)的行为特征。为此我重载了Lesson的小于号运算符</p>
 <pre class="hljs"><code><div>
 <span class="hljs-keyword">bool</span> Lesson::<span class="hljs-keyword">operator</span> &lt;(<span class="hljs-keyword">const</span> Lesson&amp; obj)<span class="hljs-keyword">const</span>
-
-	<span class="hljs-comment">//这个很重要，为了避免使用比较函数</span>
 	<span class="hljs-comment">//这里把小于号重载为大于号，就能在Table里边实现小根堆</span>
 	<span class="hljs-comment">//从而实现可变的排列顺序是从小日期到大日期</span>
-
 {
 	<span class="hljs-keyword">int</span> a = year - obj.year;
-
 	<span class="hljs-keyword">if</span> (a &gt; <span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
 	<span class="hljs-keyword">if</span> (a &lt; <span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-	
 	<span class="hljs-keyword">if</span> (a == <span class="hljs-number">0</span>) 
 	{
 		<span class="hljs-keyword">int</span> b = month - obj.month;
-		
 		<span class="hljs-keyword">if</span> (b &gt; <span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
 		<span class="hljs-keyword">if</span> (b &lt; <span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-		
 		<span class="hljs-keyword">if</span> (b == <span class="hljs-number">0</span>) 
 		{
 			<span class="hljs-keyword">int</span> c = day - obj.day;
-		
 			<span class="hljs-keyword">if</span> (c &gt; <span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
-			
 			<span class="hljs-keyword">if</span> (c &lt; <span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-			
 			<span class="hljs-keyword">if</span> (c == <span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 		}
 	}
-
 	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>-&gt;ordinalNumber &gt;= obj.ordinalNumber) 
 		<span class="hljs-comment">//课程节数的比较，效地在前，不理解看上一条注释	</span>
 	{
 		<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
 	}
-	<span class="hljs-comment">//否则都是返回0</span>
 	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 }
 </div></code></pre>
+<div STYLE="page-break-after: always;"></div>
 <ul>
 <li>
 <p>使用了STL标准模板库中的map，进行通过键值查找Value的操作</p>
@@ -1991,12 +1981,9 @@ code {
 <li>生成一个代号和课程单价对象的map并返回，便于外部的利用</li>
 </ul>
 <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-built_in">map</span>&lt;<span class="hljs-keyword">int</span>, ClassPrice&gt; <span class="hljs-title">ConClassPrice::getMapFromCon</span><span class="hljs-params">()</span> 
-
 </span>{
-
 	<span class="hljs-function">ConfigInfo <span class="hljs-title">CF</span><span class="hljs-params">(<span class="hljs-string">"ClassPrice"</span>)</span></span>;<span class="hljs-comment">//产生文件储存路径</span>
 	ifstream file;
-
 	file.<span class="hljs-built_in">open</span>(CF.getCompleteAddress(), ios::in | ios::binary);
 
 	<span class="hljs-keyword">if</span> (!file)
@@ -2004,7 +1991,6 @@ code {
 		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"ClassPrice文件打开失败，请检查路径是否存在"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
 		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"当前路径 :  "</span> &lt;&lt; CF.getCompleteAddress();
 	}
-
 	<span class="hljs-built_in">map</span>&lt;<span class="hljs-keyword">int</span>, ClassPrice&gt; MAP;    <span class="hljs-comment">//生成课程代码与单价的map</span>
 
 	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">6</span>; i++) 
@@ -2017,9 +2003,803 @@ code {
 
 }
 </div></code></pre>
-<ol start="2">
-<li></li>
+<br>
+</br>
+<div STYLE="page-break-after: always;"></div>
+<p><font size=5> <strong>2. 实现了双向维护同一信息以保持信息的一致性</strong>
+</font></p>
+<br>
+</br>
+<font color = 8470FF size=5 > 讲这个算法之前要说一点具体的需求信息
+</font>
+<br>
+</br>
+<font color=1E90FF size=4>
+<p>在这个机构中，教师和学生课表关系的维护是最耗费管理员精力的事情，举个例子来讲，老师小飞有五个学生，学生启明有三个老师，这里我们忽略科目这个信息，这样一来，每个学生和老师都要有自己的课表，而且要每个对应的课表要保持一致，倘若没有修改修改的需求，单纯的储存还是比较容易满足的，只要在学生订课时把课表进行一份拷贝，修改表格的拥有者，就可以实现这个需求。但是增加了修改的需求以后，我们已经把订课时的信息丢失了，只能从姓名这个键值进行文件的查找，就像人工修改一样，只能找到老师的课表，修改，找到学生的课表，修改。这样就失去了这个系统设计的初衷--减小管理人员的管理压力。于是我冥思苦想，今天吃不下饭睡不好觉。
+</font></p>
+<br>
+</br>
+<p><font color=8470FF size=5 > 现在说说我的解决方案 </font></p>
+<font size=4>
+<p>我在一个失眠的晚上想出了一个自认为巧妙的解决方案，这让我本来就睡不着的我更加兴奋了，这个方案就是<strong>在课表中记录与课表拥有者组合的信息</strong></p>
+<p>在订课时就把拥有着信息和配对组合者的信息互换，比如学生启明订了教师小飞的课，启明的课表中就记录了小飞的信息，进行存储的时候，就把着这两个信息互换，把这个课表存入教师小飞的课表文件中。同样的，在课表进行修改时，一般这个需求都是由老师提出的，就是把老师姓名作为键值出发，找到教师课表中的相应的某节课，然后读出这个Table对象，进行修改，修改的方式很简单，往优先队列里边推入，删除也很简单，只要再开出一个优先队列，像数鸭子时把鸭子从一边赶到另一边，然后把想要的鸭子找出来，删除即可。修改课程时间实际上就是先删除一节课，再增加一节课。<strong>然后最重点的部分到了</strong>，如何把这个修改同步到学生的课表文件中？</p>
+<p>在一个没有午睡的中午，我缓缓的整理了一下设计思路，发现通过课表中记录的组合姓名可以作为查找的依据，我立刻写出了代码，然后开始进行测试，这个时候我偷了一个懒，<strong>没有添加很多的教师和学生</strong>，也正是因为这个举动，<strong>我发现了这个方法的bug</strong>，如果一个老师和学生有不只一门的对应教学组合，比如小飞既教启明的数学，又教他的物理，<strong>然后这两人的课表文件就会有类似Hash冲突的事情发生，因为只通过姓名查找的方式不能区别两个课表谁是谁，就会造成混乱发生。</strong></p>
+<div STYLE="page-break-after: always;"></div>
+<p>我们想接下来的解决方案，可以把这两个课表进行合并，但是上课的时间和科目在一个课表对象中只能维护一个值，这样就会造成不知道上哪节课情况，比如上述的数学在第二节课，物理在第三节课，合并以后没办法吧课程时间确定出来。</p>
+<p>最终我采取了一个不高明的解决方案，就是把课表的成员里边加上一个ID，这样个唯一的ID值就能对课表进行识别了。</p>
+<p>说道这里不知道您是否能理解这个思路，那我加张图说明一下。</p>
+<p><img src="suanfa2.png" alt="算法关系"></p>
+<br>
+</br>
+<p><font color=8470FF> 总结一下来说这部分就是找到了一个在需求中最让人挠头的问题，实际发挥了这个系统减轻管理人员压力的作用。</font></p>
+<p><font color = 1E90FF> 下面进行源代码展示</font></p>
+<div STYLE="page-break-after: always;"></div>
+<ol>
+<li>调用的总模块</li>
 </ol>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">OperateTable::updateThisTable</span><span class="hljs-params">()</span>
+</span>{
+	system(<span class="hljs-string">"cls"</span>);
+	<span class="hljs-built_in">string</span> TEAName;
+	<span class="hljs-keyword">int</span> cnt = <span class="hljs-number">1</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"*************************************************************"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"\t修\t改\t课\t表"</span> &lt;&lt; <span class="hljs-built_in">endl</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"请输入教师姓名 :  "</span>;
+	<span class="hljs-built_in">cin</span> &gt;&gt; TEAName;
+	<span class="hljs-keyword">bool</span> flag=<span class="hljs-literal">false</span>;
+	<span class="hljs-keyword">while</span> (readPreFile(TEAName,cnt))
+	{		
+		<span class="hljs-keyword">if</span> (!checkIsThisTable())  <span class="hljs-comment">//询问是否修改这个课表</span>
+		{
+			
+			<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+			cnt++;
+			<span class="hljs-keyword">this</span>-&gt;table.clearThisTable();
+			<span class="hljs-keyword">continue</span>;
+		}
+		<span class="hljs-keyword">if</span> (changeThisTable())			<span class="hljs-comment">//课表变更</span>
+		{
+			flag = <span class="hljs-number">1</span>;
+			
+			saveThisFile(cnt);					<span class="hljs-comment">//保存变更</span>
+			
+			<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"是否修改此位老师的其他课表？"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+			<span class="hljs-keyword">if</span> (!checkToContinue())
+			{
+				<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"修改课表操作完毕,请指示!!"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+				<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+			}
+		}
+		cnt++;
+	}
+	<span class="hljs-keyword">if</span> (!flag) 
+	{
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+	}
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+}
+
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="2">
+<li>查询当前的课表在学生课表中的第几个位置</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">OperateTable::checkHowLongBelonging</span><span class="hljs-params">(Table TEATab)</span> 
+</span>{
+	<span class="hljs-comment">//传入的参数是修改后老师课表的一份拷贝</span>
+	<span class="hljs-built_in">string</span> STDName,TEAName;
+	
+	STDName = TEATab.getTheOtherName();		<span class="hljs-comment">//获得学生姓名</span>
+	<span class="hljs-keyword">int</span> thisID = TEATab.getTableID();
+	<span class="hljs-keyword">int</span> cnt = <span class="hljs-number">1</span>;
+	<span class="hljs-keyword">bool</span> flag = <span class="hljs-number">0</span>;
+
+	<span class="hljs-keyword">while</span> (readPreFile(STDName, cnt))
+
+	{
+		<span class="hljs-keyword">int</span> temID;
+		temID = <span class="hljs-keyword">this</span>-&gt;table.getTableID();
+		<span class="hljs-keyword">if</span> (thisID==temID)
+		{
+			flag = <span class="hljs-number">1</span>;
+			<span class="hljs-keyword">return</span> cnt;
+		}
+		cnt++;
+	}
+
+	<span class="hljs-keyword">if</span> (!flag) 
+	{
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"查找howlong失败"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<span class="hljs-comment">//没有找到则返回-1</span>
+	}
+}
+
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="3">
+<li>保存修改后的课表</li>
+</ol>
+<pre class="hljs"><code><div>
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">OperateTable::saveThisFile</span><span class="hljs-params">(<span class="hljs-keyword">int</span> ruler)</span> <span class="hljs-comment">//调用这个的是教师的课表，教师名字在前</span>
+</span>{
+	<span class="hljs-function">Table <span class="hljs-title">objTab</span><span class="hljs-params">(<span class="hljs-keyword">this</span>-&gt;table)</span></span>;
+	fstream file;
+	StoreTable ST1, ST2;
+	
+	ST1.buildStoreTable(<span class="hljs-keyword">this</span>-&gt;table);
+	
+	<span class="hljs-keyword">try</span>
+	{
+		file.<span class="hljs-built_in">open</span>(saveAddress.getCompleteAddress(), ios::out | ios::binary | ios::in);
+		<span class="hljs-keyword">if</span> (!file)
+		{
+			<span class="hljs-comment">//打开文件失败，抛出异常</span>
+
+			<span class="hljs-keyword">throw</span> <span class="hljs-number">978</span>;
+		}
+		short t = (ruler - <span class="hljs-number">1</span>) * <span class="hljs-keyword">sizeof</span>(ST1);
+		file.seekp(t, ios::beg);
+		file.<span class="hljs-built_in">write</span>((<span class="hljs-keyword">char</span>*)&amp;ST1, <span class="hljs-keyword">sizeof</span>(ST1));
+		file.<span class="hljs-built_in">flush</span>();
+	}
+
+	<span class="hljs-keyword">catch</span> (<span class="hljs-keyword">int</span> goal)
+	
+	{
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"错误代码： "</span> &lt;&lt; goal &lt;&lt; <span class="hljs-string">"  "</span>;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"教师课表文件变更失败，请检查路径是否非法！"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"当前路径:  "</span> &lt;&lt; <span class="hljs-keyword">this</span>-&gt;saveAddress.getCompleteAddress() &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+	}
+	
+	file.<span class="hljs-built_in">close</span>();
+	
+	<span class="hljs-keyword">int</span> howLong;
+	
+	howLong = checkHowLongBelonging(objTab);		<span class="hljs-comment">//现在里边是教师课表</span>
+	<span class="hljs-keyword">int</span> tt = (howLong - <span class="hljs-number">1</span>) * <span class="hljs-keyword">sizeof</span>(ST1);		<span class="hljs-comment">//获得偏移量	</span>
+	
+	objTab.ReviseTeamToSTD();
+	
+	ST2.setOtherName(objTab.getOwnerName());
+	ST2.buildStoreTable(objTab);
+	
+	<span class="hljs-built_in">string</span> str = objTab.getOwnerName();
+	
+	<span class="hljs-keyword">this</span>-&gt;saveAddress.setName(str);
+	<span class="hljs-keyword">this</span>-&gt;saveAddress.GiveTeacherALife();
+	
+	<span class="hljs-keyword">try</span> {
+		file.<span class="hljs-built_in">open</span>(saveAddress.getCompleteAddress(), ios::out | ios::binary|ios::in);
+		<span class="hljs-keyword">if</span> (!file)
+		{
+			<span class="hljs-comment">//打开文件失败，抛出异常</span>
+			<span class="hljs-keyword">throw</span> <span class="hljs-number">978</span>;
+		}
+		file.seekp(tt, ios::beg);
+		file.<span class="hljs-built_in">write</span>((<span class="hljs-keyword">char</span>*)&amp;ST2, <span class="hljs-keyword">sizeof</span>(ST2));
+		file.<span class="hljs-built_in">flush</span>();
+	}
+	
+	<span class="hljs-keyword">catch</span> (<span class="hljs-keyword">int</span> goal)
+	
+	{
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"错误代码： "</span> &lt;&lt; goal &lt;&lt; <span class="hljs-string">"  "</span>;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"教师课表文件保存失败，请检查路径是否非法！"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"当前路径:  "</span> &lt;&lt; <span class="hljs-keyword">this</span>-&gt;saveAddress.getCompleteAddress() &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+	}
+	
+	file.<span class="hljs-built_in">close</span>();
+	
+	<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+}
+
+
+</div></code></pre>
+<p>其他的询问和修改的函数都比较简单，在此不进行展示</p>
+<div STYLE="page-break-after: always;"></div>
+<p><font size=5> <strong>3. 获取产生记录时间戳并保存，需要时转化为标准时间</strong>
+</font></p>
+<p><font color=8470FF size =5>整体介绍使用方案</font></p>
+<font color=1E90FF size=4>
+<p>我们都知道，交易记录，收银记录中一个重要的信息是记录生成的时间，这样记录才会有可靠性，才不至于因为时间的原因而产生不必要的纠纷，为此，我在Record这个基类里边用一个int型的变量记录了这个事件发生的时间，并在向屏幕展示的时候转换为标准的时间个格式。</font></p>
+<p>下面展示实现此项功能的源代码</p>
+<ol>
+<li>获取时间戳</li>
+</ol>
+<pre class="hljs"><code><div>
+Record::Record(Manager &amp;obj ):operatorManager(obj)
+{
+	<span class="hljs-comment">//获得时间戳</span>
+
+	<span class="hljs-keyword">time_t</span> now;
+	<span class="hljs-keyword">int</span> unixTime = (<span class="hljs-keyword">int</span>)time(&amp;now);
+	<span class="hljs-keyword">this</span>-&gt;timeStamp = unixTime;
+}
+
+</div></code></pre>
+<ol start="2">
+<li>时间戳转换的函数</li>
+</ol>
+<pre class="hljs"><code><div>
+<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">TimeStampToStandard</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a )</span> 
+
+</span>{
+	<span class="hljs-comment">//time_t now;</span>
+	<span class="hljs-comment">//int unixTime = (int)time(&amp;now);</span>
+	<span class="hljs-keyword">int</span> unixTime = a;
+	<span class="hljs-keyword">time_t</span> tick = (<span class="hljs-keyword">time_t</span>)unixTime;
+
+	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">tm</span> <span class="hljs-title">tm</span>;</span>
+	<span class="hljs-keyword">char</span> s[<span class="hljs-number">100</span>];
+	tm = *localtime(&amp;tick);
+
+	strftime(s, <span class="hljs-keyword">sizeof</span>(s), <span class="hljs-string">"%Y-%m-%d %H:%M:%S"</span>, &amp;tm);
+	
+	<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">Standard</span><span class="hljs-params">(s)</span></span>;
+
+	<span class="hljs-keyword">return</span> Standard;
+
+}
+
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<p><font size=5> <strong>4. 使用了从屏幕获取字符串并不显示处理的函数</strong>
+</font></p>
+<font size=4 color =1E90FF>
+我们都知道，在输入密码的时候，输入在屏幕上之后不想让周围的人看到而增加保密性，于是，我利用_getch()这个内置函数，它具有获取字符而不显示在屏幕上的功能，设计出了下面这个函数。基本能够做到现在的输入密码显示星号的功能。
+</font>
+<br>
+</br>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">getStringWithoutShow</span><span class="hljs-params">()</span>
+
+</span>{
+	<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">char</span> ch,password[<span class="hljs-number">30</span>];
+	<span class="hljs-keyword">while</span> ((ch = _getch()) != <span class="hljs-string">'\r'</span>)
+	{
+		<span class="hljs-keyword">if</span> (ch == <span class="hljs-string">'\b'</span> &amp;&amp; i &gt; <span class="hljs-number">0</span>)
+		{
+			<span class="hljs-built_in">printf</span>(<span class="hljs-string">"\b \b"</span>);    <span class="hljs-comment">//结束则不再输出星号</span>
+			i--;
+		}
+		<span class="hljs-keyword">else</span>
+		{
+			password[i++] = ch;
+			<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">'*'</span>;
+		}
+	}
+	password[i] = <span class="hljs-string">'\0'</span>;
+
+	<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">pass</span><span class="hljs-params">(password)</span></span>;  <span class="hljs-comment">//转换为字符串</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-keyword">return</span> pass;			<span class="hljs-comment">//返回这个字符串</span>
+}
+</div></code></pre>
+<font size=5>
+<div STYLE="page-break-after: always;"></div>
+<p><strong>5. 修改学生姓名的同时修改学生姓名命名的文件</strong></p>
+</font>
+<font size=4 color =8470FF>
+这个的原理和目的都很容易理解，就是在修改学生信息的时候修改学生的姓名，如果不对文件名进行更新，会造成内部信息和文件名不一致的情况，因此要维护人员信息和文件名的一致性，调用了重命名的函数，rename，这样就实现了这个功能，要注意的是必须关闭文件，再对文件重命名。
+</font>
+<p>这里以修改学生姓名为例，进行源代码的展示</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">OperateSTD::updateStudentInfo</span><span class="hljs-params">(<span class="hljs-built_in">string</span>  STDname)</span> 
+</span>{
+	
+	saveAddress.setName(STDname);
+	
+	<span class="hljs-function">fstream <span class="hljs-title">file</span><span class="hljs-params">(saveAddress.getCompleteAddress(), ios::in | 
+	ios::binary|ios::out)</span></span>;
+	
+	<span class="hljs-keyword">if</span> (!file)
+	{
+	
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"学生信息文件打开失败，请检查路径和姓名是否正确！"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"当前的路径是 "</span> &lt;&lt; saveAddress.getCompleteAddress() &lt;&lt; <span class="hljs-built_in">endl</span>;
+	
+		<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+	}
+
+	file.<span class="hljs-built_in">read</span>((<span class="hljs-keyword">char</span>*)&amp;stud, <span class="hljs-keyword">sizeof</span>(stud));
+	
+	getChangeInfo();
+	
+	<span class="hljs-keyword">if</span> (catchElection())		<span class="hljs-comment">//如果更新了学生姓名，就更新一下文件名 </span>
+	{   
+		file.<span class="hljs-built_in">close</span>();
+	
+		STDInfo PreAddress = <span class="hljs-keyword">this</span>-&gt;saveAddress;
+	
+		<span class="hljs-keyword">this</span>-&gt;saveAddress.setName(<span class="hljs-keyword">this</span>-&gt;stud.getName());
+		
+		<span class="hljs-keyword">if</span> (rename(PreAddress.getCompleteAddress().c_str(), 
+		
+		<span class="hljs-keyword">this</span>-&gt;saveAddress.getCompleteAddress().c_str()) &lt; <span class="hljs-number">0</span>) 
+		{
+			<span class="hljs-built_in">cout</span> &lt;&lt;<span class="hljs-string">"Warning 文件更名失败"</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+			<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"原文件位置是  "</span> &lt;&lt; PreAddress.
+			
+			getCompleteAddress() &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+			<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"新文件位置是  "</span> &lt;&lt; <span class="hljs-keyword">this</span>-&gt;saveAddress.
+			
+			getCompleteAddress() &lt;&lt; <span class="hljs-built_in">endl</span>;
+			<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"请根据提示进行手动修改文件名称 ,感谢您的理解和配合！"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+			
+			file.<span class="hljs-built_in">open</span>(PreAddress.getCompleteAddress(), ios::in | 
+			ios::binary | ios::out);
+			
+			file.seekp(<span class="hljs-number">0</span>, ios::beg);  <span class="hljs-comment">//指针调到开头</span>
+			
+			file.<span class="hljs-built_in">write</span>((<span class="hljs-keyword">char</span>*)&amp;stud, <span class="hljs-keyword">sizeof</span>(stud)); <span class="hljs-comment">// 写入修改后的信息</span>
+			
+			file.<span class="hljs-built_in">close</span>();
+			
+			<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Success  学生信息修改成功"</span> &lt;&lt; <span class="hljs-built_in">endl</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+			
+			<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+		}
+		
+		file.<span class="hljs-built_in">open</span>(saveAddress.getCompleteAddress(), ios::in | ios::binary | ios::out);
+	}
+		
+		file.seekp(<span class="hljs-number">0</span>, ios::beg);  <span class="hljs-comment">//指针调到开头</span>
+		
+		file.<span class="hljs-built_in">write</span>((<span class="hljs-keyword">char</span>*)&amp;stud, <span class="hljs-keyword">sizeof</span>(stud)); <span class="hljs-comment">// 写入修改后的信息</span>
+		
+		file.<span class="hljs-built_in">close</span>();
+		
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Success  学生信息修改成功"</span> &lt;&lt; <span class="hljs-built_in">endl</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+		
+		<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+}
+
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<p><font size=5> <strong>6. 其他一些小的技巧和操作</strong>
+</font></p>
+<font size=4 color =8470FF>
+<p>除了上边展示了源码的算法，其他值得一提的东西还有两个，这两个虽然功能没有那么强大，但是设计的时候我还是花了不少时间的。</p>
+</font>
+<font size=4 color=1E90FF>
+第一个是储存当前人员最大ID号码的文件，我最终选择的是读取到最后一个数字，然后在最后放加上一的方式进行保存。
+第二个是储存首页登录密码的文件，刚开始选用的是分行记录密码，然后直接读取，但是会有不确定因素的影响，而且可能和用户名不对应，我最后选择了用“#”号键进行分割，把用户名和密码储存在一行，用getline进行读取，以“#”为停止的分隔符号。
+</font>
+<br>
+</br>
+<p><font size=5 color=8470FF>具体代码展示</font></p>
+<ol>
+<li>更新获取ID的函数</li>
+</ol>
+<pre class="hljs"><code><div>
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">PeoNum::getNum</span><span class="hljs-params">()</span> 
+</span>{
+	<span class="hljs-keyword">int</span> goal=<span class="hljs-number">-1</span>;
+
+	<span class="hljs-keyword">try</span>
+	{
+		<span class="hljs-function">fstream <span class="hljs-title">file</span><span class="hljs-params">(completeFile, ios::in)</span></span>;
+	
+		<span class="hljs-keyword">if</span> (!file)
+		{
+			<span class="hljs-keyword">throw</span> <span class="hljs-number">958</span>;
+		}
+	
+		<span class="hljs-keyword">while</span> (!file.eof()) 
+		{
+			file &gt;&gt; goal;
+		}
+		
+		file.<span class="hljs-built_in">close</span>();
+	
+		setNowNum(goal);
+	
+		update(goal);
+		<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+	}
+
+	<span class="hljs-keyword">catch</span> (<span class="hljs-keyword">int</span> goal) 
+	
+	{
+	
+		<span class="hljs-keyword">if</span> (goal == <span class="hljs-number">958</span>)
+	
+		{
+	
+			<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"PeoNum文件打开异常！"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+			<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"是否进行重置？Y or N ？"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	
+			<span class="hljs-built_in">string</span> catcher;
+			<span class="hljs-built_in">cin</span> &gt;&gt; catcher;
+	
+			<span class="hljs-keyword">if</span> (catcher[<span class="hljs-number">0</span>] == <span class="hljs-string">'Y'</span>) 
+			{
+	
+				<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"请输入当前最大ID"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	
+				<span class="hljs-keyword">try</span> 
+	
+				{
+					<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> a,b=<span class="hljs-number">1</span>;
+	
+					<span class="hljs-built_in">cin</span> &gt;&gt; a;
+	
+					b=setFile(a);
+					<span class="hljs-keyword">if</span> (!b) 
+					{
+						<span class="hljs-keyword">throw</span> <span class="hljs-number">955</span>;
+					}
+				}
+	
+				<span class="hljs-keyword">catch</span> (<span class="hljs-keyword">int</span> goal) 
+	
+				{
+					<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"操作异常，错误代码是"</span> &lt;&lt; goal &lt;&lt; <span class="hljs-built_in">endl</span>;
+				}	
+	
+			}			
+	
+		}
+	
+	}
+	
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PeoNum::update</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a)</span> 
+</span>{
+	a++;
+	<span class="hljs-function">fstream <span class="hljs-title">file</span><span class="hljs-params">(completeFile, ios::app)</span></span>;
+	file &lt;&lt; a &lt;&lt; <span class="hljs-built_in">endl</span>;
+	file.<span class="hljs-built_in">close</span>();
+}
+
+</div></code></pre>
+<div STYLE="page-break-after: always;"></div>
+<ol start="2">
+<li>储存登录账户密码的函数</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">saveAccount</span><span class="hljs-params">(<span class="hljs-built_in">string</span> name, <span class="hljs-built_in">string</span> password)</span> 
+
+<span class="hljs-comment">//保存账户说明：前方结尾是回车</span>
+<span class="hljs-comment">//密码在前，账户名在后，中间 “#” 隔开</span>
+<span class="hljs-comment">//最后有换行符</span>
+
+</span>{
+	<span class="hljs-built_in">string</span>  fileAddress = <span class="hljs-string">"E:\\VisualStudio\\Data\\"</span>;
+	<span class="hljs-built_in">string</span> fileName = <span class="hljs-string">"password.txt"</span>;
+	<span class="hljs-built_in">string</span> file = fileAddress + fileName;
+	
+	<span class="hljs-keyword">char</span> na[<span class="hljs-number">20</span>], pa[<span class="hljs-number">30</span>];
+	
+	strcpy_s(na, name.c_str());
+	strcpy_s(pa, password.c_str());
+	
+	<span class="hljs-function">ofstream <span class="hljs-title">f</span><span class="hljs-params">(file, ios::out|ios::app)</span></span>;
+	
+	<span class="hljs-keyword">if</span>(!f)
+	{
+		<span class="hljs-built_in">cout</span> &lt;&lt; file &lt;&lt; <span class="hljs-string">" can't be opened !"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		system(<span class="hljs-string">"pause"</span>);
+		<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+	}
+	
+	f &lt;&lt; pa;
+	
+	f.<span class="hljs-built_in">put</span>(<span class="hljs-string">'#'</span>);
+	f &lt;&lt; na;
+
+	f.<span class="hljs-built_in">put</span>(<span class="hljs-number">10</span>);
+	
+	f.<span class="hljs-built_in">close</span>();
+	
+	<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+}
+
+</div></code></pre>
+<br>
+</br>
+<p><font color = 8470FF size=4> 到这里，特色算法的介绍就结束了，总的来说没有用到什么实质性的经典算法，也可能是我对算法的理解上有一些偏差，但是上述的这些原创性的设计也激发了我对一些更优秀的模型和算法的兴趣，也想在下次专业课的课程设计中用到一些真正的算法。</p>
+</font>
+<div STYLE="page-break-after: always;"></div>
+<center>
+<h2 id="g-%E5%AD%98%E5%9C%A8%E9%97%AE%E9%A2%98%E7%9A%84%E4%B8%8D%E8%B6%B3%E4%B8%8E%E5%AF%B9%E7%AD%96">G 存在问题的不足与对策</h2>
+</center>
+<p><font color = 8470FF size=5> 开始前的一些说明  </font></p>
+<p>由于开发者能力一般，加上时间和精力有限，最终成型的状元阁管理系统与初期设想的系统有一些差别，主要体现在一些功能不够完善，界面不够友好，可移植行不完备几个方面。下面对具体的一些问题作出说明并提供解决方案。</p>
+<br>
+</br>
+<h3 id="%E9%97%AE%E9%A2%981--%E6%B2%A1%E6%9C%89%E5%AE%9E%E7%8E%B0%E5%9B%BE%E5%BD%A2%E5%8C%96%E7%95%8C%E9%9D%A2">问题1  : 没有实现图形化界面</h3>
+<font color=4B0082 size=5 >
+<br>
+</br>
+问题描述 : 
+</font>
+<br>
+</br>
+<p>现在的程序处于一个很简陋的Dos界面，虽然我尽力制作出友好的界面，但是和其他软件炫酷的页面比起来差距是非常大的。即使我对默认的窗口进行了大小和字体颜色的调整，仍不能弥补这个问题。</p>
+<font color =1E90FF size=5>
+解决方案 :
+</font>
+<br>
+</br>
+<font color =1E90FF size=4>
+说起图形化界面这个问题，刚开始轰轰烈烈的设想确实做了不少，查阅了一些资料，开始学习MFC，但是过来一段时间发现MFC不仅很繁琐，而且从做GUI来说已经过时了，于是放弃了MFC，改用Qt。配置了Qt Creater环境，学习了从VS里边做Qt工程，做了几个Demo以后发现我的审美不足以支持我继续做下去，而且这时候程序的主体部分还处在初期的构建中，就放下了GUI这个设想，一心投入到了架构设计和功能开发上来.
+<br>
+</br>
+解决图形化这个问题其实不难，只要一些时间的投入，参考一些做的比较漂亮的页面，在当前设计的Menu类（菜单显示类）中的所有子类添加相应的呼叫窗口即可，把现在的输入命令改成选项，捕捉鼠标或者键盘信息，再发送给已有的命令处理器就可以实现相应的功能.
+<p>总的来说，学会使用GUI的接口就能解决图形化这个问题。
+</font>
+<br>
+</br></p>
+<div STYLE="page-break-after: always;"></div>
+<h3 id="%E9%97%AE%E9%A2%982--%E6%B2%A1%E6%9C%89%E5%AE%9E%E7%8E%B0excel%E5%82%A8%E5%AD%98%E8%AF%BE%E8%A1%A8">问题2  : 没有实现Excel储存课表</h3>
+<font color=4B0082 size=5 > 
+<br>
+</br>
+问题描述 : 
+</font>
+<br>
+</br>
+<p>同样的问题，同样的要用MFC，在配置寻找本机的接口的时候发生了一些问题，连接失败，而且看起来操作Excel没有那么容易。没有Excel的储存课表显得没有那么高大上了。</p>
+<font color =1E90FF size=5>
+解决方案 :
+</font>
+<br>
+</br>
+<font color =1E90FF size=4>
+<p>就当前的版本来讲，我采用了退而求其次的方法，用csv文件(逗号分隔值（Comma-Separated Values，CSV)文件来储存可视化的课表，因为csv文件可以用Excel打开，所以看起来还可以。</p>
+<p>在运用和操作Excel来说，我要学会是使用C++程序操作Excel后再对其进行相应的改造。
+</font></p>
+<br>
+</br>
+<br>
+</br>
+<h3 id="%E9%97%AE%E9%A2%983--%E6%B2%A1%E6%9C%89%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E7%9A%84%E5%8A%A0%E5%AF%86%E5%92%8C%E5%A4%87%E4%BB%BD">问题3 : 没有实现文件的加密和备份</h3>
+<font color =480082 size=5>
+问题描述 :
+</font>
+<br>
+</br>
+<p>在初期的构思中，我本想把重要的信息进行备份，比如收银记录或者收支信息。但是最终没有实现这个功能，因为没有找到一个合适的加密算法进行应用。</p>
+<font color =1E90FF size=5>
+解决方案 :
+</font>
+<br>
+</br>
+<font color =1E90FF size=4>
+<p>进行备份这个问题比较容易解决，只要在文件中添加一个储存路径即可。但是关于加密，解决这个问题的方案我还没用想清楚，如果搬运一个现有的加密算法，就会造成不安全因素，自己设计加密算法，目前没有相关的知识积累。如果必须解决这个问题的话，还是得从现有的算法中选择一个，直接对存入文件的数据进行处理。然后需要时在用解密算法进行解密。</p>
+</font>
+<div STYLE="page-break-after: always;"></div>
+<h3 id="%E9%97%AE%E9%A2%984--%E4%B8%80%E4%BA%9B%E5%B0%8F%E5%8A%9F%E8%83%BD%E6%B2%A1%E6%9C%89%E5%AE%9E%E7%8E%B0">问题4 : 一些小功能没有实现</h3>
+<font color =480082 size=5>
+问题描述 :
+</font>
+<br>
+</br>
+<p>总体上来讲，程设实现了绝大部分的预期功能，但是一些小的、能让系统生成的文件可视化效果更好的功能没有来得及添加。在这里总结一下:</p>
+<ul>
+<li>收银记录、教学事故记录、店内流水账记录生成csv文件，以便查阅</li>
+<li>店内总收支的情况生成账单方便核对</li>
+<li>教师工资表直接生成可以打印的Excel文件</li>
+<li>通过学生ID查询学生个人信息和课表信息</li>
+<li>通过课表ID查询课表</li>
+<li>生成课表时显示课表的ID</li>
+<li>学生退课和换教师的功能</li>
+<li>学生意见反馈的功能</li>
+<li>退费并支出的功能</li>
+</ul>
+<font color =1E90FF size=5>
+解决方案 :
+</font>
+<br>
+</br>
+<font color =1E90FF size=4>
+<p>这些功能都非常具有可行性，因为已经在框架设计时已经考虑了这些功能，对他们的实现预留了充分的接口。只需要对现有模块的一些功能进行组合即可。比如ID查询，只需要一个map把ID和学生姓名对应起来即可，这样就能实现通过ID查询。再比如生成csv文件，只要仿照生成课表的csv文件进行输出即可。
+总的来说，只要有哪些功能上的硬性需求，修改或者添加起来并不困难。</p>
+</font>
+<div STYLE="page-break-after: always;"></div>
+<center>
+<h2 id="h-%E5%BC%80%E5%8F%91%E7%9A%84%E5%BF%83%E5%BE%97%E4%B8%8E%E4%BD%93%E4%BC%9A">H 开发的心得与体会</h2>
+</center>
+<p>为了准备这一部分的文件，我在前期做了大量的准备工作，每天坚持写开发日志，到目前为止，有效开发天数已经到了25天（有的一个阶段算到了一天里，比如一个构思周期），有效开发时长196小时，这份文档里边记录了开发过程的点点滴滴，作为我的处女座，我觉得这样的记录是很好的方式。不管以后我是否能成为一个合格的计算机行业的从业者，我的第一份开发日志，第一份作品都将是我宝贵的财富，尽管她看起来很幼稚而且漏洞百出。</p>
+<p>请允许我首先把这本开发日志的链接放在这里----<a href="https://github.com/Flaoting/vscode/blob/master/cpp/%E6%96%87%E6%A1%A3/%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95.md">状元阁管理系统开发日志</a></p>
+<br>
+</br>
+<font color=8470FF size=5>
+<p>第一部分 从遇到的问题中谈谈谈编程的体会</p>
+</font>
+这里我遇到的问题可谓是五花八门，从刚开始的语法问题，多文件组织问题，string类错误的存入文件的问题，到后来的头文件循环包含问题，文件读出失败问题，每次解决一个新问题都是一次成长。下面我从遇到的问题来谈谈开发体会。
+<br>
+</br>
+<font color=8470FF size=5>
+1. string类直接存入文件
+</font>
+<p>我曾把string直接当做一个类的数据成员，然后把这个类存入文件，再次读出这个文件的时候，遇到了内存泄漏的问题。我查找了这个STL里的string的实现方式，发现底层是数组加指针的实现，在析构时，由于存入的指针失去了应有的效果，内存的释放失败，出现了意想不到的问题。</p>
+<font color=1E990FF size =4 >
+体会 : 在不了解一个模板或者函数之前使用它遇到任何问题都是可能的，了解他的底层实现原理，对解决问题很有帮助。
+</font>
+<br>
+</br>
+<font color=8470FF size=5>
+2. 头文件循环包含
+</font>
+<p>这个问题我真是记忆犹新啊，这是在一天的半夜发生的，我增加一个类中的成员函数，然后编译运行的时候发现VS突然疯狂报错60多个，我在Stack Overflow上发现一句话适合形容这个情况 &quot; My IDE went crazy ”。当晚没有解决，第二天上午我查询了大量的资料，查询错误代码，从百度，必应，CSDN等各种引擎和平台上进行搜索，都没有成功解决问题，直到我决心从google引擎上进行搜索，十分钟解决了问题，是Class A包含了Class B，Class B 中包含了Class A。这样就造成了编译器不知道干什么的问题。发生崩溃的情况。</p>
+<font color=1E990FF size =4 >
+体会 : 这次事故的本身其实没有多大参考价值，但是解决方式和发生的原因值得我仔细的进行总结。首先是解决问题的方式，要善用google，不能局限于中文的搜索引擎，不能惧怕英文的搜索结果。其次是发生的原因，这里发生的根本原因是类的设计有一些缺陷，所以导致了头文件需要互相包含的问题。
+</font>
+<br>
+</br>
+<div STYLE="page-break-after: always;"></div>
+<font color=8470FF size=5>
+<p>第二部分 用鸡汤文的形式分享一些体会</p>
+</font>
+<br>
+<ul>
+<li>原来我以为编程就是写代码，现在发现会写代码就像会写字，从会写字到作文拿高分，是一个漫长而且需要一定天赋的过程</li>
+</ul>
+<br>
+<ul>
+<li>使用合适的开发环境非常重要，用一个界面不友好，甚至本身有漏洞的IDE进行开发是一件极其痛苦的事情</li>
+</ul>
+<br>
+<ul>
+<li>使用git管理自己的代码仓是一件很幸福的事情，每天晚上写完代码或者取得一些进展的时候使用git进行提交很有成就感，而且方便版本的回退</li>
+</ul>
+<br>
+<ul>
+<li>用github备份自己的代码觉得很安全，不会出现丢失了文件的问题</li>
+</ul>
+<br>
+<ul>
+<li>用的部件越复杂越高端，当使用出现了问题的时候就越想知道他的底层发生了什么，是怎么实现的，这也可能是我们专业课程安排逻辑的道理所在</li>
+</ul>
+<br>
+<ul>
+<li>原来不了解架构工程师为什么薪资那么高，现在自己写了工程发现这是有原因的，一个不良的设计会带来大量的问题，设计实在是个重要的部分</li>
+</ul>
+<br>
+<ul>
+<li>当写代码遇到障碍的时候，不妨关了电脑，拿出几张纸，画画自己的思路，这样就能让自己清晰起来。</li>
+</ul>
+<br>
+<ul>
+<li>只要前期设计的逻辑清晰，后期的代码实现就是手到擒来</li>
+</ul>
+<br>
+<ul>
+<li>编写的代码越多，出现的语法问题就会越少</li>
+</ul>
+<br>
+<ul>
+<li>Life is too short to learn C++</li>
+</ul>
+<div STYLE="page-break-after: always;"></div>
+<font color=8470FF size=5>
+<p>第三部分 最后的一些总结</p>
+</font>
+<font color=1E990FF size =4 >
+<p>总的来说，这次课设收获满满。了解了一定工程设计的概念和方法，熟练掌握了C++的基础语法，基本具备了面向对象编程的思想，提升了调试代码的能力，学会了不用调试器人脑调试的方法，提升了搜索并解决问题的能力，获得了快速学习使用新工具的技能，能够使用git及github的基础功能，优雅的使用Mardown撰写报告的能力。除此之外，现在还能快速理解别人代码并帮他们dubug，以及颈椎病和强大的抗压能力。</p>
+<p>我想学习本应该就是这样，通过实际的东西来学习，在实践中学习，在实践中成长，在实践中遇到问题并解决他们，在一部豆瓣评分很高的电影中我看到这样的台词。</p>
+<p>&quot;We will study with all our heart, but not just for grades.&quot;</p>
+<p>我们要用心学习，而不是只为求个分数</p>
+<p>&quot;Follow excellence, and success will chase you, pants down&quot;</p>
+<p>以优秀自律，成功自会追随你而来</p>
+</font>
+<div STYLE="page-break-after: always;"></div>
+<center>
+<h2 id="i-%E7%8A%B6%E5%85%83%E9%98%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E4%B9%A6">I 状元阁管理系统使用说明书</h2>
+</center>
+<font color=8470FF size=5>
+<p>第零部分 快速配置使用状元阁管理系统。</p>
+</font>
+<ol>
+<li>在E盘下建立一个文件夹 VisualStudio</li>
+<li>把压缩包里以Data命名的文件夹放到Visual下面</li>
+<li>启动.exe 程序进行使用</li>
+<li><strong>初始授权码</strong>dongdong</li>
+<li><strong>初始管理员账号</strong>floating</li>
+<li><strong>初始管理员密码</strong>1234567</li>
+<li>在三个菜单里输入<strong>命令为0时</strong>返回上一菜单</li>
+<li>初始教师名字 &quot;小飞&quot; &quot;小明&quot;</li>
+<li>初始学生 &quot;启明&quot; &quot;白帆&quot;</li>
+</ol>
+<h3 id="%E5%A6%82%E6%9E%9C%E9%85%8D%E7%BD%AE%E4%B8%8D%E6%88%90%E5%8A%9F%E5%8F%AF%E8%83%BD%E9%80%A0%E6%88%90%E7%A8%8B%E5%BA%8F%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E7%9A%84%E6%83%85%E5%86%B5">如果配置不成功，可能造成程序无法使用的情况</h3>
+<br>
+</br>
+<div STYLE="page-break-after: always;"></div>
+<font color=8470FF size=5>
+<p>第一部分 设置文档的储存位置</p>
+</font>
+<ul>
+<li>这里的文件夹配置我一并放在了打包的文件里，只要按照上面的步骤放进去就好了</li>
+<li>关于文件夹功能的说明，请先看一张图,这张图里的文字可能看不太清楚，于是我把原图一并打包了。</li>
+</ul>
+<p><img src="Folder.png" alt="folder"></p>
+<p>先说一下大体结构</p>
+<p>Data</p>
+<ul>
+<li>Config(配置文件夹)
+<ul>
+<li>ClassPrice(课程单价文件)</li>
+</ul>
+</li>
+<li>STDInfo(学生信息文件夹)</li>
+<li>TEAInfo(教师信息文件夹)</li>
+<li>TABInfo(课表文件夹)
+<ul>
+<li>DataTable(二进制课表文件夹)</li>
+<li>VisionData(可视化课表文件夹)</li>
+<li>课表ID文件</li>
+</ul>
+</li>
+<li>PerInfo(人员总信息文件夹)
+<ul>
+<li>ManagerInfo(管理员信息文件夹)</li>
+<li>学生总信息文件</li>
+<li>教师总信息文件</li>
+<li>人员ID文件</li>
+</ul>
+</li>
+<li>Record
+<ul>
+<li>三种记录的总文件</li>
+</ul>
+</li>
+<li>登录密码文件</li>
+</ul>
+<p>各种文件的功能大多见名知意，需要打开文件夹来查询的只有生成的课表文件，可以打开来直接查看，其余文件不可打开。（这里为了方便起见，ID文件和密码文件都设置为txt文件，方便可视化的修改）</p>
+<div STYLE="page-break-after: always;"></div>
+<font color=8470FF size=5>
+<p>第二部分 外部功能的使用说明</p>
+</font>
+<p><img src="登录菜单.png" alt="login"></p>
+<p><strong>这里要输入的登录密码从下列密码中任选其一</strong></p>
+<ul>
+<li>1234567</li>
+<li>7654321</li>
+<li>12345</li>
+<li>54321</li>
+</ul>
+<p><strong>初始的经营者授权码是</strong></p>
+<ul>
+<li>dongdong</li>
+</ul>
+<div STYLE="page-break-after: always;"></div>
+<p><img src="主菜单.png" alt="MainMenu"></p>
+<p>这里的主菜单是可以在学生及学生家长面前使用的功能，有几点问题要说明一下</p>
+<ul>
+<li>学员订课要先添加学生和老师的个人信息</li>
+<li>生成课表时生成上述的csv课表文件</li>
+<li>除了某些查询操作和生成课表，都需要登录管理员后再进行使用</li>
+<li>教师风采现在是连接到这个项目的github上，目前没有教师介绍的网页可以打开</li>
+</ul>
+<div STYLE="page-break-after: always;"></div>
+<font color=8470FF size=5>
+<p>第三部分 内部功能的使用说明</p>
+</font>
+<p><img src="内部功能菜单.png" alt="InsideMenu"></p>
+<ul>
+<li>注册管理员的授权码和上述授权码一致</li>
+<li>某些操作可能需要二次输入当前管理员的个人密码，注意是管理员密码（初始为1234567），而非登录程序的密码</li>
+<li>其他功能就是字面陈述的意思</li>
+</ul>
+<font color=8470FF size=5>
+<div STYLE="page-break-after: always;"></div>
+<p>第四部分 管理功能的使用说明</p>
+</font>
+<p><img src="管理菜单.png" alt="manager"></p>
+<ul>
+<li>配置的文件中已经对课程单价初始化，若想运用此项功能请手动删除删除目录中的ClassPrice文件再进行初始化</li>
+<li>修改文件储存位置的功能尚未实现，正处于测试期，上交的版本不支持此项功能</li>
+<li>其他功能按照提示输入即可</li>
+</ul>
+<p><font color=8470FF >最后的一些话</p>
+<p>虽然开发者处理了所有能够想到和遇到的异常，但是逻辑漏洞和程序bug是一定会存在的，所以请使用此系统是按照提示的方式进行操作和命令，如果与其背道而驰，那么可能造成我们都无法预料到的结果</p>
+<p>最后放上程序的源代码 ，代码按照文件的字母表顺序进行排序</p>
 
 </body>
 </html>
